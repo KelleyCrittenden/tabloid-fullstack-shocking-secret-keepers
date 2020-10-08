@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 const CommentList = () => {
     const { comments, getAllCommentsForPost } = useContext(CommentContext);
-    // this will be the postId
+    // this will be the postId (once user clicks on view comments button on post details page--takes them to this page to view comments)
     const { id } = useParams();
 
     useEffect(() => {

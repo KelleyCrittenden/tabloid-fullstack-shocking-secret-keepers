@@ -31,6 +31,7 @@ const Comment = ({ comment }) => {
 
             </CardBody>
             <Button onClick={() => history.push(`/comments/edit/${comment.id}`)}>Edit </Button>
+            <Button onClick={() => history.push(`/comments/delete/${comment.id}`)}>Delete</Button>
         </Card >
     );
 };
