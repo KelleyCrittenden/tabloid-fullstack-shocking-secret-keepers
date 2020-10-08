@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 
 const CommentList = () => {
     const { comments, getAllCommentsForPost } = useContext(CommentContext);
+    // this will be the postId
     const { id } = useParams();
 
     useEffect(() => {
@@ -15,7 +16,7 @@ const CommentList = () => {
 
     return (
         <>
-            {/* need to use postcontext to get post.title (get post by postId?) */}
+            {/* need to use postcontext to get post.title (get post by postId?)??? */}
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="cards-column">
@@ -23,12 +24,7 @@ const CommentList = () => {
                             return (
                                 <Comment key={comment.id} comment={comment} />
                             )
-
-
                         })}
-
-
-
                     </div>
                 </div>
             </div>

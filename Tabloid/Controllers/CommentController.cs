@@ -31,6 +31,7 @@ namespace Tabloid.Controllers
             return Ok(_commentRepository.GetAllCommentsByPostId(id));
         }
 
+        //this will show individual comment by commentid
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -44,25 +45,21 @@ namespace Tabloid.Controllers
 
         }
 
-       
-        //[HttpPost]
-        //public IActionResult Post(Post post, Comment comment)
-        //{
 
-        //    //will need to somehow get who is logged in 
-            
-        //    //UserProfile userProfile = _userProfileRepository.GetByFirebaseUserId()
-        //    //comment.UserProfileId = userId;
-        //    comment.PostId = post.Id;
-        //    comment.CreateDateTime = DateTime.Now;
-        //    _commentRepository.AddComment(comment);
-        //        return CreatedAtAction("Get", new { id = comment.Id }, comment);
+        [HttpPost]
+        public IActionResult Post(Comment comment)
+        {
 
-        //}
+            comment.CreateDateTime = DateTime.Now;
+            _commentRepository.AddComment(comment);
+            //produces a status code of 201, which means userProfile object created sucessfully
+            return CreatedAtAction("Get", new { id = comment.Id }, comment);
 
-     
+        }
 
-       
+
+
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult Update(int id, Comment comment)
@@ -81,44 +78,44 @@ namespace Tabloid.Controllers
         //        //}
         //    }
 
-            // GET: CommentsController/Delete/5
-            //public IActionResult Delete(int id)
-            //{
-            //    int userId = GetCurrentUserProfileId();
-            //    Comment comment = _commentRepository.GetCommentById(id);
+        // GET: CommentsController/Delete/5
+        //public IActionResult Delete(int id)
+        //{
+        //    int userId = GetCurrentUserProfileId();
+        //    Comment comment = _commentRepository.GetCommentById(id);
 
-            //    if (comment.UserProfileId != userId || comment == null)
-            //    {
-            //        return NotFound();
-            //    }
-            //    return View(comment);
-            //}
+        //    if (comment.UserProfileId != userId || comment == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(comment);
+        //}
 
-            // POST: CommentsController/Delete/5
-            //[HttpPost]
-            //[ValidateAntiForgeryToken]
-            //public ActionResult Delete(int id, Comment comment)
-            //{
-            //    try
-            //    {
-            //        int userId = GetCurrentUserProfileId();
-            //        Comment aComment = _commentRepository.GetCommentById(id);
-            //        List<Post> posts = _postRepository.GetUserPostsById(userId);
-            //        foreach (Post aPost in posts)
-            //        {
-            //            if (aPost.Id == aComment.PostId)
-            //            {
-            //                _commentRepository.DeleteComment(id);
-            //            }
-            //        }
-            //        return RedirectToAction("Index", new { id = aComment.PostId });
-            //    }
-            //    catch
-            //    {
-            //        return View(comment);
-            //    }
-            //}
-        }
+        // POST: CommentsController/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, Comment comment)
+        //{
+        //    try
+        //    {
+        //        int userId = GetCurrentUserProfileId();
+        //        Comment aComment = _commentRepository.GetCommentById(id);
+        //        List<Post> posts = _postRepository.GetUserPostsById(userId);
+        //        foreach (Post aPost in posts)
+        //        {
+        //            if (aPost.Id == aComment.PostId)
+        //            {
+        //                _commentRepository.DeleteComment(id);
+        //            }
+        //        }
+        //        return RedirectToAction("Index", new { id = aComment.PostId });
+        //    }
+        //    catch
+        //    {
+        //        return View(comment);
+        //    }
+        //}
+    }
     
     }
 

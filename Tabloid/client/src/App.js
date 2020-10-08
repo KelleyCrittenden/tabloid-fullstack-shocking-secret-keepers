@@ -8,12 +8,14 @@ import { CommentProvider } from './providers/CommentProvider';
 function App() {
   return (
     <Router>
-      <CommentProvider>
-        <UserProfileProvider>
+
+      <UserProfileProvider>
+        <CommentProvider>
           <Header />
           <ApplicationViews />
-        </UserProfileProvider>
-      </CommentProvider>
+        </CommentProvider>
+      </UserProfileProvider>
+
     </Router>
   );
 }

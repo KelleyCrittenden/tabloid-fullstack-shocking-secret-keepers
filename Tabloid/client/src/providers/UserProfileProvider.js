@@ -24,6 +24,8 @@ export function UserProfileProvider(props) {
       .then((signInResponse) => getUserProfile(signInResponse.user.uid))
       .then((userProfile) => {
         sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
+        sessionStorage.setItem("userProfileId", JSON.stringify(userProfile.id))
+        console.log(userProfile.id)
         setIsLoggedIn(true);
       });
   };
@@ -68,27 +70,6 @@ export function UserProfileProvider(props) {
         body: JSON.stringify(userProfile)
       }).then(resp => resp.json()));
   };
-
-  //to get person that is currently logged in (sisi-added this code); **delete if not working**
-  // const userLoggedIn = () => {
-  //   firebase.auth().onAuthStateChanged(function (user) {
-  //     if (user) {
-  //       return user.uid;
-  //     } else {
-  //       return null;
-  //     }
-  //   });
-  // }
-
-  //userLoggedIn, getUserProfileByFirebaseId, userProfileId 
-
-  // const [userProfileId, setUserProfileId] = useState();
-  // const getUserProfileByFirebaseId = (firebaseUserId) => {
-
-  //   return fetch(`${apiUrl}/${firebaseUserId}`).then(resp => setUserProfileId(resp.id))
-
-  // };
-
 
   return (
     <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken }}>
