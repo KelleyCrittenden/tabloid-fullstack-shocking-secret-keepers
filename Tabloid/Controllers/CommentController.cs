@@ -28,6 +28,7 @@ namespace Tabloid.Controllers
         [HttpGet("GetAllCommentsByPost/{id}")]
         public IActionResult GetAllCommentsByPost(int id)
         {
+            
             return Ok(_commentRepository.GetAllCommentsByPostId(id));
         }
 
@@ -43,30 +44,23 @@ namespace Tabloid.Controllers
             return Ok(comment);
             //Post post = _postRepository.GetPublishedPostById(comment.PostId);
 
-            //PostCommentViewModel vm = new PostCommentViewModel
-            //{
-            //    Post = post,
-            //    Comment = comment
-            //};
-
-            //return View(vm);
         }
 
        
-        [HttpPost]
-        public IActionResult Post(Post post, Comment comment, UserProfile userProfile)
-        {
+        //[HttpPost]
+        //public IActionResult Post(Post post, Comment comment, UserProfile userProfile)
+        //{
 
-            //will need to somehow get how is logged in 
+        //    //will need to somehow get how is logged in 
             
-            //UserProfile userProfile = _userProfileRepository.GetByFirebaseUserId()
-            //comment.UserProfileId = userId;
-            comment.PostId = post.Id;
-            comment.CreateDateTime = DateTime.Now;
-            _commentRepository.AddComment(comment);
-                return CreatedAtAction("Get", new { id = comment.Id }, comment);
+        //    //UserProfile userProfile = _userProfileRepository.GetByFirebaseUserId()
+        //    //comment.UserProfileId = userId;
+        //    comment.PostId = post.Id;
+        //    comment.CreateDateTime = DateTime.Now;
+        //    _commentRepository.AddComment(comment);
+        //        return CreatedAtAction("Get", new { id = comment.Id }, comment);
 
-        }
+        //}
 
      
 
