@@ -194,7 +194,7 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@Title", post.Title);
                     cmd.Parameters.AddWithValue("@Content", post.Content);
                     cmd.Parameters.AddWithValue("@ImageLocation", DbUtils.ValueOrDBNull(post.ImageLocation));
-                    cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", DateTime.Now);
                     cmd.Parameters.AddWithValue("@PublishDateTime", DbUtils.ValueOrDBNull(post.PublishDateTime));
                     cmd.Parameters.AddWithValue("@IsApproved", post.IsApproved);
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
@@ -297,6 +297,40 @@ namespace Tabloid.Repositories
                     }
                 }
             };
+        }
+        public List<Category> GetAllCategories()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    // get id and name from category table or return it based on name spelling in descending order
+                    cmd.CommandText = "SELECT id, [name] FROM Category ORDER BY name";
+
+                    //execute sql command, builds sql data reader and retruns a reader object 
+                    var reader = cmd.ExecuteReader();
+
+                    var categories = new List<Category>();
+
+                    //while the sql data reader returns results, we obtain those values in the form we need them in (string, int, etc.)
+                    // and add each converted object (now category type) to the empty list created above
+                    while (reader.Read())
+                    {
+                        categories.Add(new Category()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("id")),
+                            Name = reader.GetString(reader.GetOrdinal("name")),
+                        });
+                    }
+
+                    //Close the reader when there is no responses to loop through
+                    reader.Close();
+
+                    //return the list of categories as the result of our GetAll method
+                    return categories;
+                }
+            }
         }
     }
 }

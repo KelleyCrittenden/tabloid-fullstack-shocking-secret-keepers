@@ -9,7 +9,7 @@ const Post = ({ post }) => {
         <Card className="m-4">
             <Row margin="m-4">
                 <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>
-                <NavLink to={`/posts/details/${post.id}`}>
+                <NavLink to={`/post/details/${post.id}`} >
                     <strong>{post.title}</strong>
 
                 </NavLink>

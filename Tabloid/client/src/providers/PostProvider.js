@@ -5,7 +5,9 @@ export const PostContext = React.createContext();
 
 export function PostProvider(props) {
     const [posts, setPosts] = useState([]);
+    const [post, setPost] = useState({ userProfile: {}, category: {} });
     const { getToken } = useContext(UserProfileContext);
+    const [categories, setCategories] = useState([])
 
     const getAllPosts = () => {
         getToken().then((token) => fetch("/api/post", {
@@ -49,7 +51,7 @@ export function PostProvider(props) {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        })).then((res) => res.json());
+        })).then((res) => res.json()).then(setPost);
     };
 
     const getAllPostsByUser = (id) => {
@@ -92,8 +94,18 @@ export function PostProvider(props) {
             throw new Error("Unauthorized");
         }))
     };
+    const categoriesForPost = () => {
+        getToken().then((token) => fetch("/api/post/category", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((res) => res.json()).then(setCategories)
+        );
+    };
     return (
-        <PostContext.Provider value={{ posts, getAllPosts, addPost, getAllSearch, getPost, getAllPostsByUser, editPost, softDeletePost }}>
+        <PostContext.Provider value={{ posts, post, categories, getAllPosts, addPost, getAllSearch, getPost, getAllPostsByUser, editPost, softDeletePost, categoriesForPost }}>
             {props.children}
         </PostContext.Provider>
     );

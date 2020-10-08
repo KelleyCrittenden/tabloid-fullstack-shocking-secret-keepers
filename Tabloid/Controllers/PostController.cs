@@ -42,32 +42,29 @@ namespace Tabloid.Controllers
         public IActionResult Get(int id)
         {
 
-                var post = new Post();
-
-                post = _postRepository.GetPublishedPostById(id);
-
-            if (post == null)
-            {
                 
+
             
             
-
-
-              
-          
-            
-
-           
-                return NotFound();
-            }
-            else
-            {
                
-                return View(post);
-            }
+                return Ok(_postRepository.GetPublishedPostById(id));
+            
             
         }
 
+        [HttpGet("category")]
+        public IActionResult GetCategories()
+        {
+
+
+
+
+
+
+            return Ok(_postRepository.GetAllCategories());
+
+
+        }
         [HttpPost]
         public IActionResult Post(Post post)
         {
@@ -80,7 +77,7 @@ namespace Tabloid.Controllers
             
           
         }
-        
+        [HttpPut("edit/{id}")]
         public IActionResult Put(int id, Post post)
         {
            if(id != post.Id)
