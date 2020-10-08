@@ -7,6 +7,9 @@ export function CategoryProvider(props) {
 
     const [categories, setCategories] = useState([]);
 
+    const [category, setCategory] = useState([]);
+
+
     const { getToken } = useContext(UserProfileContext);
 
     const getAllCategories = () =>
@@ -18,6 +21,16 @@ export function CategoryProvider(props) {
                 }
             }).then(resp => resp.json())
                 .then(setCategories));
+
+    const getSingleCategory = (id) =>
+        getToken().then((token) =>
+            fetch(`/api/category/${id}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(resp => resp.json())
+                .then(setCategory));
 
     const addCategory = (category) =>
         getToken().then((token) =>
@@ -35,9 +48,26 @@ export function CategoryProvider(props) {
                 throw new Error("Unauthorized");
             }));
 
+    const updateCategory = (updatedCategory) =>
+        getToken().then((token) =>
+            fetch(`/api/category/${updatedCategory.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedCategory)
+
+            }).then(resp => {
+                if (resp.ok) {
+                    return resp.json();
+                }
+                throw new Error("Unauthorized");
+            }));
+
 
     return (
-        <CategoryContext.Provider value={{ categories, getToken, getAllCategories, addCategory }}>
+        <CategoryContext.Provider value={{ getToken, categories, category, getAllCategories, getSingleCategory, addCategory, updateCategory }}>
             {props.children}
         </CategoryContext.Provider>
     );

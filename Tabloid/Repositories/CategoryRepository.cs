@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Tabloid.Models;
+using Tabloid.Utils;
 //Maintained by Brett Stoudt
 namespace Tabloid.Repositories
 {
@@ -69,6 +70,7 @@ namespace Tabloid.Repositories
         }
 
         //Detail View for EDIT
+        //Example uses a method to decalre the category, which is very useful to reduce code when there is commonalities
         public Category GetCategoryById(int id)
         {
             using (var conn = Connection)

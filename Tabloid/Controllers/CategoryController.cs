@@ -1,148 +1,159 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Security.Claims;
+using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
-        private readonly IPostRepository _postRepository;
+       // private readonly IPostRepository _postRepository;
+        private readonly IUserProfileRepository _userProfileRepository;
 
-        public CategoryController(ICategoryRepository categoryRepository, IPostRepository postRepository)
+        public CategoryController(ICategoryRepository categoryRepository, IUserProfileRepository userProfileRepository)
         {
             _categoryRepository = categoryRepository;
-            _postRepository = postRepository;
+           // _postRepository = postRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
-        //GET: Category/Index
-        [Authorize(Roles = "Admin, Author")]
-        public IActionResult Index()
+
+        [HttpGet]
+        public IActionResult Get()
         {
-            var categories = _categoryRepository.GetAll();
-            return View(categories);
+            return Ok(_categoryRepository.GetAll());
         }
 
-        //GET: Category/Edit/1
-        [Authorize(Roles = "Admin")]
-        public IActionResult Edit(int id)
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
         {
             var category = _categoryRepository.GetCategoryById(id);
-            if (category == null)
+            if (category != null)
             {
-
-                return NotFound();
-
+                NotFound();
             }
-            return View(category);
+            return Ok(category);
+        }
+
+        //refactored edit httpget with edit httpput
+        //GET: Category/Edit/1
+        [HttpPut("{id}")]
+        public IActionResult Edit(int id, Category category)
+        {
+            var currentUserProfile = GetCurrentUserProfile();
+
+            //if (currentUserProfile.UserType.Name != "admin")
+            //{
+            //    return Unauthorized();
+            //}
+            //if (category == null)
+            //{
+
+            //    return NotFound();
+
+            //}
+            //if (id != category.Id)
+            //{
+            //    return BadRequest();
+            //}
+            _categoryRepository.UpdateCategory(category);
+            return Ok(category);
         }
 
         //POST: Categroy/Edit/1
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Edit(int id, Category category)
+        //{
+        //    try
+        //    {
+        //        _categoryRepository.UpdateCategory(category);
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(category);
+
+        //        //ADD MESSAGE TO USER
+        //    }
+        //}
+
+        //Post Category
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Category category)
-        {
-            try
-            {
-                _categoryRepository.UpdateCategory(category);
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                return View(category);
-            }
-        }
-
-        //GET: Category/Create
-        [Authorize(Roles = "Admin")]
-        public IActionResult Create()
+        public IActionResult Post(Category category)
         {
 
-            return View();
-        }
-
-        //POST : Category/Create
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public IActionResult Create(Category newCategory)
-        {
-
-            try
+            var currentUserProfile = GetCurrentUserProfile();
+            if (currentUserProfile.UserType.Name != "Admin")
             {
-
-                _categoryRepository.Add(newCategory);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-
-                return View(newCategory);
+                return Unauthorized();
             }
 
+            _categoryRepository.Add(category);
+            return CreatedAtAction(nameof(Get), new { id = category.Id }, category);
         }
-
-
-
 
 
         // GET: Owners/Delete/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
+        // [Authorize(Roles = "Admin")]
+        //public ActionResult Delete(int id)
+        //{
+        //    Category category = _categoryRepository.GetCategoryById(id);
+        //    if (category == null)
+        //    {
+
+        //        return NotFound();
+
+        //    }
+        //    else if (category.Id == 1)
+        //    {
+
+        //        return NotFound();
+
+        //    }
+        //    return Ok(category);
+        //}
+
+        //// POST: Owners/Delete/5
+        //[HttpDelete("{id}")]
+        //// TRY WITH THIS LATER 
+        ////[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, Category category)
+        //{
+        //    if (id == 1)
+        //    {
+
+        //        return NotFound();
+
+        //    }
+        //    try
+        //    {
+        //        _categoryRepository.DeleteCategory(id);
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(category);
+        //        //ADD 
+        //    }
+        //}
+
+        //Firebase
+        private UserProfile GetCurrentUserProfile()
         {
-            Category category = _categoryRepository.GetCategoryById(id);
-            if (category == null)
-            {
-
-                return NotFound();
-
-            }
-            else if (category.Id == 1)
-            {
-
-                return NotFound();
-
-            }
-            return View(category);
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
 
-        // POST: Owners/Delete/5
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Category category)
-        {
-            if (id == 1)
-            {
-
-                return NotFound();
-
-            }
-            try
-            {
-                _categoryRepository.DeleteCategory(id);
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                return View(category);
-            }
-        }
-
-        private int GetCurrentUserProfileId()
-        {
-            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return int.Parse(id);
-        }
+       
     }
 }
