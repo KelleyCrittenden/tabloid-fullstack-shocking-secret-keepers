@@ -4,6 +4,7 @@ import Comment from "./Comment";
 //accesses the route parameters
 import { useParams } from "react-router-dom";
 
+
 const CommentList = () => {
     const { comments, getAllCommentsForPost } = useContext(CommentContext);
     const { id } = useParams();
@@ -18,10 +19,15 @@ const CommentList = () => {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="cards-column">
-
                         {comments.map((comment) => {
-                            return <Comment key={comment.id} comment={comment} />
+                            return (
+                                <Comment key={comment.id} comment={comment} />
+                            )
+
+
                         })}
+
+
 
                     </div>
                 </div>

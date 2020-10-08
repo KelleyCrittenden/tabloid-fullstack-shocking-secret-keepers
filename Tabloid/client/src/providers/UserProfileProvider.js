@@ -9,6 +9,7 @@ export function UserProfileProvider(props) {
   const apiUrl = "/api/userprofile";
 
   const userProfile = sessionStorage.getItem("userProfile");
+
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -68,11 +69,32 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()));
   };
 
+  //to get person that is currently logged in (sisi-added this code); **delete if not working**
+  // const userLoggedIn = () => {
+  //   firebase.auth().onAuthStateChanged(function (user) {
+  //     if (user) {
+  //       return user.uid;
+  //     } else {
+  //       return null;
+  //     }
+  //   });
+  // }
+
+  //userLoggedIn, getUserProfileByFirebaseId, userProfileId 
+
+  // const [userProfileId, setUserProfileId] = useState();
+  // const getUserProfileByFirebaseId = (firebaseUserId) => {
+
+  //   return fetch(`${apiUrl}/${firebaseUserId}`).then(resp => setUserProfileId(resp.id))
+
+  // };
+
+
   return (
     <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken }}>
       {isFirebaseReady
         ? props.children
-        : <Spinner className="app-spinner dark"/>}
+        : <Spinner className="app-spinner dark" />}
     </UserProfileContext.Provider>
   );
 }

@@ -28,30 +28,28 @@ namespace Tabloid.Controllers
         [HttpGet("GetAllCommentsByPost/{id}")]
         public IActionResult GetAllCommentsByPost(int id)
         {
-            
             return Ok(_commentRepository.GetAllCommentsByPostId(id));
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            //int userId = GetCurrentUserProfileId();
+           
             Comment comment = _commentRepository.GetCommentById(id);
             if (comment == null)
             {
                 return NotFound();
             }
             return Ok(comment);
-            //Post post = _postRepository.GetPublishedPostById(comment.PostId);
 
         }
 
        
         //[HttpPost]
-        //public IActionResult Post(Post post, Comment comment, UserProfile userProfile)
+        //public IActionResult Post(Post post, Comment comment)
         //{
 
-        //    //will need to somehow get how is logged in 
+        //    //will need to somehow get who is logged in 
             
         //    //UserProfile userProfile = _userProfileRepository.GetByFirebaseUserId()
         //    //comment.UserProfileId = userId;
@@ -64,7 +62,7 @@ namespace Tabloid.Controllers
 
      
 
-        // POST: CommentsController/Edit/5
+       
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult Update(int id, Comment comment)

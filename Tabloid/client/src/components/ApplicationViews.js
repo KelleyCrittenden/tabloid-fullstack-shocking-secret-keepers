@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import CommentList from "./Comment/CommentList";
+import EditComment from "./Comment/EditComment";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -26,8 +27,8 @@ export default function ApplicationViews() {
         <Route path="/commentsbypost/:id" exact>
           <CommentList />
         </Route>
-        <Route path="/comments/:id" exact>
-          {/* <Register /> */}
+        <Route path="/comments/edit/:id" exact>
+          <EditComment />
         </Route>
       </Switch>
     </main>
