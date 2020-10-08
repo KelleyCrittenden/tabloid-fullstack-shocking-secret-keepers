@@ -23,6 +23,12 @@ namespace Tabloid.Controllers
             _userProfileRepository = userProfileRepository;
             //_postRepository = postRepository;
         }
+
+        [HttpGet]
+        public IActionResult GetAllComments()
+        {
+            return Ok(_commentRepository.GetAllComments());
+        }
      
         //this will show the whole list of posts for that specific post
         [HttpGet("GetAllCommentsByPost/{id}")]
@@ -50,7 +56,6 @@ namespace Tabloid.Controllers
         public IActionResult Post(Comment comment)
         {
 
-            comment.CreateDateTime = DateTime.Now;
             _commentRepository.AddComment(comment);
             //produces a status code of 201, which means userProfile object created sucessfully
             return CreatedAtAction("Get", new { id = comment.Id }, comment);

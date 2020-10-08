@@ -24,8 +24,10 @@ const Comment = ({ comment }) => {
                         <strong>{comment.title}</strong>
                     </Link> */}
                 </p>
+                <h6>Subject</h6>
                 <p>{comment.subject}</p>
-                {comment.content}
+                <h6>Comment</h6>
+                <p>{comment.content}</p>
 
             </CardBody>
             <Button onClick={() => history.push(`/comments/edit/${comment.id}`)}>Edit </Button>

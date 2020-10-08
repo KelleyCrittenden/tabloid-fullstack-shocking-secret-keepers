@@ -33,14 +33,14 @@ export const CommentProvider = (props) => {
 
     const addComment = (newComment) => {
         return getToken().then((token) => {
-            fetch("/api/comment", {
+            fetch("/api/comment/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(newComment)
-            }).then(resp => resp.json)
+            }).then(resp => resp.json())
         })
     };
 
