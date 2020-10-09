@@ -7,6 +7,7 @@ import Hello from "./Hello";
 import CommentList from "./Comment/CommentList";
 import AddComment from "./Comment/AddComment";
 import DeleteComment from "./Comment/DeleteComment";
+import EditComment from "./Comment/EditComment";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -33,6 +34,9 @@ export default function ApplicationViews() {
         </Route>
         <Route path="/comments/delete/:id" exact>
           {isLoggedIn ? <DeleteComment /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/comments/edit/:id" exact>
+          {isLoggedIn ? <EditComment /> : <Redirect to="/login" />}
         </Route>
       </Switch>
     </main>

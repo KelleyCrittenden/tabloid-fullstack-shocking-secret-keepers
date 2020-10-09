@@ -32,7 +32,7 @@ namespace Tabloid.Controllers
             return Ok(_commentRepository.GetAllComments());
         }
      
-        //this will show the whole list of posts for that specific post
+        //this will show the whole list of comments for that specific post
         [HttpGet("GetAllCommentsByPost/{id}")]
         public IActionResult GetAllCommentsByPost(int id)
         {
@@ -69,6 +69,17 @@ namespace Tabloid.Controllers
         {
             _commentRepository.DeleteComment(id);
             //return status 204
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Comment comment)
+        {
+            if (id != comment.Id)
+            {
+                return BadRequest();
+            }
+            _commentRepository.UpdateComment(comment);
             return NoContent();
         }
 

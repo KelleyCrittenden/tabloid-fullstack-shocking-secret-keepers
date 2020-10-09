@@ -221,7 +221,6 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@userProfileId", comment.UserProfileId);
                     cmd.Parameters.AddWithValue("@subject", comment.Subject);
                     cmd.Parameters.AddWithValue("@content", comment.Content);
-
                     cmd.Parameters.AddWithValue("@id", comment.Id);
 
                     cmd.ExecuteNonQuery();

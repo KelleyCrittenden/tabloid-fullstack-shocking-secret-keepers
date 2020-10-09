@@ -68,7 +68,7 @@ const AddComment = () => {
                     />
                 </FormGroup>
             </Form >
-            <Button className="submitPost" type="button" color="success" isLoading={isLoading} onClick={addNewComment}>
+            <Button className="submitComment" type="button" color="success" isLoading={isLoading} onClick={addNewComment}>
                 {'Save Comment'}
             </Button>
         </>
