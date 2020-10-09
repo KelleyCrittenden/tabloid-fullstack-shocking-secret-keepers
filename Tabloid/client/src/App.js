@@ -1,11 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import { UserProfileProvider } from "./providers/UserProfileProvider";
-<<<<<<< HEAD
 import { TagProvider } from "./providers/TagProvider";
-=======
 import { CategoryProvider } from "./providers/CategoryProvider";
->>>>>>> master
 import { PostProvider } from "./providers/PostProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
@@ -17,17 +14,12 @@ function App() {
     <Router>
       <UserProfileProvider>
         <PostProvider>
-<<<<<<< HEAD
-          <TagProvider>
-            <Header />
-            <ApplicationViews />
-          </TagProvider>
-=======
           <CategoryProvider >
-            <Header />
-            <ApplicationViews />
+            <TagProvider>
+              <Header />
+              <ApplicationViews />
+            </TagProvider>
           </CategoryProvider>
->>>>>>> master
         </PostProvider>
       </UserProfileProvider>
     </Router >
