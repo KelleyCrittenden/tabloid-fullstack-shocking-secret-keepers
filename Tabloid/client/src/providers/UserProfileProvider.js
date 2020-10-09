@@ -24,8 +24,7 @@ export function UserProfileProvider(props) {
       .then((signInResponse) => getUserProfile(signInResponse.user.uid))
       .then((userProfile) => {
         sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
-        sessionStorage.setItem("userProfileId", JSON.stringify(userProfile.id))
-        console.log(userProfile.id)
+        sessionStorage.setItem("userProfileId", JSON.stringify(userProfile.id));
         setIsLoggedIn(true);
       });
   };
@@ -43,6 +42,7 @@ export function UserProfileProvider(props) {
       .then((createResponse) => saveUser({ ...userProfile, firebaseUserId: createResponse.user.uid }))
       .then((savedUserProfile) => {
         sessionStorage.setItem("userProfile", JSON.stringify(savedUserProfile))
+        sessionStorage.setItem("userProfileId", JSON.stringify(userProfile.id))
         setIsLoggedIn(true);
       });
   };
