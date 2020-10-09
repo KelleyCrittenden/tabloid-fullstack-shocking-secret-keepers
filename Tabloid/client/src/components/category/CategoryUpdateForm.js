@@ -31,7 +31,7 @@ export default function CategoryUpdateForm() {
         history.push("/category")
     };
     useEffect(() => {
-        getSingleCategory(1);
+        getSingleCategory(id);
         //setCategoryText(category.name)
         //setCategoryText(CategoryContext.category);
         // .then((resp) => setCategoryText(category.name));
