@@ -25,11 +25,11 @@ export default function ApplicationViews() {
           <Register />
         </Route>
 
-        <Route path="/tag" exact>
+        <Route exact path="/tag">
           {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/tag/add" exact>
+        <Route exact path="/tag/add">
           {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
         </Route>
 

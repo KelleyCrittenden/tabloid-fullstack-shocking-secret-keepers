@@ -1,0 +1,43 @@
+import React, { useContext, useState } from "react";
+import { TagContext } from "../../providers/TagProvider";
+import { useHistory } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+
+const default function TagEditForm() {
+
+    const [editedTag, setEditedTag] = useState({});
+    const { getTag, editTag, setTag } = useContext(TagContext)
+    const history = useHistory();
+
+    cosnt editedTag = (e) => {
+        e.preventDefault();
+        editTag()
+    }
+
+    const handleFieldChange = (e) => {
+        const
+    }
+
+
+
+
+
+}
+
+return (
+    <Form>
+        <FormGroup>
+            <Label for="name">Edit Tag: </Label>
+            <Input
+                id="name"
+                type="text"
+                onChange={handleFieldChange} />
+        </FormGroup>
+        <FormGroup>
+            <Button onClick={updateTag}>Save</Button>
+            <Button onClick={"./tag"}>Cancel</Button>
+
+        </FormGroup>
+    </Form>
+);
+}

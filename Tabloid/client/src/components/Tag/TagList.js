@@ -17,10 +17,6 @@ export default function TagList() {
                 Create Tag
             </Button>
 
-            <Button color="primary" onClick={() => { ("/tag/delete") }}>
-                Delete Tag
-            </Button>
-
             <section>
                 {tags.map((t) => (
                     <Tag key={t.id} tag={t} />
