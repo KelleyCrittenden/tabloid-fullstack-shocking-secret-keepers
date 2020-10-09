@@ -12,7 +12,6 @@ export default function TagForm() {
     const newTag = (e) => {
         e.preventDefault();
         addTag(tag);
-
         history.push("/tag");
     }
 
