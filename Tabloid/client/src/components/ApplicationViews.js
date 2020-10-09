@@ -4,14 +4,11 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-<<<<<<< HEAD
 import TagList from "./Tag/TagList";
 import TagForm from "./Tag/TagForm";
-=======
 import CategoryList from "./category/CategoryList";
 import CategoryAddForm from "./category/CategoryAddForm";
 import CategoryUpdateForm from "./category/CategoryUpdateForm";
->>>>>>> master
 import PostList from "./Post/PostList"
 import UserPostList from "./Post/UserPostList"
 import PostDetails from "./Post/PostDetails";
@@ -52,19 +49,12 @@ export default function ApplicationViews(props) {
         <Route path="/register">
           <Register />
         </Route>
-<<<<<<< HEAD
-
         <Route exact path="/tag">
-          {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
+          {isLoggedIn && activeUser.userTypeId === 1 ? <TagList /> : <Redirect to="/login" />}
         </Route>
-
         <Route exact path="/tag/add">
-          {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
+          {isLoggedIn && activeUser.userTypeId === 1 ? <TagForm /> : <Redirect to="/login" />}
         </Route>
-
-
-
-=======
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
@@ -74,7 +64,6 @@ export default function ApplicationViews(props) {
         <Route path="/category/:id">
           {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryUpdateForm /> : <Redirect to="/category" />}
         </Route>
->>>>>>> master
       </Switch>
     </main>
   );
