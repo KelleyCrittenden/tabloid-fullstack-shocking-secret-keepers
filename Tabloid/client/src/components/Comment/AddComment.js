@@ -15,7 +15,7 @@ const AddComment = () => {
 
     //hard coding postId for now; need to use id from useparams as postId;
     const [newComment, setNewComment] = useState({
-        postId: 1,
+        postId: id,
         userProfileId: parseInt(userId),
         subject: "",
         content: ""
@@ -37,8 +37,7 @@ const AddComment = () => {
             setIsLoading(true);
             addComment(newComment);
             setIsLoading(false);
-            //need to change 1 to dyanmic id route
-            history.push(`/commentsbypost/1`)
+            history.push(`/commentsbypost/${id}`)
         }
     }
 

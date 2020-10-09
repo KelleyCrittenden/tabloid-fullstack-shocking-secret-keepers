@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext, PostProvider } from "../../providers/PostProvider";
-import { Card, CardImg, CardBody, Row } from "reactstrap";
+import { Card, CardImg, CardBody, Row, Button } from "reactstrap";
+import { useHistory } from "react-router-dom";
 
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 
 const PostDetails = () => {
 
 
     const { getPost, post } = useContext(PostContext);
     const { id } = useParams();
+    const history = useHistory();
 
     useEffect(() => {
 
@@ -21,26 +23,30 @@ const PostDetails = () => {
     // }, [])
 
     return (
+        <>
+            <Link to={`/commentsbypost/${id}`}> <Button>View Comments</Button></Link>
+            <Link to={`/comments/add/${id}`}> <Button>Add Comments</Button></Link>
+            <Card className="m-4">
 
-        <Card className="m-4">
-            <Row margin="m-4">
-                <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>
-
-
-                <p>{post.title}</p>
-
-
-
-                <p>{post.category.name}</p>
-                <p>{post.publishdatetime}</p>
-            </Row>
-            <CardImg top src={post.imageLocation} alt={post.title} />
-            <CardBody>
-                <p>{post.content}</p>
+                <Row margin="m-4">
+                    <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>
 
 
-            </CardBody>
-        </Card>
+                    <p>{post.title}</p>
+
+
+
+                    <p>{post.category.name}</p>
+                    <p>{post.publishdatetime}</p>
+                </Row>
+                <CardImg top src={post.imageLocation} alt={post.title} />
+                <CardBody>
+                    <p>{post.content}</p>
+
+
+                </CardBody>
+            </Card>
+        </>
 
     );
 };

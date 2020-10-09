@@ -18,8 +18,8 @@ const CommentList = () => {
     return (
         <>
             {/* need to use postcontext to get post.title (get post by postId?)??? */}
-            {/* check this route with posts section */}
-            <Link to={`/posts/detail/${id}`}>
+
+            <Link to={`/post/details/${id}`}>
                 <Button>Back To Post</Button>
             </Link>
             <div className="container">
