@@ -24,12 +24,9 @@ const EditComment = () => {
 
     }, [])
 
-    // const [editingComment, setEditingComment] = useState({
+    const handleEditFieldChange = (e) => {
 
-    //     userProfileId: parseInt(userId),
-    //     subject: comment.subject,
-    //     content: comment.content
-    // })
+    }
 
 
 
@@ -59,7 +56,7 @@ const EditComment = () => {
                         <Label htmlFor="subject"><strong>Subject</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
                             defaultValue={comment.subject}
-                            onChange={e => setSubject(e.target.value)}
+                            onChange={handleEditFieldChange}
                             type="text"
                             name="subject"
                             id="subject"
