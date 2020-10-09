@@ -5,25 +5,34 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 export default function TagForm() {
     const { addTag } = useContext(TagContext);
-    const [tagName, setTagName] = useState();
+    const [tag, setTag] = useState({ Name: "" })
+
     const history = useHistory();
 
-    const submitForm = (e) => {
+    const newTag = (e) => {
         e.preventDefault();
-        addTag({ name: tagName })
-            .then(() => history.push("/tag"))
+        addTag(tag);
+
+        history.push("/tag");
+    }
+
+    const handleFieldChange = e => {
+        const stateToChange = { ...tag };
+        stateToChange[e.target.id] = e.target.value;
+        setTag(stateToChange)
     };
 
     return (
-        <Form onSubmit={submitForm}>
+        <Form>
             <FormGroup>
-                <Label for="tagName">Add New Tag: </Label>
-                <Input id="tagName"
-                    type="textarea"
-                    onChange={e => setTagName(e.target.value)} />
+                <Label for="name">Add New Tag: </Label>
+                <Input
+                    id="name"
+                    type="text"
+                    onChange={handleFieldChange} />
             </FormGroup>
             <FormGroup>
-                <Button>Save</Button>
+                <Button onClick={newTag}>Save</Button>
             </FormGroup>
         </Form>
     );

@@ -13,8 +13,12 @@ export default function TagList() {
 
     return (
         <>
-            <Button color="primary" onClick={() => { "/tag/add" }}>
+            <Button color="primary" onClick={() => { ("/tag/add") }}>
                 Create Tag
+            </Button>
+
+            <Button color="primary" onClick={() => { ("/tag/delete") }}>
+                Delete Tag
             </Button>
 
             <section>
