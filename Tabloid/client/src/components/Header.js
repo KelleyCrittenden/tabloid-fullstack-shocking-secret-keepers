@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -16,6 +16,8 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
+
+
   return (
     <div>
       <Navbar color="light" light expand="md">
@@ -28,6 +30,19 @@ export default function Header() {
               <NavItem>
                 <NavLink tag={RRNavLink} to="/">Home</NavLink>
               </NavItem>
+
+            }
+            {isLoggedIn &&
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/post">Posts</NavLink>
+              </NavItem>
+
+            }
+            {isLoggedIn &&
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/post/User">User's Posts</NavLink>
+              </NavItem>
+
             }
           </Nav>
           <Nav navbar>

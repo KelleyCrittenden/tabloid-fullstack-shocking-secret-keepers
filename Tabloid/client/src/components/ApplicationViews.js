@@ -7,8 +7,14 @@ import Hello from "./Hello";
 import CategoryList from "./category/CategoryList";
 import CategoryAddForm from "./category/CategoryAddForm";
 import CategoryUpdateForm from "./category/CategoryUpdateForm";
+import PostList from "./Post/PostList"
+import UserPostList from "./Post/UserPostList"
+import PostDetails from "./Post/PostDetails";
+import PostForm from "./Post/PostForm"
+import PostEdit from "./Post/PostEdit"
+import PostDelete from "./Post/PostDelete"
 
-export default function ApplicationViews() {
+export default function ApplicationViews(props) {
   const { isLoggedIn, activeUser } = useContext(UserProfileContext);
   return (
     <main>
@@ -20,7 +26,24 @@ export default function ApplicationViews() {
         <Route path="/login">
           <Login />
         </Route>
-
+        <Route exact path="/post">
+          {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/post/User">
+          {isLoggedIn ? <UserPostList /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/post/details/:id">
+          {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/post/add">
+          {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/post/edit/:id">
+          {isLoggedIn ? <PostEdit /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/post/delete/:id">
+          {isLoggedIn ? <PostDelete /> : <Redirect to="/login" />}
+        </Route>
         <Route path="/register">
           <Register />
         </Route>
