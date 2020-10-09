@@ -10,7 +10,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase
@@ -63,6 +63,16 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = comment.Id }, comment);
 
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _commentRepository.DeleteComment(id);
+            //return status 204
+            return NoContent();
+        }
+
+
 
     }
     
