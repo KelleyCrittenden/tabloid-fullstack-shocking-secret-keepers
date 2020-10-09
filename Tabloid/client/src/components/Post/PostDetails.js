@@ -25,7 +25,7 @@ const PostDetails = () => {
     return (
         <>
             <Link to={`/commentsbypost/${id}`}> <Button>View Comments</Button></Link>
-            <Link to={`/comments/add/${id}`}> <Button>Add Comments</Button></Link>
+            <Link to={`/comments/add/${id}`}> <Button>Add Comment</Button></Link>
             <Card className="m-4">
 
                 <Row margin="m-4">

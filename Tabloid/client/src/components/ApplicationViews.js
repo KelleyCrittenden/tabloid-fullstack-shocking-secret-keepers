@@ -8,6 +8,7 @@ import CommentList from "./Comment/CommentList";
 import AddComment from "./Comment/AddComment";
 import DeleteComment from "./Comment/DeleteComment";
 import EditComment from "./Comment/EditComment";
+import CommentDetails from "./Comment/CommentDetails";
 import CategoryList from "./category/CategoryList";
 import CategoryAddForm from "./category/CategoryAddForm";
 import CategoryUpdateForm from "./category/CategoryUpdateForm";
@@ -62,6 +63,9 @@ export default function ApplicationViews(props) {
         </Route>
         <Route path="/comments/edit/:id" exact>
           {isLoggedIn ? <EditComment /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/comments/details/:id" exact>
+          {isLoggedIn ? <CommentDetails /> : <Redirect to="/login" />}
         </Route>
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}

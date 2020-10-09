@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { CommentContext } from "../../providers/CommentProvider";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Button } from "reactstrap";
 
 const DeleteComment = () => {
     let userId = sessionStorage.userProfileId
@@ -11,22 +11,16 @@ const DeleteComment = () => {
     const { id } = useParams();
     console.log(id);
     const history = useHistory();
-    const { comment, deleteComment, getCommentById, getAllComments } = useContext(CommentContext);
-    // const [comment, setComment] = useState();
+    const { comment, deleteComment, getCommentById } = useContext(CommentContext);
     console.log(comment);
 
     useEffect(() => {
         getCommentById(id);
-        getAllComments();
     }, [])
 
     //delete comment function
-    //**** need to get postId ****/
     const deleteAComment = () => {
-        //need to change the id of which post, based on postId 
-        //need to change 1 to dyanmic id route
-        deleteComment(id).then(getAllComments()).then(history.goBack())
-
+        deleteComment(id).then(history.goBack())
     }
 
     return (
@@ -39,13 +33,12 @@ const DeleteComment = () => {
             <Button className="deleteCommentButton" type="button" color="success" onClick={deleteAComment}>
                 {'Delete Comment'}
             </Button>
-            {/* commentsbypost/1 */}
+
             <Button className="returnToListButton" type="button" color="success" onClick={() => history.goBack()}>
                 {'Cancel'}
             </Button>
         </>
     )
-
 
 };
 

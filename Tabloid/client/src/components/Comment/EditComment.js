@@ -37,13 +37,13 @@ const EditComment = () => {
     }, [comment])
 
 
-    //edit new comment function
+    //edit comment function
     const editAComment = (e) => {
         e.preventDefault();
         setIsLoading(true);
         editComment(updatedComment);
         setIsLoading(false);
-        history.goBack();
+        history.push(`/comments/details/${id}`);
     }
 
     return (

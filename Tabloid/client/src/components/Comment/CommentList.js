@@ -20,7 +20,6 @@ const CommentList = () => {
 
     return (
         <>
-            {/* need to use postcontext to get post.title (get post by postId?)??? */}
             <h5> Comments for {post.title} </h5>
             <Link to={`/post/details/${id}`}>
                 <Button>Back To Post</Button>
