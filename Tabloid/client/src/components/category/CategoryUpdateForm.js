@@ -31,17 +31,18 @@ export default function CategoryUpdateForm() {
         history.push("/category")
     };
     useEffect(() => {
-        getSingleCategory(id)
-        //setCategoryText(CategoryContext.category.name);
+        getSingleCategory(1);
+        //setCategoryText(category.name)
+        //setCategoryText(CategoryContext.category);
         // .then((resp) => setCategoryText(category.name));
-    }, []);
+    }, [getSingleCategory, id]);
 
 
     return (
         <Form onSubmit={submitForm}>
             <FormGroup>
                 <Label for="name">Category</Label>
-                <Input id="name" type="textarea" defaultValue={category.name} onChange={handleCategoryFieldChange} />
+                <Input id="name" type="textarea" defaultValue={category.name} maxLength="50" onChange={handleCategoryFieldChange} />
             </FormGroup>
             { categoryText ?
                 <FormGroup>

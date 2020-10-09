@@ -1,9 +1,14 @@
 import React, { useState, createContext, useContext } from "react";
+
+import { useHistory } from "react-router-dom";
+
 import { UserProfileContext } from "./UserProfileProvider";
 
 export const CategoryContext = createContext();
 
 export function CategoryProvider(props) {
+
+    const history = useHistory();
 
     const [categories, setCategories] = useState([]);
 
@@ -29,8 +34,14 @@ export function CategoryProvider(props) {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            }).then(resp => resp.json())
-                .then(setCategory));
+            }).then(resp => {
+                if (resp.ok) {
+                    return resp.json().then(setCategory);
+                }
+                history.push("/category")
+                //throw new Error("Unauthorized");
+            }));
+
 
     const addCategory = (category) =>
         getToken().then((token) =>

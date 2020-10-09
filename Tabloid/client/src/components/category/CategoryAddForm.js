@@ -11,7 +11,7 @@ export default function CategoryAddForm() {
     const submitForm = (e) => {
         e.preventDefault();
         addCategory({ name: categoryText })
-            .then(() => history.push("/"))
+            .then(() => history.push("/category"))
             .catch((err) => alert(`An error ocurred: ${err.message}`));
     };
 
@@ -19,7 +19,7 @@ export default function CategoryAddForm() {
         <Form onSubmit={submitForm}>
             <FormGroup>
                 <Label for="categoryText">Category</Label>
-                <Input id="categoryText" type="textarea" onChange={e => setCategoryText(e.target.value)} />
+                <Input id="categoryText" type="textarea" maxLength="50" onChange={e => setCategoryText(e.target.value)} />
             </FormGroup>
             <FormGroup>
                 <Button>Save</Button>

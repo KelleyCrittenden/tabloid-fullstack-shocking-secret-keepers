@@ -7,7 +7,7 @@ export default function CategoryList() {
 
     useEffect(() => {
         getAllCategories();
-    }, []);
+    }, [getAllCategories]);
 
     return (
         <section>

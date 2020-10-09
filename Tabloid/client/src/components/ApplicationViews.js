@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
-import { CategoryContext } from "../providers/CategoryProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
@@ -10,8 +9,7 @@ import CategoryAddForm from "./category/CategoryAddForm";
 import CategoryUpdateForm from "./category/CategoryUpdateForm";
 
 export default function ApplicationViews() {
-  const { isLoggedIn } = useContext(UserProfileContext);
-
+  const { isLoggedIn, activeUser } = useContext(UserProfileContext);
   return (
     <main>
       <Switch>
@@ -27,13 +25,13 @@ export default function ApplicationViews() {
           <Register />
         </Route>
         <Route path="/category" exact>
-          <CategoryList />
+          {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
         <Route path="/category/add" exact>
-          <CategoryAddForm />
+          {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryAddForm /> : <Redirect to="/category" />}
         </Route>
         <Route path="/category/:id">
-          <CategoryUpdateForm />
+          {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryUpdateForm /> : <Redirect to="/category" />}
         </Route>
       </Switch>
     </main>
