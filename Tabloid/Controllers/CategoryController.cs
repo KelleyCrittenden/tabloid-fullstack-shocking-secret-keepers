@@ -34,9 +34,9 @@ namespace Tabloid.Controllers
         public IActionResult Get(int id)
         {
             var category = _categoryRepository.GetCategoryById(id);
-            if (category != null)
+            if (category == null)
             {
-                NotFound();
+                return NotFound();
             }
             return Ok(category);
         }
