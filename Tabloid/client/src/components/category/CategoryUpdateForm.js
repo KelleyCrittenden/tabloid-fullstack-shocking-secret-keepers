@@ -37,6 +37,9 @@ export default function CategoryUpdateForm() {
         // .then((resp) => setCategoryText(category.name));
     }, [getSingleCategory, id]);
 
+    useEffect(() => {
+        setCategoryText(category);
+    }, [category]);
 
     return (
         <Form onSubmit={submitForm}>
