@@ -51,7 +51,7 @@ const PostForm = () => {
                     onChange={handleFieldChange}
                     type="text"
                     id="title"
-                    value={editedPost.title}
+                    defaultValue={editedPost.title}
 
                     placeholder="Enter Title"
                 />
@@ -77,7 +77,7 @@ const PostForm = () => {
                     onChange={handleFieldChange}
                     type="text"
                     id="imageLocation"
-                    value={editedPost.imageLocation}
+                    defaultValue={editedPost.imageLocation}
                     placeholder="Image Url"
                 />
             </FormGroup>
@@ -91,7 +91,7 @@ const PostForm = () => {
                     onChange={handleFieldChange}
                     type="datetime-local"
                     id="publishDateTime"
-                    value={editedPost.publishDateTime}
+                    defaultValue={editedPost.publishDateTime}
                     placeholder=""
                 />
             </FormGroup>
