@@ -9,6 +9,7 @@ export function UserProfileProvider(props) {
   const apiUrl = "/api/userprofile";
 
   const userProfile = sessionStorage.getItem("userProfile");
+  const activeUser = JSON.parse(userProfile);
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -71,7 +72,7 @@ export function UserProfileProvider(props) {
   };
 
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, userProfile, activeUser }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

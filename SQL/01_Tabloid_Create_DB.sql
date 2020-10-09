@@ -70,6 +70,7 @@ CREATE TABLE [Post] (
   [IsApproved] bit NOT NULL,
   [CategoryId] integer NOT NULL,
   [UserProfileId] integer NOT NULL,
+  [IsDeleted] integer NOT NULL DEFAULT 0,
 
   CONSTRAINT [FK_Post_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Category] ([Id]),
   CONSTRAINT [FK_Post_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
