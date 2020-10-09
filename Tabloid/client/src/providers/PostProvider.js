@@ -51,7 +51,13 @@ export function PostProvider(props) {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        })).then((res) => res.json()).then(setPost);
+        })).then((res) => res.json()).then((res) => {
+            setPost(res)
+
+
+
+        });
+
     };
 
     const getAllPostsByUser = (id) => {
@@ -64,20 +70,16 @@ export function PostProvider(props) {
             .then((res) => res.json())
             .then(setPosts);
     };
-    const editPost = (id) => {
-        getToken().then((token) => fetch(`/api/post/${id}`, {
+    const editPost = (id, post) => {
+        getToken().then((token) => fetch(`/api/post/edit/${id}`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
-
-        }).then(resp => {
-            if (resp.ok) {
-                return resp.json();
-            }
-            throw new Error("Unauthorized");
-        }))
+            body: JSON.stringify(post)
+        })
+        )
     };
     const softDeletePost = (id) => {
         getToken().then((token) => fetch(`/api/post/${id}`, {
@@ -105,7 +107,7 @@ export function PostProvider(props) {
         );
     };
     return (
-        <PostContext.Provider value={{ posts, post, categories, getAllPosts, addPost, getAllSearch, getPost, getAllPostsByUser, editPost, softDeletePost, categoriesForPost }}>
+        <PostContext.Provider value={{ posts, setPost, post, categories, getAllPosts, addPost, getAllSearch, getPost, getAllPostsByUser, editPost, softDeletePost, categoriesForPost }}>
             {props.children}
         </PostContext.Provider>
     );
