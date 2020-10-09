@@ -12,13 +12,11 @@ function App() {
   return (
     <Router>
       <UserProfileProvider>
-        <CategoryProvider >
-          <Header />
-          <ApplicationViews />
-        </CategoryProvider>
         <PostProvider>
-          <Header />
-          <ApplicationViews />
+          <CategoryProvider >
+            <Header />
+            <ApplicationViews />
+          </CategoryProvider>
         </PostProvider>
       </UserProfileProvider>
     </Router >
