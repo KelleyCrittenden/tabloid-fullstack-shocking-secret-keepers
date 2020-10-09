@@ -4,6 +4,7 @@ import { currentDateTime } from "./helperFunctions";
 import { Card, CardBody, Button } from "reactstrap";
 
 const Comment = ({ comment }) => {
+    let userId = sessionStorage.userProfileId
     const history = useHistory();
 
     return (
@@ -20,8 +21,12 @@ const Comment = ({ comment }) => {
                 <h6>Comment</h6>
                 <p>{comment.content}</p>
             </CardBody>
-            <Button onClick={() => history.push(`/comments/edit/${comment.id}`)}>Edit </Button>
-            <Button onClick={() => history.push(`/comments/delete/${comment.id}`)}>Delete</Button>
+            {comment.userProfileId !== parseInt(userId) ? null :
+                <>
+                    <Button onClick={() => history.push(`/comments/edit/${comment.id}`)}>Edit </Button>
+                    <Button onClick={() => history.push(`/comments/delete/${comment.id}`)}>Delete</Button>
+                </>
+            }
         </Card >
     );
 };

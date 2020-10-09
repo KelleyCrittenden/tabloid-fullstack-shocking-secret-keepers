@@ -73,13 +73,18 @@ const EditComment = () => {
                         />
                     </FormGroup>
                 </Form >
+
             }
+
             <Button className="editComment" type="button" color="success" isLoading={isLoading} onClick={editAComment}>
                 {'Save Edited Comment'}
             </Button>
             <Button className="editComment" type="button" color="success" isLoading={isLoading} onClick={() => history.goBack()}>
                 {'Cancel'}
             </Button>
+
+
+
         </>
     )
 };
