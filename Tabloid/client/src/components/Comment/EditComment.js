@@ -12,9 +12,10 @@ const EditComment = () => {
     const history = useHistory();
 
     const { editComment, comment, getCommentById, getAllComments } = useContext(CommentContext);
+    console.log(comment);
     const [isLoading, setIsLoading] = useState(false);
-    const [subject, setSubject] = useState("");
-    const [content, setContent] = useState("");
+    const [subject, setSubject] = useState();
+    const [content, setContent] = useState();
 
 
     useEffect(() => {
@@ -29,6 +30,7 @@ const EditComment = () => {
     //     subject: comment.subject,
     //     content: comment.content
     // })
+
 
 
     //add new comment function
