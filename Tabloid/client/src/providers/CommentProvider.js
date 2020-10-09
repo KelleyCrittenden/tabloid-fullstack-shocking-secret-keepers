@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as firebase from "firebase/app";
 
 export const CommentContext = React.createContext();
@@ -53,7 +53,7 @@ export const CommentProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(newComment)
-            }).then(resp => resp.json())
+            })
         })
     };
 

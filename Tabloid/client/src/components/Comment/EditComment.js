@@ -7,40 +7,43 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 const EditComment = () => {
     let userId = sessionStorage.userProfileId
     console.log(userId);
-    //id of comment(when user clicks the editcomment button on )
+    //id of comment(when user clicks the editcomment button on comment )
     const { id } = useParams();
     const history = useHistory();
 
     const { editComment, comment, getCommentById } = useContext(CommentContext);
     console.log(comment);
     const [isLoading, setIsLoading] = useState(false);
+    //represents form field state
     const [updatedComment, setUpdatedComment] = useState()
+    console.log(updatedComment);
 
-
+    //getting the individual comment using params (will run after initial load of page)
     useEffect(() => {
         getCommentById(id);
     }, [])
 
+    //handling the field change in the form to update with what user types 
     const handleEditFieldChange = (e) => {
         const stateToChange = { ...updatedComment }
         stateToChange[e.target.id] = e.target.value;
         setUpdatedComment(stateToChange)
-
     }
 
+    //sets updatedComment state to value of comment; watching for changes to comment..anytime comment changes, it will trigger useEffect to update updatedComment state (ie the subject and content field values)
+    //with what comment is 
     useEffect(() => {
         setUpdatedComment(comment)
     }, [comment])
 
 
-    //add new comment function
+    //edit new comment function
     const editAComment = (e) => {
         e.preventDefault();
         setIsLoading(true);
         editComment(updatedComment);
         setIsLoading(false);
-        //need to change 1 to dyanmic id route
-        history.push(`/commentsbypost/1`)
+        history.goBack();
     }
 
     return (
@@ -67,7 +70,6 @@ const EditComment = () => {
                             type="textarea"
                             name="content"
                             id="content"
-
                         />
                     </FormGroup>
                 </Form >
@@ -78,12 +80,8 @@ const EditComment = () => {
             <Button className="editComment" type="button" color="success" isLoading={isLoading} onClick={() => history.goBack()}>
                 {'Cancel'}
             </Button>
-
         </>
-
     )
-
-
 };
 
 export default EditComment;

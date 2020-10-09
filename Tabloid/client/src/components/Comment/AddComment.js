@@ -15,7 +15,7 @@ const AddComment = () => {
 
     //hard coding postId for now; need to use id from useparams as postId;
     const [newComment, setNewComment] = useState({
-        postId: id,
+        postId: parseInt(id),
         userProfileId: parseInt(userId),
         subject: "",
         content: ""
