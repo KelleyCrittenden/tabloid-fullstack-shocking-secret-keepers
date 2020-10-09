@@ -132,12 +132,9 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                      SELECT c.Id, c.PostId, c.UserProfileId, c.[Subject], c.Content, c.CreateDateTime, p.Title, u.DisplayName
+                      SELECT c.Id, c.PostId, c.UserProfileId, c.[Subject], c.Content, c.CreateDateTime
                         FROM Comment c
-                        JOIN Post p 
-                        ON c.PostId = p.Id
-                        JOIN UserProfile u
-                        ON c.UserProfileId = u.Id
+                       
                         WHERE c.Id = @id 
                        ";
                     cmd.Parameters.AddWithValue("@id", id);
@@ -154,16 +151,7 @@ namespace Tabloid.Repositories
                             Subject = reader.GetString(reader.GetOrdinal("Subject")),
                             Content = reader.GetString(reader.GetOrdinal("Content")),
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                            Post = new Post
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("PostId")),
-                                Title = reader.GetString(reader.GetOrdinal("Title"))
-                            },
-                            UserProfile = new UserProfile
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-                                DisplayName = reader.GetString(reader.GetOrdinal("DisplayName"))
-                            }
+                            
 
                         };
 

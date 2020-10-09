@@ -10,12 +10,9 @@ const AddComment = () => {
     //id to use for postId (when user clicks the addcomment button on post details page)
     const { id } = useParams();
     const history = useHistory();
-    const { addComment, getAllCommentsForPost, getAllComments } = useContext(CommentContext);
+    const { addComment } = useContext(CommentContext);
     const [isLoading, setIsLoading] = useState(false)
 
-    useEffect(() => {
-        getAllComments();
-    }, [])
     //hard coding postId for now; need to use id from useparams as postId;
     const [newComment, setNewComment] = useState({
         postId: 1,
@@ -34,11 +31,15 @@ const AddComment = () => {
 
     //add new comment function
     const addNewComment = () => {
-        setIsLoading(true);
-        addComment(newComment).then(getAllComments())
-        setIsLoading(false);
-        //need to change 1 to dyanmic id route
-        history.push(`/commentsbypost/1`)
+        if (newComment.subject === "" || newComment.content === "") {
+            alert("fill out both subject and content field");
+        } else {
+            setIsLoading(true);
+            addComment(newComment);
+            setIsLoading(false);
+            //need to change 1 to dyanmic id route
+            history.push(`/commentsbypost/1`)
+        }
     }
 
     return (
@@ -73,7 +74,6 @@ const AddComment = () => {
             </Button>
         </>
     )
-
 
 };
 

@@ -11,37 +11,33 @@ const EditComment = () => {
     const { id } = useParams();
     const history = useHistory();
 
-    const { editComment, comment, getCommentById, getAllComments } = useContext(CommentContext);
+    const { editComment, comment, getCommentById } = useContext(CommentContext);
     console.log(comment);
     const [isLoading, setIsLoading] = useState(false);
-    const [subject, setSubject] = useState();
-    const [content, setContent] = useState();
+    const [updatedComment, setUpdatedComment] = useState()
 
 
     useEffect(() => {
         getCommentById(id);
-        getAllComments();
-
     }, [])
 
     const handleEditFieldChange = (e) => {
+        const stateToChange = { ...updatedComment }
+        stateToChange[e.target.id] = e.target.value;
+        setUpdatedComment(stateToChange)
 
     }
 
+    useEffect(() => {
+        setUpdatedComment(comment)
+    }, [comment])
 
 
     //add new comment function
     const editAComment = (e) => {
-        const editingComment = {
-            id: comment.id,
-            userProfileId: parseInt(userId),
-            subject,
-            content,
-        }
-
         e.preventDefault();
         setIsLoading(true);
-        editComment(editingComment).then(getAllComments())
+        editComment(updatedComment);
         setIsLoading(false);
         //need to change 1 to dyanmic id route
         history.push(`/commentsbypost/1`)
@@ -67,7 +63,7 @@ const EditComment = () => {
                         <Label htmlFor="content"><strong>Comment</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
                             defaultValue={comment.content}
-                            onChange={e => setContent(e.target.value)}
+                            onChange={handleEditFieldChange}
                             type="textarea"
                             name="content"
                             id="content"

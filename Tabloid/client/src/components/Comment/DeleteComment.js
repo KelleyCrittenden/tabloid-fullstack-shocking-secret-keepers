@@ -11,7 +11,7 @@ const DeleteComment = () => {
     const { id } = useParams();
     console.log(id);
     const history = useHistory();
-    const { comment, deleteComment, getCommentById, getAllComments, getAllCommentsForPost } = useContext(CommentContext);
+    const { comment, deleteComment, getCommentById, getAllComments } = useContext(CommentContext);
     // const [comment, setComment] = useState();
     console.log(comment);
 

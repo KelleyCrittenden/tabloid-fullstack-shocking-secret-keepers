@@ -66,7 +66,7 @@ export const CommentProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(comment)
-            }).then(resp => resp.json())
+            })
         })
     }
 
