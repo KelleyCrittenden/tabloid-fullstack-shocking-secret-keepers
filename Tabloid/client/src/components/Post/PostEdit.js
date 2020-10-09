@@ -24,11 +24,11 @@ const PostForm = () => {
     const handleNewPost = (event) => {
         event.preventDefault();
 
-        post.CategoryId = parseInt(editedPost.CategoryId);
-        post.UserProfileId = parseInt(sessionStorage.userProfileId);
+        editedPost.categoryId = parseInt(editedPost.categoryId);
+
         editPost(editedPost.id, editedPost);
 
-        history.push("/");
+        history.push("/post");
 
 
     }

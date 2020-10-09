@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Card, Row, CardImg, CardBody } from "reactstrap";
 import { useHistory, useParams } from "react-router-dom";
 
 const PostForm = () => {
 
 
-    const [editedPost, setEditedPost] = useState({});
-    const { categories, categoriesForPost, editPost, post, getPost, setPost } = useContext(PostContext);
+
+    const { softDeletePost, post, getPost, setPost } = useContext(PostContext);
     const { id } = useParams();
     const history = useHistory();
 
@@ -19,8 +19,10 @@ const PostForm = () => {
     }, [])
 
 
-    const handleDelete = () => {
+    const handleDelete = (evt) => {
+        softDeletePost(id);
 
+        history.push("/post");
     }
 
     return (
@@ -29,10 +31,9 @@ const PostForm = () => {
             <Card className="m-4">
                 <Row margin="m-4">
                     <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>
-                    <NavLink to={`/post/details/${post.id}`} >
-                        <strong>{post.title}</strong>
 
-                    </NavLink>
+                    <strong>{post.title}</strong>
+
 
                     <p>{post.category.name}</p>
                 </Row>

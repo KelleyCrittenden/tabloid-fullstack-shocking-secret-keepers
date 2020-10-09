@@ -82,18 +82,13 @@ export function PostProvider(props) {
         )
     };
     const softDeletePost = (id) => {
-        getToken().then((token) => fetch(`/api/post/${id}`, {
+        getToken().then((token) => fetch(`/api/post/delete/${id}`, {
             method: "Put",
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
 
-        }).then(resp => {
-            if (resp.ok) {
-                return resp.json();
-            }
-            throw new Error("Unauthorized");
         }))
     };
     const categoriesForPost = () => {

@@ -21,7 +21,7 @@ const PostForm = () => {
         post.UserProfileId = parseInt(sessionStorage.userProfileId);
         addPost(post);
 
-        history.push("/");
+        history.push("/post");
 
 
     }
