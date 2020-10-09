@@ -8,6 +8,9 @@ import CommentList from "./Comment/CommentList";
 import AddComment from "./Comment/AddComment";
 import DeleteComment from "./Comment/DeleteComment";
 import EditComment from "./Comment/EditComment";
+import CategoryList from "./category/CategoryList";
+import CategoryAddForm from "./category/CategoryAddForm";
+import CategoryUpdateForm from "./category/CategoryUpdateForm";
 import PostList from "./Post/PostList"
 import UserPostList from "./Post/UserPostList"
 import PostDetails from "./Post/PostDetails";
@@ -16,8 +19,7 @@ import PostEdit from "./Post/PostEdit"
 import PostDelete from "./Post/PostDelete"
 
 export default function ApplicationViews(props) {
-  const { isLoggedIn } = useContext(UserProfileContext);
-
+  const { isLoggedIn, activeUser } = useContext(UserProfileContext);
   return (
     <main>
       <Switch>
@@ -60,6 +62,15 @@ export default function ApplicationViews(props) {
         </Route>
         <Route path="/comments/edit/:id" exact>
           {isLoggedIn ? <EditComment /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/category" exact>
+          {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/category/add" exact>
+          {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryAddForm /> : <Redirect to="/category" />}
+        </Route>
+        <Route path="/category/:id">
+          {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryUpdateForm /> : <Redirect to="/category" />}
         </Route>
       </Switch>
     </main>
