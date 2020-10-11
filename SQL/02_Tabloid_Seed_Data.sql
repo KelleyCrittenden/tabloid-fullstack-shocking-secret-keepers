@@ -7,8 +7,8 @@ set identity_insert [UserType] off
 
 set identity_insert [Category] on
 insert into [Category] ([Id], [Name]) 
-values (1, 'Technology'), (2, 'Politics'), (3, 'Science'), (4, 'Cooking'), (5, 'Music'),
-	   (6, 'Cthulhu Sightings'), (7, 'History'), (8, 'Home and Garden'), (9, 'Entertainment')
+values (1, 'Other'), (2, 'Politics'), (3, 'Science'), (4, 'Cooking'), (5, 'Music'),
+	   (6, 'Cthulhu Sightings'), (7, 'History'), (8, 'Home and Garden'), (9, 'Entertainment'), (10, 'Technology')
 set identity_insert [Category] off
 
 set identity_insert [Tag] on
@@ -66,7 +66,7 @@ insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDate
 
 Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
 
-Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 'http://lorempixel.com/920/360/', '2019-08-25', '2020-06-25', 1, 1, 8);
+Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 'http://lorempixel.com/920/360/', '2019-08-25', '2020-06-25', 1, 10, 8);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (8, 'drive front-end portals', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 'http://lorempixel.com/920/360/', '2020-03-04', '2020-04-14', 1, 4, 4);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (9, 'exploit e-business e-services', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
 
@@ -81,7 +81,7 @@ Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque liber
 
 Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 'http://lorempixel.com/920/360/', '2019-10-23', '2019-10-13', 1, 5, 9);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (11, 'syndicate cross-media paradigms', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 'http://lorempixel.com/920/360/', '2019-10-27', '2019-09-11', 0, 2, 7);
-insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (12, 'evolve sticky web-readiness', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 'http://lorempixel.com/920/360/', '2019-07-21', '2019-07-28', 1, 1, 8);
+insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (12, 'evolve sticky web-readiness', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 'http://lorempixel.com/920/360/', '2019-07-21', '2019-07-28', 1, 10, 8);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (13, 'monetize mission-critical supply-chains', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.
 
 Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 'http://lorempixel.com/920/360/', '2019-10-20', '2019-12-19', 0, 4, 6);
@@ -90,7 +90,7 @@ insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDate
 
 In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.
 
-Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 'http://lorempixel.com/920/360/', '2020-03-17', '2020-01-18', 0, 1, 8);
+Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 'http://lorempixel.com/920/360/', '2020-03-17', '2020-01-18', 0, 10, 8);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (16, 'grow frictionless e-tailers', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
 
 Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.
@@ -136,7 +136,7 @@ Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quis
 
 Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
 
-Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 'http://lorempixel.com/920/360/', '2020-01-28', '2020-05-18', 0, 1, 3);
+Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 'http://lorempixel.com/920/360/', '2020-01-28', '2020-05-18', 0, 10, 3);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (24, 'incubate mission-critical channels', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
 
 In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.
@@ -147,7 +147,7 @@ Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat 
 
 Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
 
-Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 'http://lorempixel.com/920/360/', '2019-11-04', '2019-11-24', 1, 1, 8);
+Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 'http://lorempixel.com/920/360/', '2019-11-04', '2019-11-24', 1, 10, 8);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (25, 'visualize enterprise e-markets', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
 
 Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 'http://lorempixel.com/920/360/', '2019-10-29', '2020-02-07', 0, 3, 8);
@@ -160,7 +160,7 @@ Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
 Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 'http://lorempixel.com/920/360/', '2020-03-14', '2019-12-08', 0, 3, 10);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (27, 'visualize dynamic relationships', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
 
-Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 'http://lorempixel.com/920/360/', '2019-11-15', '2019-09-23', 0, 1, 8);
+Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 'http://lorempixel.com/920/360/', '2019-11-15', '2019-09-23', 0, 10, 8);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (28, 'engage next-generation e-tailers', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
 
 Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
@@ -190,7 +190,7 @@ Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibu
 Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
 
 Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 'http://lorempixel.com/920/360/', '2019-12-10', '2019-08-30', 1, 3, 5);
-insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (33, 'innovate cross-platform supply-chains', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 'http://lorempixel.com/920/360/', '2020-04-07', '2019-11-10', 1, 1, 10);
+insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (33, 'innovate cross-platform supply-chains', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 'http://lorempixel.com/920/360/', '2020-04-07', '2019-11-10', 1, 10, 10);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (34, 'innovate strategic convergence', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 
 Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
@@ -230,7 +230,7 @@ In congue. Etiam justo. Etiam pretium iaculis justo.
 
 In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.
 
-Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 'http://lorempixel.com/920/360/', '2020-05-03', '2020-05-23', 0, 1, 9);
+Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 'http://lorempixel.com/920/360/', '2020-05-03', '2020-05-23', 0, 10, 9);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (40, 'morph turn-key e-commerce', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
 
 Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
@@ -270,12 +270,12 @@ insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDate
 
 Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
 
-Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 'http://lorempixel.com/920/360/', '2020-03-03', '2019-12-18', 0, 1, 1);
+Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 'http://lorempixel.com/920/360/', '2020-03-03', '2019-12-18', 0, 10, 1);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (46, 'harness distributed portals', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.
 
 Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
 
-Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 'http://lorempixel.com/920/360/', '2020-03-06', '2019-08-02', 0, 1, 3);
+Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 'http://lorempixel.com/920/360/', '2020-03-06', '2019-08-02', 0, 10, 3);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (47, 'visualize killer systems', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
 
 In congue. Etiam justo. Etiam pretium iaculis justo.', 'http://lorempixel.com/920/360/', '2019-09-18', '2020-03-06', 1, 3, 5);
@@ -289,7 +289,7 @@ Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
 
 Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
 
-Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 'http://lorempixel.com/920/360/', '2019-11-05', '2019-09-29', 0, 1, 1);
+Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 'http://lorempixel.com/920/360/', '2019-11-05', '2019-09-29', 0, 10, 1);
 insert into Post (Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId) values (49, 'streamline virtual web-readiness', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
 
 Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.
