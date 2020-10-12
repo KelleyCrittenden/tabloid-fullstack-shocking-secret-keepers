@@ -93,7 +93,7 @@ const PostForm = () => {
                     >
                         {categories.map(category => {
 
-                            return <option key={category.id} value={category.id}>{category.name}</option>
+                            return (category.id != 1) && <option key={category.id} value={category.id}>{category.name}</option>
                         })}
 
                     </select> : null
