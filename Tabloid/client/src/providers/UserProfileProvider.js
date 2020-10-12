@@ -96,7 +96,7 @@ export function UserProfileProvider(props) {
       .then((resp) => setSingleUserProfile(resp));;
   };
   const deactivateUserProfile = (userId) => {
-    debugger
+
     return getToken().then((token) =>
       fetch(`${apiUrl}/deactivate/${userId}`, {
         method: "PUT",
