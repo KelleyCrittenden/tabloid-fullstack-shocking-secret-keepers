@@ -5,7 +5,7 @@ export const TagContext = createContext();
 
 
 export const TagProvider = (props) => {
-    const { tag, setTag } = useState([]);
+    const { tag, setTag } = useState({});
     const [tags, setTags] = useState([]);
     const { getToken } = useContext(UserProfileContext);
 
@@ -33,15 +33,16 @@ export const TagProvider = (props) => {
             }).then(getAllTags)
         );
 
-    const getTagById = (id) =>
-        getToken().then((token) =>
+    const getTagById = (id) => {
+        return getToken().then((token) => {
             fetch((`/api/tag/${id}`), {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
-            }).then((res) => res.json().then(setTag)));
-
+            }).then(res => res.json()).then(setTag)
+        })
+    };
 
 
     const updateTag = (tag) => {

@@ -10,11 +10,19 @@ export default function TagEditForm() {
     const { updateTag, getTagById, tag } = useContext(TagContext);
     const [tagName, setTagName] = useState({});
 
+    useEffect(() => {
+        getTagById(id);
+    }, []);
+
     const handleFieldChange = e => {
         const stateToChange = { ...tagName };
         stateToChange[e.target.id] = e.target.value;
         setTagName(stateToChange);
     };
+
+    useEffect(() => {
+        setTagName(tag);
+    }, [tag]);
 
     const saveEditedTag = (e) => {
         e.preventDefault();
@@ -25,14 +33,6 @@ export default function TagEditForm() {
     const Cancel = () => {
         history.push("/tag")
     }
-
-    useEffect(() => {
-        getTagById(id);
-    }, [id]);
-
-    useEffect(() => {
-        setTagName(tag);
-    }, [tag]);
 
     return (
         <Form>
