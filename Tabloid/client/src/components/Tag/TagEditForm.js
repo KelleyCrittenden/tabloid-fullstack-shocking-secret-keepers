@@ -12,17 +12,17 @@ export default function TagEditForm() {
 
     useEffect(() => {
         getTagById(id);
-    }, []);
+    }, [])
 
-    const handleFieldChange = e => {
-        const stateToChange = { ...tagName };
+    const handleFieldChange = (e) => {
+        const stateToChange = { ...tagName }
         stateToChange[e.target.id] = e.target.value;
         setTagName(stateToChange);
     };
 
     useEffect(() => {
-        setTagName(tag);
-    }, [tag]);
+        setTagName(tag)
+    }, [tag])
 
     const saveEditedTag = (e) => {
         e.preventDefault();
@@ -35,25 +35,22 @@ export default function TagEditForm() {
     }
 
     return (
-        <Form>
+        <>
+            {tagName &&
+                <Form>
 
-            <FormGroup>
-                <Label for="name">Edit Tag: </Label>
-                <Input
-                    id="name"
-                    defaultValue={tag.name}
-                    type="text"
-                    onChange={handleFieldChange} />
-            </FormGroup>
-
-            <FormGroup>
-                <Button onClick={saveEditedTag}>Save</Button>
-            </FormGroup>
-
-            <FormGroup>
-                <Button onClick={Cancel}>Cancel</Button>
-            </FormGroup>
-
-        </Form>
+                    <FormGroup>
+                        <Label for="name">Edit Tag: </Label>
+                        <Input
+                            id="name"
+                            defaultValue={tagName.name}
+                            type="text"
+                            onChange={handleFieldChange} />
+                    </FormGroup>
+                </Form>
+            }
+            <Button onClick={saveEditedTag}>Save</Button>
+            <Button onClick={Cancel}>Cancel</Button>
+        </>
     );
 }

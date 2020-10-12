@@ -77,7 +77,7 @@ export default function ApplicationViews(props) {
         <Route exact path="/tag/add">
           {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
         </Route>
-        <Route exact path="/tag/:id/edit">
+        <Route exact path="/tag/edit/:id">
           {isLoggedIn ? <TagEditForm /> : <Redirect to="/login" />}
         </Route>
         <Route path="/category" exact>
