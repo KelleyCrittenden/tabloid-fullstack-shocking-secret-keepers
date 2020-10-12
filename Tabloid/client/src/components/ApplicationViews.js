@@ -12,6 +12,7 @@ import CommentDetails from "./Comment/CommentDetails";
 import TagList from "./Tag/TagList";
 import TagForm from "./Tag/TagForm";
 import TagEditForm from "./Tag/TagEditForm"
+import TagDelete from "./Tag/TagDelete"
 import CategoryList from "./category/CategoryList";
 import CategoryAddForm from "./category/CategoryAddForm";
 import CategoryUpdateForm from "./category/CategoryUpdateForm";
@@ -79,6 +80,9 @@ export default function ApplicationViews(props) {
         </Route>
         <Route exact path="/tag/edit/:id">
           {isLoggedIn ? <TagEditForm /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/tag/delete/:id">
+          {isLoggedIn ? <TagDelete /> : <Redirect to="/login" />}
         </Route>
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}

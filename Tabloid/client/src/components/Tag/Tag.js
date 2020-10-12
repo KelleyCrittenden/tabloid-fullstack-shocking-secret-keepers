@@ -13,7 +13,7 @@ export default function Tag({ tag }) {
             <CardBody>
                 <strong> {tag.name} </strong>
                 <Button color="primary" onClick={() => history.push(`/tag/edit/${tag.id}`)}>Edit</Button> &nbsp;
-                <Button color="primary" onClick={"tag/delete"}>Delete</Button>
+                <Button color="primary" onClick={() => history.push(`/tag/delete/${tag.id}`)}>Delete</Button>
             </CardBody>
         </Card>
     );

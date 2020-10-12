@@ -49,7 +49,7 @@ export default function TagEditForm() {
                     </FormGroup>
                 </Form>
             }
-            <Button onClick={saveEditedTag}>Save</Button>
+            <Button onClick={saveEditedTag}>Save</Button>&nbsp;
             <Button onClick={Cancel}>Cancel</Button>
         </>
     );
