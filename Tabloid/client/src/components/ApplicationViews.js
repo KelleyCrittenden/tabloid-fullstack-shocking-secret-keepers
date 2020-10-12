@@ -4,6 +4,11 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+import CommentList from "./Comment/CommentList";
+import AddComment from "./Comment/AddComment";
+import DeleteComment from "./Comment/DeleteComment";
+import EditComment from "./Comment/EditComment";
+import CommentDetails from "./Comment/CommentDetails";
 import TagList from "./Tag/TagList";
 import TagForm from "./Tag/TagForm";
 import CategoryList from "./category/CategoryList";
@@ -49,6 +54,21 @@ export default function ApplicationViews(props) {
         <Route path="/register">
           <Register />
         </Route>
+        <Route path="/commentsbypost/:id" exact>
+          {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/comments/add/:id" exact>
+          {isLoggedIn ? <AddComment /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/comments/delete/:id" exact>
+          {isLoggedIn ? <DeleteComment /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/comments/edit/:id" exact>
+          {isLoggedIn ? <EditComment /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/comments/details/:id" exact>
+          {isLoggedIn ? <CommentDetails /> : <Redirect to="/login" />}
+        </Route>
         <Route exact path="/tag">
           {isLoggedIn && activeUser.userTypeId === 1 ? <TagList /> : <Redirect to="/login" />}
         </Route>
@@ -65,6 +85,6 @@ export default function ApplicationViews(props) {
           {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryUpdateForm /> : <Redirect to="/category" />}
         </Route>
       </Switch>
-    </main>
+    </main >
   );
 };
