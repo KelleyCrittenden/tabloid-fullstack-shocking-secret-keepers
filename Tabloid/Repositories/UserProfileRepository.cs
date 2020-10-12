@@ -22,7 +22,7 @@ namespace Tabloid.Repositories
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
-                         WHERE FirebaseUserId = @FirebaseuserId";
+                         WHERE FirebaseUserId = @FirebaseuserId AND up.IsDeactivated != 1";
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", firebaseUserId);
 
@@ -91,11 +91,11 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                        SELECT u.id, u.FirebaseUserId, u.FirstName, u.LastName, u.DisplayName, u.Email,
-                              u.CreateDateTime, u.ImageLocation, u.UserTypeId,
+                              u.CreateDateTime, u.ImageLocation, u.UserTypeId, u.IsDeactivated,
                               ut.[Name] AS UserTypeName
                          FROM UserProfile u
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                       
+                       WHERE u.IsDeactivated != 1
                         ORDER BY u.DisplayName;
                       
                        ";
@@ -122,7 +122,7 @@ namespace Tabloid.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                                 Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
                             },
-                            //IsDeactivated = reader.GetInt32(reader.GetOrdinal("IsDeactivated")),
+                            
                         });
                     }
 
@@ -143,11 +143,11 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                        SELECT u.id, u.FirstName, u.FirebaseUserId, u.LastName, u.DisplayName, u.Email,
-                              u.CreateDateTime, u.ImageLocation, u.UserTypeId,
+                              u.CreateDateTime, u.ImageLocation, u.UserTypeId, u.IsDeactivated,
                               ut.[Name] AS UserTypeName
                          FROM UserProfile u
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE u.id = @id
+                        WHERE u.id = @id AND u.IsDeactivated != 1
                         ORDER BY u.DisplayName;
                         
                        ";
@@ -174,7 +174,7 @@ namespace Tabloid.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                                 Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
                             },
-                            //IsDeactivated = reader.GetInt32(reader.GetOrdinal("IsDeactivated")),
+                            
                         };
                     }
 
@@ -184,10 +184,103 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        public List<UserProfile> GetAllDeactivatedUserProfiles()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT u.id, u.FirstName, u.LastName, u.DisplayName, u.Email,
+                              u.CreateDateTime, u.ImageLocation, u.UserTypeId,
+                              ut.[Name] AS UserTypeName, u.IsDeactivated
+                         FROM UserProfile u
+                              LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                        WHERE u.IsDeactivated = 1
+                        ORDER BY u.DisplayName;
+                        
+                       ";
 
 
+                    List<UserProfile> userProfiles = new List<UserProfile>();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        userProfiles.Add(new UserProfile()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                            LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
+                            UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                            UserType = new UserType()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
+                            },
+                            IsDeactivated = reader.GetInt32(reader.GetOrdinal("IsDeactivated")),
+                        });
+                    }
+
+                    reader.Close();
+
+                    return userProfiles;
+                }
+            }
+        }
 
 
+        public void DeactivateProfile(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE UserProfile
+                        SET
+                        IsDeactivated = @isDeactivated
+                        WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@isDeactivated", 1);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+
+        }
+        public void ReactivateProfile(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE UserProfile
+                        SET
+                        IsDeactivated = @isDeactivated
+                        WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@isDeactivated", 0);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+
+        }
 
         /*
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
