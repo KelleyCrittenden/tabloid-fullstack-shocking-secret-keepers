@@ -16,3 +16,7 @@ p {
 .post p {
     white-space: pre-wrap;
 }
+
+.UserProfileAvatar {
+  max-width: 10em;
+}
