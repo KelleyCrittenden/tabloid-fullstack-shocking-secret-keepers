@@ -46,15 +46,15 @@ namespace Tabloid.Controllers
         }
 
         // DELETE api/<TagController>/5
+        //[HttpPut("{id}")]
+       // public IActionResult Delete(int id)
+        //{
+            //_tagRepository.Delete(id);
+            //return NoContent();
+        //}
+    
         [HttpPut("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _tagRepository.Delete(id);
-            return NoContent();
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult Edit(int id, Tag tag)
+        public IActionResult Put(int id, Tag tag)
         {
             if (id != tag.Id)
             { 
