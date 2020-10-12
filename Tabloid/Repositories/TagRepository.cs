@@ -20,6 +20,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"SELECT id, [Name]
                                         FROM Tag
+                                        WHERE IsDeleted = 0
                                         ORDER BY Name ASC";
                     var reader = cmd.ExecuteReader();
                     var tags = new List<Tag>();
@@ -105,7 +106,7 @@ namespace Tabloid.Repositories
                             SET IsDeleted = @isDeleted
                             Where Id = @id
                             ";
-
+                    DbUtils.AddParameter(cmd, "isDeleted", 1);
                     DbUtils.AddParameter(cmd, "@id", id);
                     cmd.ExecuteNonQuery();
                 }

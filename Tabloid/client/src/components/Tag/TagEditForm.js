@@ -1,26 +1,56 @@
-// import React, { useContext, useState } from "react";
-// import { TagContext } from "../../providers/TagProvider";
-// import { useHistory } from "react-router-dom";
-// import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { useContext, useState, useEffect } from "react";
+import { TagContext } from "../../providers/TagProvider";
+import { useHistory, useParams } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-// const default function TagEditForm() {
 
-// }
+export default function TagEditForm() {
+    const { id } = useParams();
+    const history = useHistory();
+    const { updateTag, getTagById, tag } = useContext(TagContext);
+    const [tagName, setTagName] = useState({});
 
-// return (
-//     <Form>
-//         <FormGroup>
-//             <Label for="name">Edit Tag: </Label>
-//             <Input
-//                 id="name"
-//                 type="text"
-//                 onChange={handleFieldChange} />
-//         </FormGroup>
-//         <FormGroup>
-//             <Button onClick={updateTag}>Save</Button>
-//             <Button onClick={"./tag"}>Cancel</Button>
+    useEffect(() => {
+        getTagById(id);
+    }, [])
 
-//         </FormGroup>
-//     </Form>
-// );
-// }
+    const handleFieldChange = (e) => {
+        const stateToChange = { ...tagName }
+        stateToChange[e.target.id] = e.target.value;
+        setTagName(stateToChange);
+    };
+
+    useEffect(() => {
+        setTagName(tag)
+    }, [tag])
+
+    const saveEditedTag = (e) => {
+        e.preventDefault();
+        updateTag(tagName)
+            .then(() => history.push("/tag"))
+    };
+
+    const Cancel = () => {
+        history.push("/tag")
+    }
+
+    return (
+        <>
+            {tagName &&
+                <Form>
+
+                    <FormGroup>
+                        <Label for="name">Edit Tag: </Label>
+                        <Input
+                            id="name"
+                            defaultValue={tagName.name}
+                            type="text"
+                            onChange={handleFieldChange} />
+                    </FormGroup>
+                </Form>
+            }
+            <Button onClick={saveEditedTag}>Save</Button>&nbsp;
+            <Button onClick={Cancel}>Cancel</Button>
+        </>
+    );
+}
