@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 const PostForm = () => {
 
-    const [post, setPost] = useState({ Title: "", Content: "", ImageLocation: "", PublishDateTime: "", IsApproved: true, CategoryId: 0, UserProfileId: "" })
+    const [post, setPost] = useState({ Title: "", Content: "", ImageLocation: "", PublishDateTime: "", IsApproved: true, CategoryId: 1, UserProfileId: "" })
     const { categories, categoriesForPost, addPost } = useContext(PostContext);
 
     const history = useHistory();
@@ -69,7 +69,7 @@ const PostForm = () => {
 
             <FormGroup>
                 <Label className="DatePublishedLabel">
-                    Date Created
+                    Published Date
           </Label>
                 <Input
                     className="newPost"
@@ -87,12 +87,12 @@ const PostForm = () => {
                     <select
                         className="newPost"
                         onChange={handleFieldChange}
-
+                        defaultValue={1}
                         id="CategoryId"
 
-                    >
+                    >   <option key={1} value={1}>Choose an option</option>
                         {categories.map(category => {
-                            if (category.name == "other") {
+                            if (category.id == 1) {
 
                             } else {
                                 return <option key={category.id} value={category.id}>{category.name}</option>
