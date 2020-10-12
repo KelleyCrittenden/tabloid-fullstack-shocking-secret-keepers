@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardImg, CardBody, Row, Button } from "reactstrap";
+import { Card, CardImg, CardBody, Row, Button, Col } from "reactstrap";
 
 import { NavLink } from "react-router-dom";
 
@@ -10,25 +10,38 @@ const Post = ({ post }) => {
 
             <Card className="m-4">
                 <Row margin="m-4">
-                    <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>
-                    <NavLink to={`/post/details/${post.id}`} >
-                        <strong>{post.title}</strong>
+                    <Col sm="4">
+                        <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>
+                    </Col>
+                    <Col sm="4">
+                        <p><strong>{post.title}</strong></p>
+                    </Col>
 
-                    </NavLink>
-
-                    <p>{post.category.name}</p>
+                    <Col sm="4">
+                        <p>{post.category.name}</p>
+                    </Col>
                 </Row>
                 <CardImg top src={post.imageLocation} alt={post.title} />
                 <CardBody>
-
-
-
+                    <Row>
+                        <Col sm="4">
+                            <NavLink to={`post/details/${post.id}`}><Button to={`/post/details/${post.id}`} >Details</Button></NavLink>
+                        </Col>
+                        <Col sm="4">
+                            {window.location.href == "http://localhost:3000/post" ?
+                                <NavLink to={`post/edit/${post.id}`}><Button>Edit Post</Button></NavLink> : <NavLink to={`edit/${post.id}`}><Button>Edit Post</Button></NavLink>}
+                        </Col>
+                        <Col sm="4">
+                            {window.location.href == "http://localhost:3000/post" ?
+                                <NavLink to={`post/delete/${post.id}`}><Button>Delete Post</Button></NavLink> : <NavLink to={`delete/${post.id}`}><Button>Delete Post</Button></NavLink>}
+                        </Col>
+                    </Row>
                 </CardBody>
-                {window.location.href == "http://localhost:3000/post" ?
-                    <NavLink to={`post/edit/${post.id}`}><Button>Edit Post</Button></NavLink> : <NavLink to={`edit/${post.id}`}><Button>Edit Post</Button></NavLink>}
-                {window.location.href == "http://localhost:3000/post" ?
-                    <NavLink to={`post/delete/${post.id}`}><Button>Delete Post</Button></NavLink> : <NavLink to={`delete/${post.id}`}><Button>Delete Post</Button></NavLink>}
+
+
             </Card>
+
+
 
         );
     } else {
@@ -36,17 +49,28 @@ const Post = ({ post }) => {
 
             <Card className="m-4">
                 <Row margin="m-4">
-                    <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>
-                    <NavLink to={`/post/details/${post.id}`} >
-                        <strong>{post.title}</strong>
+                    <Col sm="4">
+                        <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>
+                    </Col>
 
-                    </NavLink>
+                </Row>
+                <Row>
+                    <Col sm="8">
+                        <h2><strong>{post.title}</strong></h2>
+                    </Col>
 
-                    <p>{post.category.name}</p>
+                    <Col sm="4">
+                        <p>{post.category.name}</p>
+                    </Col>
                 </Row>
                 <CardImg top src={post.imageLocation} alt={post.title} />
                 <CardBody>
+                    <Row>
+                        <Col sm="4">
+                            <NavLink to={`post/details/${post.id}`}><Button to={`/post/details/${post.id}`} >Details</Button></NavLink>
+                        </Col>
 
+                    </Row>
 
 
                 </CardBody>

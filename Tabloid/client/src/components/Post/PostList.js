@@ -8,10 +8,14 @@ const PostList = () => {
     const { posts, getAllPosts } = useContext(PostContext);
 
     useEffect(() => {
+
         getAllPosts();
+
+
     }, []);
 
     return (
+
         <div className="container">
             <div className="row justify-content-center">
                 <NavLink to={"post/add"}><Button>New Post</Button></NavLink>
