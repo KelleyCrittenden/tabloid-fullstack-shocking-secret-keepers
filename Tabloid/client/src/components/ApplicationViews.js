@@ -6,6 +6,7 @@ import Register from "./Register";
 import Hello from "./Hello";
 import TagList from "./Tag/TagList";
 import TagForm from "./Tag/TagForm";
+import TagEditForm from "./Tag/TagEditForm"
 import CategoryList from "./category/CategoryList";
 import CategoryAddForm from "./category/CategoryAddForm";
 import CategoryUpdateForm from "./category/CategoryUpdateForm";
@@ -50,10 +51,13 @@ export default function ApplicationViews(props) {
           <Register />
         </Route>
         <Route exact path="/tag">
-          {isLoggedIn && activeUser.userTypeId === 1 ? <TagList /> : <Redirect to="/login" />}
+          {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/tag/add">
-          {isLoggedIn && activeUser.userTypeId === 1 ? <TagForm /> : <Redirect to="/login" />}
+          {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/tag/:id/edit">
+          {isLoggedIn ? <TagEditForm /> : <Redirect to="/login" />}
         </Route>
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}

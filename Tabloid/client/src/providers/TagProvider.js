@@ -5,7 +5,7 @@ export const TagContext = createContext();
 
 
 export const TagProvider = (props) => {
-
+    const { tag, setTag } = useState([]);
     const [tags, setTags] = useState([]);
     const { getToken } = useContext(UserProfileContext);
 
@@ -23,30 +23,43 @@ export const TagProvider = (props) => {
 
     const addTag = (tag) =>
         getToken().then((token) =>
-            fetch(("api/tag"), {
+            fetch(("/api/tag"), {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(tag),
-            })
-                .then(getAllTags)
+            }).then(getAllTags)
         );
 
-    const getTag = (id) => {
+    const getTagById = (id) =>
         getToken().then((token) =>
-            fetch((`api/tag/${id}`), {
+            fetch((`/api/tag/${id}`), {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 }
-            }))
-            .then((res) => res.json())
+            }).then((res) => res.json().then(setTag)));
+
+
+
+    const updateTag = (tag) => {
+        return getToken().then((token) => {
+            fetch((`/api/tag/${tag.id}`), {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(tag),
+            })
+        });
     }
 
+
     return (
-        <TagContext.Provider value={{ tags, getAllTags, addTag, getTag }}>
+        <TagContext.Provider value={{ tag, tags, getAllTags, addTag, getTagById, updateTag }}>
             {props.children}
         </TagContext.Provider>
     );
