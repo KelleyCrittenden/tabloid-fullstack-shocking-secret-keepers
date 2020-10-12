@@ -16,6 +16,8 @@ export function UserProfileProvider(props) {
 
   const [allUserProfiles, setAllUserProfiles] = useState([]);
   const [singleUserProfile, setSingleUserProfile] = useState({ userType: {} });
+  const [deactivatedUsers, setDeactivatedUsers] = useState([]);
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((u) => {
       setIsFirebaseReady(true);
@@ -109,10 +111,35 @@ export function UserProfileProvider(props) {
 
   };
 
+  const getDeactivatedUsers = () => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/deactivatedProfiles`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json()))
+      .then((resp) => setDeactivatedUsers(resp));
+  };
+
+  const reactivateUserProfile = (userId) => {
+
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/reactivate/${userId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+
+
+      }));
+
+  };
 
 
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, userProfile, activeUser, getAllUserProfiles, allUserProfiles, getUserProfileById, singleUserProfile, deactivateUserProfile }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, userProfile, activeUser, getAllUserProfiles, allUserProfiles, getUserProfileById, singleUserProfile, deactivatedUsers, getDeactivatedUsers, deactivateUserProfile, reactivateUserProfile }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}
