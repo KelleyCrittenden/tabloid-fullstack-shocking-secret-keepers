@@ -22,7 +22,7 @@ const PostDetails = () => {
         if (post.content != undefined) {
             test = post.content.split(" ").length;
         }
-        debugger
+
         time = test / 265;
         time = Math.ceil(time);
 

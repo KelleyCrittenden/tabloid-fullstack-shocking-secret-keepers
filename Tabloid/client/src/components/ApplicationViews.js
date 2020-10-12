@@ -23,6 +23,7 @@ import PostEdit from "./Post/PostEdit"
 import PostDelete from "./Post/PostDelete"
 import UserProfileList from "./UserProfiles/UserProfileList";
 import UserProfileDetails from "./UserProfiles/UserProfileDetails";
+import UserProfileDeactivation from "./UserProfiles/UserProfileDeactivation";
 export default function ApplicationViews(props) {
   const { isLoggedIn, activeUser } = useContext(UserProfileContext);
   return (
@@ -94,6 +95,9 @@ export default function ApplicationViews(props) {
         </Route>
         <Route path="/userprofile/details/:id" exact>
           {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileDetails /> : <Redirect to="/userprofile" />}
+        </Route>
+        <Route path="/userprofile/deactivation/:id" exact>
+          {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileDeactivation /> : <Redirect to="/userprofile" />}
         </Route>
 
 
