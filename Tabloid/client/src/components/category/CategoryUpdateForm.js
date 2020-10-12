@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import { CategoryContext } from "../../providers/CategoryProvider";
 
 export default function CategoryUpdateForm() {
@@ -45,20 +45,19 @@ export default function CategoryUpdateForm() {
     }, [category]);
 
     return (
-        <Form onSubmit={submitForm}>
-            <FormGroup>
-                <Label for="name">Category</Label>
-                <Input id="name" type="textarea" defaultValue={categoryText.name} maxLength="50" onChange={handleCategoryFieldChange} />
-            </FormGroup>
-            { categoryText ?
-                <FormGroup>
-                    <Button type="submit">Save</Button>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Form onSubmit={submitForm}>
+                <FormGroup sm="9">
+                    <Label for="name"><strong>Edit Category</strong></Label>
+                    <Input id="name" type="textarea" defaultValue={categoryText.name} maxLength="50" onChange={handleCategoryFieldChange} />
                 </FormGroup>
-                :
+
                 <FormGroup>
+                    < Button type="submit">Save</Button>
                     <Button type="button" onClick={cancelSubmit}>Cancel</Button>
                 </FormGroup>
-            }
-        </Form>
+
+            </Form>
+        </Col>
     );
 }

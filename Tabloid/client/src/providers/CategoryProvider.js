@@ -77,8 +77,23 @@ export function CategoryProvider(props) {
             }));
 
 
+    const deleteCategory = (deletedCategory) =>
+        getToken().then((token) =>
+            fetch(`/api/category/${deletedCategory.id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(deletedCategory)
+            }).then(resp => {
+                if (resp.ok) {
+                    return resp.json();
+                }
+                throw new Error("Unauthorized");
+            }));
     return (
-        <CategoryContext.Provider value={{ getToken, categories, category, getAllCategories, getSingleCategory, addCategory, updateCategory }}>
+        <CategoryContext.Provider value={{ getToken, categories, category, getAllCategories, getSingleCategory, addCategory, updateCategory, deleteCategory }}>
             {props.children}
         </CategoryContext.Provider>
     );

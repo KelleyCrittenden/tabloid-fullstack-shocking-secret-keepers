@@ -15,6 +15,7 @@ import TagEditForm from "./Tag/TagEditForm"
 import CategoryList from "./category/CategoryList";
 import CategoryAddForm from "./category/CategoryAddForm";
 import CategoryUpdateForm from "./category/CategoryUpdateForm";
+import CategoryDelete from "./category/CategoryDelete";
 import PostList from "./Post/PostList"
 import UserPostList from "./Post/UserPostList"
 import PostDetails from "./Post/PostDetails";
@@ -85,8 +86,11 @@ export default function ApplicationViews(props) {
         <Route path="/category/add" exact>
           {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryAddForm /> : <Redirect to="/category" />}
         </Route>
-        <Route path="/category/:id">
+        <Route path="/category/edit/:id" exact>
           {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryUpdateForm /> : <Redirect to="/category" />}
+        </Route>
+        <Route path="/category/delete/:id" exact>
+          {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryDelete /> : <Redirect to="/category" />}
         </Route>
       </Switch>
     </main >
