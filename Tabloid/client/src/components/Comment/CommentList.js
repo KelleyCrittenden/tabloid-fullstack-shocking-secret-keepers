@@ -21,20 +21,23 @@ const CommentList = () => {
     return (
         <>
             <h5> Comments for {post.title} </h5>
+
             <Link to={`/post/details/${id}`}>
                 <Button>Back To Post</Button>
             </Link>
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="cards-column">
-                        {comments && comments.map((comment) => {
-                            return (
-                                <Comment key={comment.id} comment={comment} />
-                            )
-                        })}
+            {comments.length === 0 ? <p>There are currently no comments for this post</p> :
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="cards-column">
+                            {comments && comments.map((comment) => {
+                                return (
+                                    <Comment key={comment.id} comment={comment} />
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </>
     );
 };
