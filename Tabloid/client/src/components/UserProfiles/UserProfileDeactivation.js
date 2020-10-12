@@ -4,10 +4,10 @@ import { Card, CardImg, CardBody, Row, Button } from "reactstrap";
 
 import { Link, NavLink, useParams } from "react-router-dom";
 import { currentDateTime } from "../Comment/helperFunctions"
-const UserProfileDetails = () => {
+const UserProfileDeactivation = () => {
 
 
-    const { getUserProfileById, singleUserProfile } = useContext(UserProfileContext);
+    const { getUserProfileById, singleUserProfile, deactivateUserProfile } = useContext(UserProfileContext);
     const { id } = useParams();
 
     useEffect(() => {
@@ -18,11 +18,15 @@ const UserProfileDetails = () => {
     //     debugger
     //     getAllPosts();
     // }, [])
+    const handleDeactivation = () => {
+        deactivateUserProfile(id);
 
+    }
     return (
         <>
             <Card className="m-4" >
                 <CardBody>
+                    <h2>Are you sure you want to Deactivate this User?</h2>
                     <span>
                         <CardImg top className="UserProfileAvatar" src={singleUserProfile.imageLocation} alt={singleUserProfile.displayName} />
                     </span>
@@ -38,8 +42,8 @@ const UserProfileDetails = () => {
 
                     <p>Contact: {singleUserProfile.email}</p>
                     <p>Born on Date: {currentDateTime(singleUserProfile.createDateTime)}</p>
-                    <Button type="button" id="deactivateButton" href={`/userProfile/deactivation/${id}`}>Deactivate</Button>
-                    <Button type="button" id="backButton" href={`/userProfile`}>Back</Button>
+                    <Button type="button" onClick={handleDeactivation} id="deactivateButton" href={`/userProfile`}>Deactivate</Button>
+                    <Button type="button" id="backButton" href={`/userProfile/:id`}>Back</Button>
 
                 </CardBody>
             </Card>
@@ -48,4 +52,4 @@ const UserProfileDetails = () => {
     );
 };
 
-export default UserProfileDetails;
+export default UserProfileDeactivation;
