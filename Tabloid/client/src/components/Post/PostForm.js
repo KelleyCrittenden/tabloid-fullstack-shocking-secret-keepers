@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import { wait } from "@testing-library/react";
 
 const PostForm = () => {
 
