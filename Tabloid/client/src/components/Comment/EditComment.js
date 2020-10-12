@@ -15,7 +15,7 @@ const EditComment = () => {
     console.log(comment);
     const [isLoading, setIsLoading] = useState(false);
     //represents form field state
-    const [updatedComment, setUpdatedComment] = useState()
+    const [updatedComment, setUpdatedComment] = useState({})
     console.log(updatedComment);
 
     //getting the individual comment using params (will run after initial load of page)
@@ -48,13 +48,13 @@ const EditComment = () => {
 
     return (
         <>
-            {comment &&
+            {updatedComment &&
                 <Form>
                     <h3> Edit A Comment </h3>
                     <FormGroup>
                         <Label htmlFor="subject"><strong>Subject</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
-                            defaultValue={comment.subject}
+                            defaultValue={updatedComment.subject}
                             onChange={handleEditFieldChange}
                             type="text"
                             name="subject"
@@ -65,7 +65,7 @@ const EditComment = () => {
                     <FormGroup>
                         <Label htmlFor="content"><strong>Comment</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
-                            defaultValue={comment.content}
+                            defaultValue={updatedComment.content}
                             onChange={handleEditFieldChange}
                             type="textarea"
                             name="content"
