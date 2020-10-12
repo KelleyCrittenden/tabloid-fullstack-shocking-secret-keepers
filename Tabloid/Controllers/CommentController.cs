@@ -10,7 +10,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-    
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase

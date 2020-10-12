@@ -1,4 +1,5 @@
-﻿using Tabloid.Models;
+﻿using System.Collections.Generic;
+using Tabloid.Models;
 
 namespace Tabloid.Repositories
 {
@@ -6,5 +7,10 @@ namespace Tabloid.Repositories
     {
         void Add(UserProfile userProfile);
         UserProfile GetByFirebaseUserId(string firebaseUserId);
+
+        List<UserProfile> GetAllUserProfiles();
+        UserProfile GetUserProfileById(int id);
+
+
     }
 }
