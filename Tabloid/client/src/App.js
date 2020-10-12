@@ -6,23 +6,29 @@ import { CategoryProvider } from "./providers/CategoryProvider";
 import { PostProvider } from "./providers/PostProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
+import { CommentProvider } from './providers/CommentProvider';
 
 
 //object undefined error on browser if you do not include the provider in App.js
 function App() {
   return (
+
     <Router>
       <UserProfileProvider>
         <PostProvider>
-          <CategoryProvider >
-            <TagProvider>
-              <Header />
-              <ApplicationViews />
-            </TagProvider>
-          </CategoryProvider>
+          <TagProvider>
+            <CategoryProvider>
+              <CommentProvider>
+                <Header />
+                <ApplicationViews />
+              </CommentProvider>
+            </CategoryProvider>
+          </TagProvider>
         </PostProvider>
       </UserProfileProvider>
-    </Router >
+    </Router>
+
+
   );
 }
 
