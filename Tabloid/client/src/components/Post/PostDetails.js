@@ -16,6 +16,18 @@ const PostDetails = () => {
 
         getPost(id);
     }, []);
+    const calculateReadTime = () => {
+        let time = 0;
+        let test = 0;
+        if (post.content != undefined) {
+            test = post.content.split(" ").length;
+        }
+        debugger
+        time = test / 265;
+        time = Math.ceil(time);
+
+        return time;
+    }
 
     // useEffect(() => {
     //     debugger
@@ -38,6 +50,7 @@ const PostDetails = () => {
 
                     <p>{post.category.name}</p>
                     <p>{post.publishdatetime}</p>
+                    <p>Estimated Read Time: {calculateReadTime()}{calculateReadTime() == 1 ? " min" : " mins"}</p>
                 </Row>
                 <CardImg top src={post.imageLocation} alt={post.title} />
                 <CardBody>
