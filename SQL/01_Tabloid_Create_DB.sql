@@ -70,7 +70,12 @@ CREATE TABLE [Post] (
   [IsApproved] bit NOT NULL,
   [CategoryId] integer NOT NULL,
   [UserProfileId] integer NOT NULL,
+<<<<<<< HEAD
+  [IsDeleted] integer NOT NULL DEFAULT 0
+
+=======
   [IsDeleted] integer NOT NULL DEFAULT 0,
+>>>>>>> master
 
   CONSTRAINT [FK_Post_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Category] ([Id]),
   CONSTRAINT [FK_Post_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
@@ -90,7 +95,8 @@ CREATE TABLE [Comment] (
 
 CREATE TABLE [Tag] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [Name] nvarchar(50) NOT NULL
+  [Name] nvarchar(50) NOT NULL,
+  [IsDeleted] integer NOT NULL DEFAULT 0
 )
 
 CREATE TABLE [PostTag] (
