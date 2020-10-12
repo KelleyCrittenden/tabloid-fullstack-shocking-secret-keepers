@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import { CategoryContext } from "../../providers/CategoryProvider";
 
 export default function CategoryAddForm() {
@@ -14,16 +14,22 @@ export default function CategoryAddForm() {
             .then(() => history.push("/category"))
             .catch((err) => alert(`An error ocurred: ${err.message}`));
     };
-
+    const cancelSubmit = () => {
+        history.push("/category")
+    };
     return (
-        <Form onSubmit={submitForm}>
-            <FormGroup>
-                <Label for="categoryText">Category</Label>
-                <Input id="categoryText" type="textarea" maxLength="50" onChange={e => setCategoryText(e.target.value)} />
-            </FormGroup>
-            <FormGroup>
-                <Button>Save</Button>
-            </FormGroup>
-        </Form>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <h3>Add New Category</h3>
+            <Form onSubmit={submitForm}>
+                <FormGroup>
+                    <Label for="categoryText"><strong>Category Name:</strong></Label>
+                    <Input id="categoryText" type="textarea" maxLength="50" onChange={e => setCategoryText(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                    <Button type="submit">Save</Button>
+                    <Button type="button" onClick={cancelSubmit}>Cancel</Button>
+                </FormGroup>
+            </Form>
+        </Col >
     );
 }

@@ -24,6 +24,8 @@ namespace Tabloid.Controllers
         }
 
 
+        //GET: ALL
+        //Category
         [HttpGet]
         public IActionResult Get()
         {
@@ -41,8 +43,8 @@ namespace Tabloid.Controllers
             return Ok(category);
         }
 
-        //refactored edit httpget with edit httpput
-        //GET: Category/Edit/1
+        //GET: Single
+        //Category/Edit/1
         [HttpPut("{id}")]
         public IActionResult Edit(int id, Category category)
         {
@@ -66,27 +68,10 @@ namespace Tabloid.Controllers
             return Ok(category);
         }
 
-        //POST: Categroy/Edit/1
-        //[Authorize(Roles = "Admin")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Edit(int id, Category category)
-        //{
-        //    try
-        //    {
-        //        _categoryRepository.UpdateCategory(category);
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Ok(category);
-
-        //        //ADD MESSAGE TO USER
-        //    }
-        //}
+       
 
         //Post Category
+        //Category
         [HttpPost]
         public IActionResult Post(Category category)
         {
@@ -122,12 +107,13 @@ namespace Tabloid.Controllers
         //    return Ok(category);
         //}
 
-        //// POST: Owners/Delete/5
-        //[HttpDelete("{id}")]
+        ////PUT: Owners/Delete/5
+        //[HttpPut("{id")]
+        [HttpDelete("{id}")]
         //// TRY WITH THIS LATER 
         ////[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, Category category)
-        //{
+        public ActionResult Delete(int id)
+        {
         //    if (id == 1)
         //    {
 
@@ -136,16 +122,16 @@ namespace Tabloid.Controllers
         //    }
         //    try
         //    {
-        //        _categoryRepository.DeleteCategory(id);
+                _categoryRepository.DeleteCategory(id);
 
-        //        return RedirectToAction("Index");
+                return Ok(id);
         //    }
         //    catch (Exception ex)
         //    {
         //        return Ok(category);
         //        //ADD 
         //    }
-        //}
+        }
 
         //Firebase
         private UserProfile GetCurrentUserProfile()

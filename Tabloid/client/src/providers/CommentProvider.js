@@ -7,7 +7,7 @@ export const CommentProvider = (props) => {
 
     const [comments, setComments] = useState([]);
     const [allComments, setAllComments] = useState([]);
-    const [comment, setComment] = useState();
+    const [comment, setComment] = useState({});
 
     const getToken = () => firebase.auth().currentUser.getIdToken();
 
