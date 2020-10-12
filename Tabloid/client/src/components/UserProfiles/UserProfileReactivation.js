@@ -3,7 +3,7 @@ import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { Card, CardImg, CardBody, Row, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { currentDateTime } from "../Comment/helperFunctions"
-const UserProfileDeactivation = () => {
+const UserProfileReactivation = () => {
 
     const { getDeactivatedUsers, reactivateUserProfile, deactivatedUsers } = useContext(UserProfileContext);
     console.log(deactivatedUsers);
@@ -48,4 +48,4 @@ const UserProfileDeactivation = () => {
     );
 };
 
-export default UserProfileDeactivation;
+export default UserProfileReactivation;

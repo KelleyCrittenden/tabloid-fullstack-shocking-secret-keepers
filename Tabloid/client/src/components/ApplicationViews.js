@@ -112,7 +112,6 @@ export default function ApplicationViews(props) {
           {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileReactivation /> : <Redirect to="/userprofile" />}
         </Route>
 
-
       </Switch>
     </main >
   );

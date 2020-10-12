@@ -54,14 +54,14 @@ namespace Tabloid.Controllers
         }
 
         [HttpPut("deactivate/{id}")]
-        public ActionResult Deactivate(int id)
+        public IActionResult Deactivate(int id)
         {
          _userProfileRepository.DeactivateProfile(id);
                 return NoContent();
         }
 
         [HttpPut("reactivate/{id}")]
-        public ActionResult Reactivate(int id)
+        public IActionResult Reactivate(int id)
         {
             _userProfileRepository.ReactivateProfile(id);
             return NoContent();
