@@ -74,16 +74,16 @@ export default function ApplicationViews(props) {
           {isLoggedIn ? <CommentDetails /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/tag">
-          {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
+          {isLoggedIn && activeUser.userTypeId === 1 ? <TagList /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/tag/add">
-          {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
+          {isLoggedIn && activeUser.userTypeId === 1 ? <TagForm /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/tag/edit/:id">
-          {isLoggedIn ? <TagEditForm /> : <Redirect to="/login" />}
+          {isLoggedIn && activeUser.userTypeId === 1 ? <TagEditForm /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/tag/delete/:id">
-          {isLoggedIn ? <TagDelete /> : <Redirect to="/login" />}
+          {isLoggedIn && activeUser.userTypeId === 1 ? <TagDelete /> : <Redirect to="/login" />}
         </Route>
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
