@@ -22,7 +22,7 @@ import PostForm from "./Post/PostForm"
 import PostEdit from "./Post/PostEdit"
 import PostDelete from "./Post/PostDelete"
 import UserProfileList from "./UserProfiles/UserProfileList";
-
+import UserProfileDetails from "./UserProfiles/UserProfileDetails";
 export default function ApplicationViews(props) {
   const { isLoggedIn, activeUser } = useContext(UserProfileContext);
   return (
@@ -90,8 +90,12 @@ export default function ApplicationViews(props) {
           {isLoggedIn && activeUser.userTypeId === 1 ? <CategoryDelete /> : <Redirect to="/category" />}
         </Route>
         <Route path="/userprofile" exact>
-          {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileList /> : <Redirect to="/category" />}
+          {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileList /> : <Redirect to="/" />}
         </Route>
+        <Route path="/userprofile/details/:id" exact>
+          {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileDetails /> : <Redirect to="/userprofile" />}
+        </Route>
+
 
       </Switch>
     </main >
