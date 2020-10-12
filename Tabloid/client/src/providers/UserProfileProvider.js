@@ -95,9 +95,24 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()))
       .then((resp) => setSingleUserProfile(resp));;
   };
+  const deactivateUserProfile = (userId) => {
+
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/deactivate/${userId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+
+      }));
+
+  };
+
+
 
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, userProfile, activeUser, getAllUserProfiles, allUserProfiles, getUserProfileById, singleUserProfile }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, userProfile, activeUser, getAllUserProfiles, allUserProfiles, getUserProfileById, singleUserProfile, deactivateUserProfile }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

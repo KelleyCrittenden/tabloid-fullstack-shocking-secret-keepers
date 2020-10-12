@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import { wait } from "@testing-library/react";
 
 const PostForm = () => {
 
-    const [post, setPost] = useState({ Title: "", Content: "", ImageLocation: "", PublishDateTime: "", IsApproved: true, CategoryId: 0, UserProfileId: "" })
+    const [post, setPost] = useState({ Title: "", Content: "", ImageLocation: "", PublishDateTime: "", IsApproved: true, CategoryId: 1, UserProfileId: "" })
     const { categories, categoriesForPost, addPost } = useContext(PostContext);
 
     const history = useHistory();
@@ -69,7 +70,7 @@ const PostForm = () => {
 
             <FormGroup>
                 <Label className="DatePublishedLabel">
-                    Date Created
+                    Published Date
           </Label>
                 <Input
                     className="newPost"
@@ -87,13 +88,17 @@ const PostForm = () => {
                     <select
                         className="newPost"
                         onChange={handleFieldChange}
-
+                        defaultValue={1}
                         id="CategoryId"
 
-                    >
+                    >   <option key={1} value={1}>Choose an option</option>
                         {categories.map(category => {
+                            if (category.id == 1) {
 
-                            return (category.id != 1) && <option key={category.id} value={category.id}>{category.name}</option>
+                            } else {
+                                return <option key={category.id} value={category.id}>{category.name}</option>
+                            }
+
                         })}
 
                     </select> : null
