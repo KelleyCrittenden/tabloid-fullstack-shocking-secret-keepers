@@ -92,8 +92,12 @@ const PostForm = () => {
 
                     >
                         {categories.map(category => {
+                            if (category.name == "other") {
 
-                            return <option key={category.id} value={category.id}>{category.name}</option>
+                            } else {
+                                return <option key={category.id} value={category.id}>{category.name}</option>
+                            }
+
                         })}
 
                     </select> : null
