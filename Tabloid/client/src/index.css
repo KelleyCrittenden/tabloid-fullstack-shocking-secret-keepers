@@ -22,5 +22,5 @@ p {
 }
 
 .postDetailImg {
-  width: 125em;
+  max-width: 125em;
 }
