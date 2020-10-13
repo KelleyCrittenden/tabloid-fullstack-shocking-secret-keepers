@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext, PostProvider } from "../../providers/PostProvider";
-import { Card, CardImg, CardBody, Row, Button } from "reactstrap";
+import { Card, CardImg, CardBody, Row, Button, ListGroup } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
+
 import { Link, NavLink, useParams } from "react-router-dom";
+import { PostTagContext } from "../../providers/PostTagProvider";
 
 const PostDetails = () => {
-
 
     const { getPost, post } = useContext(PostContext);
     const { id } = useParams();
     const history = useHistory();
+    const { postTags, getAllPostTagsForPost } = useContext(PostTagContext);
 
     useEffect(() => {
 
@@ -33,6 +35,11 @@ const PostDetails = () => {
     //     debugger
     //     getAllPosts();
     // }, [])
+
+    useEffect(() => {
+        getAllPostTagsForPost(id);
+        getPost(id);
+    }, []);
 
     return (
         <>
@@ -58,7 +65,14 @@ const PostDetails = () => {
 
 
                 </CardBody>
+
             </Card>
+
+            <Link to={`/postTag/add/${id}`}> <Button>Add Tag</Button></Link>
+
+            <ListGroup>
+                {/* Map over post tags with matching post.id */}
+            </ListGroup>
         </>
 
     );
