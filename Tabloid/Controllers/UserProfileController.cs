@@ -67,7 +67,7 @@ namespace Tabloid.Controllers
         }
 
         [HttpPut("reactivate/{id}")]
-        public ActionResult Reactivate(int id)
+        public IActionResult Reactivate(int id)
         {
             _userProfileRepository.ReactivateProfile(id);
             return NoContent();

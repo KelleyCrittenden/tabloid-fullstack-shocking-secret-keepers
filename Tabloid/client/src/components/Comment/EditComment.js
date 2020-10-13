@@ -76,10 +76,10 @@ const EditComment = () => {
 
             }
 
-            <Button className="editComment" type="button" color="success" isLoading={isLoading} onClick={editAComment}>
+            <Button block className="editComment" type="button" color="success" isLoading={isLoading} onClick={editAComment}>
                 {'Save Edited Comment'}
             </Button>
-            <Button className="editComment" type="button" color="" isLoading={isLoading} onClick={() => history.goBack()}>
+            <Button block className="cancelEdit" type="button" color="warning" isLoading={isLoading} onClick={() => history.goBack()}>
                 {'Cancel'}
             </Button>
 
