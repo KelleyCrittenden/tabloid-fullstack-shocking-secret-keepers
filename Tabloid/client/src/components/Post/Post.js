@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, CardImg, CardBody, Row, Button } from "reactstrap";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, useParams } from "react-router-dom";
 
 const Post = ({ post }) => {
+    const { id } = useParams();
 
     if (post.userProfileId == parseInt(sessionStorage.userProfileId)) {
         return (
@@ -28,6 +29,9 @@ const Post = ({ post }) => {
                     <NavLink to={`post/edit/${post.id}`}><Button>Edit Post</Button></NavLink> : <NavLink to={`edit/${post.id}`}><Button>Edit Post</Button></NavLink>}
                 {window.location.href == "http://localhost:3000/post" ?
                     <NavLink to={`post/delete/${post.id}`}><Button>Delete Post</Button></NavLink> : <NavLink to={`delete/${post.id}`}><Button>Delete Post</Button></NavLink>}
+                <Link to={`/postTag/add/${id}`}> <Button>Add Tag</Button></Link>
+
+
             </Card>
 
         );

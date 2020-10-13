@@ -10,9 +10,9 @@ export const PostTagProvider = (props) => {
 
     const getToken = () => firebase.auth().currentUser.getIdToken();
 
-    const getAllPostTagsForPost = (postId) => {
+    const getAllPostTagsByPost = (postId) => {
         return getToken().then((token) => {
-            fetch(`/api/posttag/getallposttagsbypost/${postId}`, {
+            fetch(`/api/posttag/getposttags/${postId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -20,6 +20,7 @@ export const PostTagProvider = (props) => {
             }).then(resp => resp.json()).then(setPostTags);
         })
     };
+
 
     const addPostTag = (newPostTag) => {
         return getToken().then((token) => {
@@ -47,7 +48,7 @@ export const PostTagProvider = (props) => {
 
     return (
 
-        <PostTagContext.Provider value={{ postTags, postTag, getAllPostTagsForPost, addPostTag, deletePostTag }}>
+        <PostTagContext.Provider value={{ postTags, postTag, getAllPostTagsByPost, addPostTag, deletePostTag }}>
             {props.children}
         </PostTagContext.Provider>
     );

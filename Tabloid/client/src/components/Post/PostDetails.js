@@ -11,11 +11,12 @@ const PostDetails = () => {
     const { getPost, post } = useContext(PostContext);
     const { id } = useParams();
     const history = useHistory();
-    const { postTags, getAllPostTagsForPost } = useContext(PostTagContext);
+    const { postTags, getAllPostTagsByPost } = useContext(PostTagContext);
 
     useEffect(() => {
-
+        debugger
         getPost(id);
+
     }, []);
     const calculateReadTime = () => {
         let time = 0;
@@ -28,6 +29,7 @@ const PostDetails = () => {
         time = Math.ceil(time);
 
         return time;
+
     }
 
     // useEffect(() => {
@@ -36,8 +38,9 @@ const PostDetails = () => {
     // }, [])
 
     useEffect(() => {
-        getAllPostTagsForPost(id);
-    }, []);
+        debugger
+        getAllPostTagsByPost(id);
+    }, [id]);
 
     return (
         <>
@@ -66,20 +69,23 @@ const PostDetails = () => {
 
             </Card>
 
-            <Link to={`/postTag/add/${id}`}> <Button>Add Tag</Button></Link>
-
-            if postTags.length > 0 {
+            <h4>Tags: </h4>
+            { (postTags.length > 0) ?
                 <ListGroup>
                     {
-                        {
-                            postTags.map(postTag =>
-                                <PostTag key={postTag.id} postTag={postTag} />
-                            )
+
+                        postTags.map(postTag => {
+                            return <PostTag key={postTag.id} postTag={postTag} />
                         }
+                        )
+
                     }
                 </ListGroup>
-            } else{
-                <ListGroup></ListGroup>
+
+                :
+
+                null
+
             }
 
         </>
