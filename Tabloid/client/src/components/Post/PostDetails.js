@@ -3,8 +3,6 @@ import { PostContext, PostProvider } from "../../providers/PostProvider";
 import { Card, CardImg, CardBody, Row, Button, ListGroup } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import PostTag from "../PostTag/PostTag";
-
-
 import { Link, NavLink, useParams } from "react-router-dom";
 import { PostTagContext } from "../../providers/PostTagProvider";
 
@@ -70,17 +68,20 @@ const PostDetails = () => {
 
             <Link to={`/postTag/add/${id}`}> <Button>Add Tag</Button></Link>
 
-            <ListGroup>
-                {
+            if postTags.length > 0 {
+                <ListGroup>
                     {
-                        postTags.map(postTag =>
-                            <PostTag key={postTag.id} postTag={postTag} />
-                        )
+                        {
+                            postTags.map(postTag =>
+                                <PostTag key={postTag.id} postTag={postTag} />
+                            )
+                        }
                     }
-                }
+                </ListGroup>
+            } else{
+                <ListGroup></ListGroup>
+            }
 
-
-            </ListGroup>
         </>
 
     );
