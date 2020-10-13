@@ -9,7 +9,9 @@ export function UserProfileProvider(props) {
   const apiUrl = "/api/userprofile";
 
   const userProfile = sessionStorage.getItem("userProfile");
+
   const activeUser = JSON.parse(userProfile);
+
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -17,12 +19,17 @@ export function UserProfileProvider(props) {
   const [allUserProfiles, setAllUserProfiles] = useState([]);
   const [singleUserProfile, setSingleUserProfile] = useState({ userType: {} });
   const [deactivatedUsers, setDeactivatedUsers] = useState([]);
+  const [allUserTypes, setAllUserTypes] = useState([]);
+  const [adminProfiles, setAdminProfiles] = useState([]);
+
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((u) => {
       setIsFirebaseReady(true);
     });
   }, []);
+
+
 
   const login = (email, pw) => {
     return firebase.auth().signInWithEmailAndPassword(email, pw)
@@ -135,9 +142,45 @@ export function UserProfileProvider(props) {
 
   };
 
+  const getAllUserTypes = () => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/userTypes`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json()))
+      .then((resp) => setAllUserTypes(resp));
+  };
+
+  const editUserProfileType = (id, user) => {
+
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/edit/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+
+      }));
+
+  };
+  const getAllAdminUserProfiles = () => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/admin`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json()))
+      .then((resp) => setAdminProfiles(resp));
+  };
+
 
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, userProfile, activeUser, getAllUserProfiles, allUserProfiles, getUserProfileById, singleUserProfile, deactivatedUsers, getDeactivatedUsers, deactivateUserProfile, reactivateUserProfile }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, userProfile, activeUser, getAllUserProfiles, allUserProfiles, getUserProfileById, singleUserProfile, deactivatedUsers, getDeactivatedUsers, deactivateUserProfile, reactivateUserProfile, allUserTypes, getAllUserTypes, editUserProfileType, getAllAdminUserProfiles, adminProfiles }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

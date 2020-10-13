@@ -234,6 +234,57 @@ namespace Tabloid.Repositories
             }
         }
 
+        public List<UserProfile> GetAllAdminUserProfiles()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT u.id, u.FirstName, u.LastName, u.DisplayName, u.Email,
+                              u.CreateDateTime, u.ImageLocation, u.UserTypeId,
+                              ut.[Name] AS UserTypeName, u.IsDeactivated
+                         FROM UserProfile u
+                              LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                        WHERE u.IsDeactivated = 0 AND u.UserTypeId = 1
+                        ORDER BY u.DisplayName;
+                      
+                       ";
+
+
+                    List<UserProfile> userProfiles = new List<UserProfile>();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        userProfiles.Add(new UserProfile()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                            LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
+                            UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                            UserType = new UserType()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
+                            },
+                            IsDeactivated = reader.GetInt32(reader.GetOrdinal("IsDeactivated")),
+                        });
+                    }
+
+                    reader.Close();
+
+                    return userProfiles;
+                }
+            }
+        }
+
+
 
         public void DeactivateProfile(int id)
         {
@@ -280,6 +331,66 @@ namespace Tabloid.Repositories
                 }
             }
 
+        }
+
+        public void EditUserType( UserProfile user)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE UserProfile
+                        SET
+                        userTypeId = @userTypeId
+                        WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@userTypeId", user.UserTypeId);
+                    cmd.Parameters.AddWithValue("@id", user.Id);
+
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+
+        }
+
+        public List<UserType> GetAllUserTypes()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT Id, Name
+                         FROM UserType
+                             
+                    
+                      
+                       ";
+
+
+                    List<UserType> userTypes = new List<UserType>();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        userTypes.Add(new UserType()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                           Name = reader.GetString(reader.GetOrdinal("Name"))
+
+                        });
+                    }
+
+                    reader.Close();
+
+                    return userTypes;
+                }
+            }
         }
 
         /*

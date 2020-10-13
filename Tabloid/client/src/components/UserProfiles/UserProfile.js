@@ -21,6 +21,7 @@ export default function UserProfile({ userProfile }) {
                     </Col>
                     <Col >
                         <Button type="button" id={userProfile.id} href={`/userProfile/details/${userProfile.id}`}>Details</Button>
+                        <Button type="button" id={userProfile.id} href={`/userProfile/edit/${userProfile.id}`}>Edit User Type</Button>
                     </Col>
 
 

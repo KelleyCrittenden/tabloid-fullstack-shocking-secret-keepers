@@ -20,3 +20,7 @@ p {
 .UserProfileAvatar {
   max-width: 10em;
 }
+
+.postDetailImg {
+  max-width: 125em;
+}
