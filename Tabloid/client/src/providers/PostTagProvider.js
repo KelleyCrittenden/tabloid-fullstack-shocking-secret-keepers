@@ -6,7 +6,6 @@ export const PostTagContext = createContext();
 export const PostTagProvider = (props) => {
 
     const [postTags, setPostTags] = useState([]);
-    const [allPostTags, setAllPostTags] = useState([]);
     const [postTag, setPostTag] = useState({});
 
     const getToken = () => firebase.auth().currentUser.getIdToken();
