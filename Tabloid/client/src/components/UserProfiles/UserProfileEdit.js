@@ -31,18 +31,16 @@ const UserProfileEdit = () => {
         event.preventDefault();
 
 
-        if (adminProfiles.length <= 1) {
+        if (adminProfiles.length <= 1 && userProfile.userTypeId == 2) {
             window.alert("Please make another user an admin before changing this user's user type.")
+        } else if (adminProfiles.length <= 1 && userProfile.userTypeId == 1) {
+            editUserProfileType(userProfile.id, userProfile);
+
+
+            history.push("/userProfile");
         } else {
             editUserProfileType(userProfile.id, userProfile);
-            if (userProfile.userTypeId === 1 && userProfile.id == activeUser.id) {
-                setUserTypeId(1)
-            }
-            else if (userProfile.userTypeId === 2 && userProfile.id == activeUser.id) {
-                setUserTypeId(2)
-            } else {
 
-            }
 
             history.push("/userProfile");
         }
@@ -94,6 +92,7 @@ const UserProfileEdit = () => {
             >
                 Save Changes
         </Button>
+            <Button type="button" id="backButton" href={`/userProfile`}>Back</Button>
         </Form>
     )
 }

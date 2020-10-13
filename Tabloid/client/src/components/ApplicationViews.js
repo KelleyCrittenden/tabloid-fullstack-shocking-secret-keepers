@@ -31,14 +31,7 @@ import UserProfileEdit from "./UserProfiles/UserProfileEdit";
 export default function ApplicationViews(props) {
   const { isLoggedIn, activeUser, userTypeId } = useContext(UserProfileContext);
   const [refresh, setRefresh] = useState(false);
-  useEffect(() => {
-    if (refresh == false) {
-      setRefresh(true)
-    } else {
-      setRefresh(false)
-    }
 
-  }, [userTypeId])
   return (
     <main>
       <Switch>

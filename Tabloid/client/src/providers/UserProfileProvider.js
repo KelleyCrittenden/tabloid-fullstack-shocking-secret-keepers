@@ -9,11 +9,9 @@ export function UserProfileProvider(props) {
   const apiUrl = "/api/userprofile";
 
   const userProfile = sessionStorage.getItem("userProfile");
-  const [userTypeId, setUserTypeId] = useState("");
+
   const activeUser = JSON.parse(userProfile);
-  if (userTypeId != "") {
-    activeUser.userTypeId = userTypeId
-  }
+
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -31,9 +29,7 @@ export function UserProfileProvider(props) {
     });
   }, []);
 
-  useEffect(() => {
-    setUserTypeId(0)
-  }, [])
+
 
   const login = (email, pw) => {
     return firebase.auth().signInWithEmailAndPassword(email, pw)
@@ -184,7 +180,7 @@ export function UserProfileProvider(props) {
 
 
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, userProfile, activeUser, getAllUserProfiles, allUserProfiles, getUserProfileById, singleUserProfile, deactivatedUsers, getDeactivatedUsers, deactivateUserProfile, reactivateUserProfile, allUserTypes, getAllUserTypes, editUserProfileType, setUserTypeId, getAllAdminUserProfiles, adminProfiles }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, userProfile, activeUser, getAllUserProfiles, allUserProfiles, getUserProfileById, singleUserProfile, deactivatedUsers, getDeactivatedUsers, deactivateUserProfile, reactivateUserProfile, allUserTypes, getAllUserTypes, editUserProfileType, getAllAdminUserProfiles, adminProfiles }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

@@ -17,14 +17,6 @@ export default function Header() {
   const toggle = () => setIsOpen(!isOpen);
 
   const [refresh, setRefresh] = useState(false);
-  useEffect(() => {
-    if (refresh == false) {
-      setRefresh(true)
-    } else {
-      setRefresh(false)
-    }
-    debugger
-  }, [userTypeId])
 
   return (
     <>
