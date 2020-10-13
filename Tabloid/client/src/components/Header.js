@@ -12,11 +12,19 @@ import {
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
-  const { isLoggedIn, logout, activeUser } = useContext(UserProfileContext);
+  const { isLoggedIn, logout, activeUser, userTypeId } = useContext(UserProfileContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
-
+  const [refresh, setRefresh] = useState(false);
+  useEffect(() => {
+    if (refresh == false) {
+      setRefresh(true)
+    } else {
+      setRefresh(false)
+    }
+    debugger
+  }, [userTypeId])
 
   return (
     <>
@@ -32,10 +40,10 @@ export default function Header() {
                   <NavLink tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
               }
-              {isLoggedIn &&
+              {isLoggedIn && activeUser.userTypeId === 1 ?
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/tag">Tag</NavLink>
-                </NavItem>
+                </NavItem> : null
               }
               {isLoggedIn &&
                 <NavItem>
@@ -47,15 +55,15 @@ export default function Header() {
                   <NavLink tag={RRNavLink} to="/post/User">User's Posts</NavLink>
                 </NavItem>
               }
-              {isLoggedIn &&
+              {isLoggedIn && activeUser.userTypeId === 1 ?
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/category">Category</NavLink>
-                </NavItem>
+                </NavItem> : null
               }
-              {isLoggedIn &&
+              {isLoggedIn && activeUser.userTypeId === 1 ?
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/userProfile">UserProfiles</NavLink>
-                </NavItem>
+                </NavItem> : null
               }
             </Nav>
 
