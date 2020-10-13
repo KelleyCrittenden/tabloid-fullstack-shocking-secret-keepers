@@ -16,12 +16,12 @@ namespace Tabloid.Controllers
             _postTagRepository = postTagRepository;
         }
 
-        [HttpGet("GetAllPostTagsByPost/{id}")]
+        [HttpGet("getposttags/{id}")]
         public IActionResult GetAllPostTagsByPost(int id)
         {
             return Ok(_postTagRepository.GetAllPostTagsByPostId(id));
         }
-
+        
         [HttpPost]
         public IActionResult Post(PostTag postTag)
         {

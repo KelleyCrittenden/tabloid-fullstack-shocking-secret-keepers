@@ -46,7 +46,7 @@ export default function AddPostTag() {
 
             <ListGroup>
                 {/* Map Over Tags */}
-                {tags.map(tag =>
+                {Tag.map(tag =>
                     (tag.id) &&
                     <Tag key={tag.id} />
                 )}
