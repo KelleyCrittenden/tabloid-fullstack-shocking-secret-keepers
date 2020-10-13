@@ -7,12 +7,13 @@ import { currentDateTime } from "../Comment/helperFunctions"
 const UserProfileDeactivation = () => {
 
 
-    const { getUserProfileById, singleUserProfile, deactivateUserProfile } = useContext(UserProfileContext);
+    const { getUserProfileById, singleUserProfile, deactivateUserProfile, adminProfiles, getAllAdminUserProfiles } = useContext(UserProfileContext);
     const { id } = useParams();
     const history = useHistory();
 
     useEffect(() => {
         getUserProfileById(id);
+        getAllAdminUserProfiles();
     }, []);
 
     // useEffect(() => {
@@ -20,9 +21,12 @@ const UserProfileDeactivation = () => {
     //     getAllPosts();
     // }, [])
     const handleDeactivation = () => {
-        deactivateUserProfile(id);
-        history.push("/userprofile");
-
+        if (adminProfiles.length <= 1) {
+            window.alert("Please make another user an admin before deactivating this user.")
+        } else {
+            deactivateUserProfile(id);
+            history.push("/userprofile");
+        }
     }
     return (
         <>

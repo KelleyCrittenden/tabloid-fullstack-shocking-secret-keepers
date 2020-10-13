@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
@@ -27,8 +27,11 @@ import UserProfileList from "./UserProfiles/UserProfileList";
 import UserProfileDetails from "./UserProfiles/UserProfileDetails";
 import UserProfileDeactivation from "./UserProfiles/UserProfileDeactivation";
 import UserProfileReactivation from "./UserProfiles/UserProfileReactivation";
+import UserProfileEdit from "./UserProfiles/UserProfileEdit";
 export default function ApplicationViews(props) {
-  const { isLoggedIn, activeUser } = useContext(UserProfileContext);
+  const { isLoggedIn, activeUser, userTypeId } = useContext(UserProfileContext);
+  const [refresh, setRefresh] = useState(false);
+
   return (
     <main>
       <Switch>
@@ -110,6 +113,9 @@ export default function ApplicationViews(props) {
         </Route>
         <Route path="/userprofile/reactivation/" exact>
           {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileReactivation /> : <Redirect to="/userprofile" />}
+        </Route>
+        <Route path="/userprofile/edit/:id" exact>
+          {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileEdit /> : <Redirect to="/userprofile" />}
         </Route>
 
       </Switch>
