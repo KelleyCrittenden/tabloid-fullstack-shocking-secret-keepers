@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { CommentContext } from "../../providers/CommentProvider";
-import { Button } from "reactstrap";
+import { Card, CardBody, Button } from "reactstrap";
 
 const DeleteComment = () => {
     let userId = sessionStorage.userProfileId
@@ -25,18 +25,23 @@ const DeleteComment = () => {
 
     return (
         <>
-            <h3>Are you sure you want to delete your comment ? </h3>
-            <h6>Subject</h6>
-            <p>{comment && comment.subject}</p>
-            <h6>Comment</h6>
-            <p>{comment && comment.content}</p>
-            <Button className="deleteCommentButton" type="button" color="success" onClick={deleteAComment}>
-                {'Delete Comment'}
-            </Button>
+            <Card>
+                <CardBody>
+                    <h3>Are you sure you want to delete your comment ? </h3>
+                    <h6>Subject</h6>
+                    <p>{comment && comment.subject}</p>
+                    <h6>Comment</h6>
+                    <p>{comment && comment.content}</p>
+                </CardBody>
+                <Button block className="deleteCommentButton" type="button" color="danger" onClick={deleteAComment}>
+                    {'Delete Comment'}
+                </Button>
 
-            <Button className="returnToListButton" type="button" color="success" onClick={() => history.goBack()}>
-                {'Cancel'}
-            </Button>
+                <Button block className="returnToListButton" type="button" color="success" onClick={() => history.goBack()}>
+                    {'Cancel'}
+                </Button>
+
+            </Card>
         </>
     )
 

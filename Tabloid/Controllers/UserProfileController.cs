@@ -46,12 +46,26 @@ namespace Tabloid.Controllers
         {
             return Ok(_userProfileRepository.GetUserProfileById(id));
         }
+
+        [HttpGet("deactivatedProfiles")]
+        public IActionResult GetDeactivatedUsers()
+        {
+            return Ok(_userProfileRepository.GetAllDeactivatedUserProfiles());
+        }
+
         [HttpPut("deactivate/{id}")]
         public ActionResult Deactivate(int id)
         {
          _userProfileRepository.DeactivateProfile(id);
                 return NoContent();
-        
+        }
+
+        [HttpPut("reactivate/{id}")]
+        public IActionResult Reactivate(int id)
+        {
+            _userProfileRepository.ReactivateProfile(id);
+            return NoContent();
+
         }
     }
 }
