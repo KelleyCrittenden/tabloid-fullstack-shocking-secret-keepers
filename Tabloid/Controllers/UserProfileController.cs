@@ -21,6 +21,12 @@ namespace Tabloid.Controllers
             return Ok(_userProfileRepository.GetByFirebaseUserId(firebaseUserId));
         }
 
+        [HttpGet("admin")]
+        public IActionResult GetAllAdminProfiles()
+        {
+            return Ok(_userProfileRepository.GetAllAdminUserProfiles());
+        }
+
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
         {
@@ -64,6 +70,18 @@ namespace Tabloid.Controllers
         public ActionResult Reactivate(int id)
         {
             _userProfileRepository.ReactivateProfile(id);
+            return NoContent();
+
+        }
+        [HttpGet("userTypes")]
+        public IActionResult GetAllUserTypes()
+        {
+            return Ok(_userProfileRepository.GetAllUserTypes());
+        }
+        [HttpPut("edit/{id}")]
+        public ActionResult EditUserType(int id, UserProfile user)
+        {
+            _userProfileRepository.EditUserType(user);
             return NoContent();
 
         }
