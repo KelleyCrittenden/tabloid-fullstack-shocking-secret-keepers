@@ -54,7 +54,7 @@ namespace Tabloid.Controllers
         }
 
         [HttpPut("deactivate/{id}")]
-        public IActionResult Deactivate(int id)
+        public ActionResult Deactivate(int id)
         {
          _userProfileRepository.DeactivateProfile(id);
                 return NoContent();
