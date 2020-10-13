@@ -15,14 +15,15 @@ const UserProfileReactivation = () => {
 
 
     const handleReactivation = (e) => {
-        reactivateUserProfile(e.target.id).then(history.push("/userprofile"))
+        reactivateUserProfile(e.target.id);
+        history.push("/userprofile")
     }
     return (
         <>
             <Card className="m-4" >
                 {deactivatedUsers.length === 0 ? <p>There are no users currently deactivated</p> :
                     deactivatedUsers.map(deactivatedUser =>
-                        <CardBody>
+                        <CardBody key={deactivatedUser.id}>
                             <span>
                                 <CardImg top className="UserProfileAvatar" src={deactivatedUser.imageLocation} alt={deactivatedUser.displayName} />
                             </span>

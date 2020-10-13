@@ -43,7 +43,7 @@ const UserProfileDeactivation = () => {
                     <p>Contact: {singleUserProfile.email}</p>
                     <p>Born on Date: {currentDateTime(singleUserProfile.createDateTime)}</p>
                     <Button type="button" onClick={handleDeactivation} id="deactivateButton" href={`/userProfile`}>Deactivate</Button>
-                    <Button type="button" id="backButton" href={`/userProfile/:id`}>Back</Button>
+                    <Button type="button" id="backButton" href={`/userProfile`}>Back</Button>
 
                 </CardBody>
             </Card>
