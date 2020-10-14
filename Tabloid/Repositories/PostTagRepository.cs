@@ -69,7 +69,7 @@ namespace Tabloid.Repositories
                         VALUES (@postId, @tagId)";
 
                     DbUtils.AddParameter(cmd, "@postId", postTag.PostId);
-                    DbUtils.AddParameter(cmd, "@tagtId", postTag.TagId);
+                    DbUtils.AddParameter(cmd, "@tagId", postTag.TagId);
 
                     postTag.Id = (int)cmd.ExecuteScalar();
                 }
