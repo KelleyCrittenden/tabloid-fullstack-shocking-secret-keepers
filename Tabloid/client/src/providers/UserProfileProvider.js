@@ -54,7 +54,7 @@ export function UserProfileProvider(props) {
       .then((createResponse) => saveUser({ ...userProfile, firebaseUserId: createResponse.user.uid }))
       .then((savedUserProfile) => {
         sessionStorage.setItem("userProfile", JSON.stringify(savedUserProfile))
-        sessionStorage.setItem("userProfileId", JSON.stringify(userProfile.id))
+        sessionStorage.setItem("userProfileId", JSON.stringify(savedUserProfile.id))
         setIsLoggedIn(true);
       });
   };
