@@ -24,7 +24,7 @@ export const PostTagProvider = (props) => {
 
     const addPostTag = (newPostTag) => {
         return getToken().then((token) => {
-            fetch("/api/postTag/", {
+            fetch("/api/posttag/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -41,18 +41,6 @@ const Post = ({ post }) => {
                 </CardBody>
 
 
-<<<<<<< HEAD
-
-                </CardBody>
-                {window.location.href == "http://localhost:3000/post" ?
-                    <NavLink to={`post/edit/${post.id}`}><Button>Edit Post</Button></NavLink> : <NavLink to={`edit/${post.id}`}><Button>Edit Post</Button></NavLink>}
-                {window.location.href == "http://localhost:3000/post" ?
-                    <NavLink to={`post/delete/${post.id}`}><Button>Delete Post</Button></NavLink> : <NavLink to={`delete/${post.id}`}><Button>Delete Post</Button></NavLink>}
-                <Link to={`/postTag/add/${id}`}> <Button>Add Tag</Button></Link>
-
-
-=======
->>>>>>> master
             </Card>
 
 

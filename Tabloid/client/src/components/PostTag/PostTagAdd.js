@@ -1,35 +1,35 @@
-//get all tags
-//map over tag list in JSX, what about edit/delete buttons on tag card?
-//use addPostTag function to add tag to current post
-//add button to card to add tag to post
-//Cancel button to return back to post details
-
-import { TagProvider } from "../../providers/TagProvider";
-import { PostTagProvider } from "../../providers/PostTagProvider"
+import { TagContext } from "../../providers/TagProvider";
+import { PostTagContext } from "../../providers/PostTagProvider"
 import { useHistory, useParams } from "react-router-dom";
-import { ListGroup, Button } from "reactstrap"
-import Tag from "../Tag/Tag"
+import { ListGroup, Button, ListGroupItem } from "reactstrap"
 import React, { useContext, useState, useEffect } from "react";
-import { PostProvider } from "../../providers/PostProvider";
+import { PostContext } from "../../providers/PostProvider";
 
 export default function AddPostTag() {
     const history = useHistory();
     const { id } = useParams();
-    const { tag, tags, getAllTags } = useContext(TagProvider);
-    const { addPostTag } = useContext(PostTagProvider);
-    const { post } = useContext(PostProvider)
+    const { tags, getAllTags } = useContext(TagContext);
+    console.log(tags, "grabbing tags")
+    const { addPostTag } = useContext(PostTagContext);
+    const { post } = useContext(PostContext)
+
     const [newPostTag, setNewPostTag] = useState({
         postId: parseInt(id),
-        tagId: tag.id,
+        tagId: "",
     });
-
 
     const createPostTag = (e) => {
         e.preventDefault();
+        newPostTag.tagId = parseInt(e.target.id)
         addPostTag(newPostTag)
-            .then(() => history.push(`{/post/details/${post.id}`))
+        history.push(`/post/details/${post.id}`)
     };
 
+    // const handleFieldChange = e => {
+    //     const stateToChange = { ...newPostTag };
+    //     stateToChange[e.target.id] = e.target.value;
+    //     setNewPostTag(stateToChange)
+    // };
 
     useEffect(() => {
         getAllTags();
@@ -46,11 +46,11 @@ export default function AddPostTag() {
 
             <ListGroup>
                 {/* Map Over Tags */}
-                {Tag.map(tag =>
-                    (tag.id) &&
-                    <Tag key={tag.id} />
-                )}
-                <Button onClick={createPostTag}>Add Tag</Button>
+                {tags.map(tag =>
+
+                    <ListGroupItem key={tag.id}> {tag.name}
+                        <Button id={tag.id} onClick={createPostTag}>Add Tag</Button>
+                    </ListGroupItem>)}
             </ListGroup>
 
             <Button onClick={Cancel}>Cancel</Button>

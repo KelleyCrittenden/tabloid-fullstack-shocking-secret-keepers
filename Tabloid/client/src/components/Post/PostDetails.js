@@ -1,14 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext, PostProvider } from "../../providers/PostProvider";
-<<<<<<< HEAD
-import { Card, CardImg, CardBody, Row, Button, ListGroup } from "reactstrap";
-=======
-import { Card, CardImg, CardBody, Row, Button, Col } from "reactstrap";
->>>>>>> master
+import { Card, CardImg, CardBody, Row, Button, Col, ListGroup } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import PostTag from "../PostTag/PostTag";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { PostTagContext } from "../../providers/PostTagProvider";
+import AddPostTag from "../PostTag/PostTagAdd";
 
 const PostDetails = () => {
 
@@ -18,7 +15,6 @@ const PostDetails = () => {
     const { postTags, getAllPostTagsByPost } = useContext(PostTagContext);
 
     useEffect(() => {
-        debugger
         getPost(id);
 
     }, []);
@@ -42,7 +38,6 @@ const PostDetails = () => {
     // }, [])
 
     useEffect(() => {
-        debugger
         getAllPostTagsByPost(id);
     }, [id]);
 
@@ -91,8 +86,12 @@ const PostDetails = () => {
                             return <PostTag key={postTag.id} postTag={postTag} />
                         }
                         )
-
                     }
+                    <Link to={`/posttag/add/${id}`}>
+                        <Button type="button" id="addPostTagButton" >Add Tag</Button>
+                    </Link>
+
+
                 </ListGroup>
 
                 :

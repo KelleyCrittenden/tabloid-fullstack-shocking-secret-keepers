@@ -28,11 +28,8 @@ import UserProfileDetails from "./UserProfiles/UserProfileDetails";
 import UserProfileDeactivation from "./UserProfiles/UserProfileDeactivation";
 import AddPostTag from "./PostTag/PostTagAdd";
 import UserProfileReactivation from "./UserProfiles/UserProfileReactivation";
-<<<<<<< HEAD
-
-=======
 import UserProfileEdit from "./UserProfiles/UserProfileEdit";
->>>>>>> master
+
 export default function ApplicationViews(props) {
   const { isLoggedIn, activeUser, userTypeId } = useContext(UserProfileContext);
   const [refresh, setRefresh] = useState(false);
@@ -119,17 +116,12 @@ export default function ApplicationViews(props) {
         <Route path="/userprofile/reactivation/" exact>
           {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileReactivation /> : <Redirect to="/userprofile" />}
         </Route>
-<<<<<<< HEAD
         <Route path="/posttag/add/:id" exact>
           {isLoggedIn ? <AddPostTag /> : <Redirect to="/login" />}
         </Route>
-
-
-=======
         <Route path="/userprofile/edit/:id" exact>
           {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileEdit /> : <Redirect to="/userprofile" />}
         </Route>
->>>>>>> master
 
       </Switch>
     </main >
