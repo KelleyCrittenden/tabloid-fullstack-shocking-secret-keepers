@@ -21,7 +21,6 @@ export function PostProvider(props) {
     };
 
     const addPost = (post) => {
-        debugger
         getToken().then((token) => fetch("/api/post", {
             method: "POST",
             headers: {

@@ -87,9 +87,6 @@ const PostDetails = () => {
                         }
                         )
                     }
-                    <Link to={`/posttag/add/${id}`}>
-                        <Button type="button" id="addPostTagButton" >Add Tag</Button>
-                    </Link>
 
 
                 </ListGroup>
@@ -99,6 +96,9 @@ const PostDetails = () => {
                 null
 
             }
+            <Link to={`/posttag/add/${id}`}>
+                <Button type="button" id="addPostTagButton" >Add Tag</Button>
+            </Link>
 
         </>
 

@@ -22,7 +22,7 @@ export default function AddPostTag() {
         e.preventDefault();
         newPostTag.tagId = parseInt(e.target.id)
         addPostTag(newPostTag)
-        history.push(`/post/details/${post.id}`)
+            .then(() => history.push(`/post/details/${post.id}`))
     };
 
     // const handleFieldChange = e => {

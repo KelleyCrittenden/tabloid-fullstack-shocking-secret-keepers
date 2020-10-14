@@ -26,7 +26,7 @@ namespace Tabloid.Controllers
         public IActionResult Post(PostTag postTag)
         {
             _postTagRepository.Add(postTag);
-            return CreatedAtAction("Get", new { id = postTag.Id }, postTag);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
