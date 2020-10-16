@@ -13,7 +13,7 @@ const PostDetails = () => {
     const history = useHistory();
 
     useEffect(() => {
-
+        debugger
         getPost(id);
     }, []);
     const calculateReadTime = () => {

@@ -21,7 +21,6 @@ export function PostProvider(props) {
     };
 
     const addPost = (post) => {
-        debugger
         getToken().then((token) => fetch("/api/post", {
             method: "POST",
             headers: {
@@ -47,6 +46,7 @@ export function PostProvider(props) {
             .then(setPosts);
     };
     const getPost = (id) => {
+        debugger
         getToken().then((token) => fetch(`/api/post/${id}`, {
             method: "GET",
             headers: {
