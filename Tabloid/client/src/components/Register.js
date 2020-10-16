@@ -28,7 +28,7 @@ export default function Register() {
   };
   const checkUploadResult = (resultEvent) => {
     if (resultEvent.event === 'success') {
-      debugger
+
       setImageLocation(resultEvent.info.secure_url)
       setImageName(resultEvent.info.original_filename + `.${resultEvent.info.original_extension}`)
 
