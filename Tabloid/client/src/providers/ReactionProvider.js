@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import * as firebase from "firebase/app";
 
-export const CommentContext = React.createContext();
+export const ReactionContext = React.createContext();
 
-export const CommentProvider = (props) => {
+export const ReactionProvider = (props) => {
 
     //All Reaction Types
     const [allReactionTypes, setAllReactionTypes] = useState([]);
@@ -71,8 +71,8 @@ export const CommentProvider = (props) => {
 
     return (
 
-        <CommentContext.Provider value={{ getAllReactions, getAllReactionsForPost, addReaction, addPostReaction, allReactionTypes, postReactions }}>
+        <ReactiionContext.Provider value={{ getAllReactions, getAllReactionsForPost, addReaction, addPostReaction, allReactionTypes, postReactions }}>
             {props.children}
-        </CommentContext.Provider>
+        </ReactiionContext.Provider>
     );
 }
