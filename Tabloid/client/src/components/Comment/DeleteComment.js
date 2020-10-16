@@ -3,20 +3,29 @@ import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { CommentContext } from "../../providers/CommentProvider";
 import { Card, CardBody, Button } from "reactstrap";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 const DeleteComment = () => {
     let userId = sessionStorage.userProfileId
-    console.log(userId);
+
     //id of comment to delete
     const { id } = useParams();
-    console.log(id);
+
     const history = useHistory();
     const { comment, deleteComment, getCommentById } = useContext(CommentContext);
-    console.log(comment);
+    const { activeUser } = useContext(UserProfileContext);
+
 
     useEffect(() => {
         getCommentById(id);
     }, [])
+
+    useEffect(() => {
+        let href = window.location.href.split("/")[5]
+        if (comment.userProfileId != sessionStorage.userProfileId && activeUser.userTypeId != 1 && comment.id == href) {
+            history.push("/post");
+        }
+    }, [comment])
 
     //delete comment function
     const deleteAComment = () => {

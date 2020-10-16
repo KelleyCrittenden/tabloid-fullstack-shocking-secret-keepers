@@ -11,11 +11,9 @@ export default function CategoryUpdateForm() {
 
     const handleCategoryFieldChange = evt => {
 
-        console.log("what is the evt", evt)
+
         const stateToChange = { ...categoryText };
-        console.log("stateToChange category", stateToChange);
-        console.log("EVT ID", evt.target.id)
-        console.log("EVT Value", evt.target.value)
+
         stateToChange[evt.target.id] = evt.target.value;
         setCategoryText(stateToChange);
 
@@ -42,6 +40,7 @@ export default function CategoryUpdateForm() {
 
     useEffect(() => {
         setCategoryText(category);
+
     }, [category]);
 
     return (
