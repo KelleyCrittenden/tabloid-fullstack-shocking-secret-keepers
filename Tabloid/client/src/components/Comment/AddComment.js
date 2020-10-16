@@ -6,7 +6,7 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 const AddComment = () => {
     let userId = sessionStorage.userProfileId
-    console.log(userId);
+
     //id to use for postId (when user clicks the addcomment button on post details page)
     const { id } = useParams();
     const history = useHistory();
@@ -20,7 +20,7 @@ const AddComment = () => {
         subject: "",
         content: ""
     })
-    console.log(newComment);
+
 
     //handling input field for posting new comment
     const handleFieldChange = (e) => {

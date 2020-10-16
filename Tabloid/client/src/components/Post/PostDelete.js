@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { Form, FormGroup, Label, Input, Button, Card, Row, CardImg, CardBody } from "reactstrap";
 import { useHistory, useParams } from "react-router-dom";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 const PostForm = () => {
 
 
 
     const { softDeletePost, post, getPost, setPost } = useContext(PostContext);
+    const { activeUser } = useContext(UserProfileContext);
     const { id } = useParams();
     const history = useHistory();
 
@@ -17,6 +19,13 @@ const PostForm = () => {
         getPost(parseInt(id));
 
     }, [])
+
+    useEffect(() => {
+        let href = window.location.href.split("/")[5]
+        if (post.userProfileId != sessionStorage.userProfileId && activeUser.userTypeId != 1 && post.id == href) {
+            history.push("/post");
+        }
+    }, [post])
 
 
     const handleDelete = (evt) => {

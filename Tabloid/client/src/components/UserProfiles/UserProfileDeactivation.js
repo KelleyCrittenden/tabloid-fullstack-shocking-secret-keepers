@@ -21,7 +21,7 @@ const UserProfileDeactivation = () => {
     //     getAllPosts();
     // }, [])
     const handleDeactivation = () => {
-        if (adminProfiles.length <= 1) {
+        if (adminProfiles.length <= 1 && singleUserProfile.userTypeId == 1) {
             window.alert("Please make another user an admin before deactivating this user.")
         } else {
             deactivateUserProfile(id);
