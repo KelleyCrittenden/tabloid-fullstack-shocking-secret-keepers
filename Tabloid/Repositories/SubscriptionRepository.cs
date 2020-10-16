@@ -44,7 +44,8 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                        SELECT Id, SubscriberUserProfileId, ProviderUserProfileId, BeginDateTime, EndDateTime, IsSubscribed
-                        WHERE p.id = @id ";
+                        FROM Subscription
+                       WHERE SubscriberUserProfileId = @id ";
 
                     cmd.Parameters.AddWithValue("@id", id);
                     var reader = cmd.ExecuteReader();
