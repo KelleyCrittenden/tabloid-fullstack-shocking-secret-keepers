@@ -14,6 +14,7 @@ export default function Register() {
   const [imageLocation, setImageLocation] = useState(" ");
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+  const [imageName, setImageName] = useState();
 
   const registerClick = (e) => {
     e.preventDefault();
@@ -27,7 +28,10 @@ export default function Register() {
   };
   const checkUploadResult = (resultEvent) => {
     if (resultEvent.event === 'success') {
+      debugger
       setImageLocation(resultEvent.info.secure_url)
+      setImageName(resultEvent.info.original_filename + `.${resultEvent.info.original_extension}`)
+
     }
   }
 
@@ -64,7 +68,7 @@ export default function Register() {
         </FormGroup>
         <FormGroup>
           <div>
-            <Button onClick={showWidget}>Upload Photo</Button> <p>{imageLocation}</p>
+            <Button onClick={showWidget}>Upload Photo</Button> <p>{imageName}</p>
           </div>
         </FormGroup>
         <FormGroup>
