@@ -4,6 +4,7 @@ import { UserProfileProvider } from "./providers/UserProfileProvider";
 import { TagProvider } from "./providers/TagProvider";
 import { CategoryProvider } from "./providers/CategoryProvider";
 import { PostProvider } from "./providers/PostProvider";
+import { ReactionProvider } from "./providers/ReactionProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { CommentProvider } from './providers/CommentProvider';
@@ -20,8 +21,10 @@ function App() {
           <TagProvider>
             <CategoryProvider>
               <CommentProvider>
-                <Header />
-                <ApplicationViews />
+                <ReactionProvider>
+                  <Header />
+                  <ApplicationViews />
+                </ReactionProvider>
               </CommentProvider>
             </CategoryProvider>
           </TagProvider>

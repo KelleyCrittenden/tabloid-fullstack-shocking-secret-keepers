@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
-import { Card, Button, Col, Row } from "reactstrap";
+import { Card, Button, Col, Row, CardImg } from "reactstrap";
 
 export default function Category({ reaction }) {
     const { activeUser } = useContext(UserProfileContext);

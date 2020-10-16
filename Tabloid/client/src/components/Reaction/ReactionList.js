@@ -3,8 +3,9 @@ import { ReactionContext } from "../../providers/ReactionProvider";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import Reaction from "./Reaction";
 import { Button, Col, Row } from "reactstrap";
-export default function CategoryList() {
-    const { getAllReactions, allReactionTypes } = useContext(ReactionContext);
+export default function ReactionList() {
+
+    const { allReactionTypes, getAllReactions } = useContext(ReactionContext);
     const { activeUser } = useContext(UserProfileContext);
 
 
@@ -16,7 +17,7 @@ export default function CategoryList() {
         <Col sm="12" md={{ size: 6, offset: 3 }}>
             {activeUser.userTypeId === 1 &&
                 <Row className="justify-content-center">
-                    <Button type="button" href={`/reaction/add`}>Add Category</Button>
+                    <Button type="button" href={`/reaction/add`}>Add Reaction</Button>
                 </Row>
             }
             <section>
