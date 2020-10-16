@@ -16,10 +16,15 @@ const PostForm = () => {
         categoriesForPost();
         getPost(parseInt(id));
 
+
     }, [])
 
     useEffect(() => {
         setEditedPost(post)
+        let href = window.location.href.split("/")[5]
+        if (post.userProfileId != sessionStorage.userProfileId && post.id == href) {
+            history.push("/post");
+        }
     }, [post])
     const handleNewPost = (event) => {
         event.preventDefault();
@@ -37,8 +42,7 @@ const PostForm = () => {
         const stateToChange = { ...editedPost };
         stateToChange[event.target.id] = event.target.value;
         setEditedPost(stateToChange);
-        console.log(post)
-        console.log(editedPost)
+
 
     }
 
