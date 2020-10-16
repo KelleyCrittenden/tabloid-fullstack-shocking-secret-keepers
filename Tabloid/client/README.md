@@ -1,68 +1,105 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tabloid - Fullstack
 
-## Available Scripts
+## We have two sprints to implement a production ready Tabloid application.
 
-In the project directory, you can run:
+Good news, everyone, our [Tabloid CLI Proof of Concept](https://github.com/nashville-software-school/TabloidCLI) did it's job!
 
-### `npm start`
+This application is a multi-user web application built utilizing JS, React library, and C# with ASP.NET Core Web API; it allows users to write posts and share them with other users, comment on these posts in order to discuss them with fellow users.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Tabloid Fullstack has two types of users:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Authors can create Posts, manage their own Posts, and read and comment on other authors' posts.
 
-### `npm test`
+Admins can do all the things authors can do, but are also in charge of managing all the data in the system (they will be the only ones to have access to tag, category, and user profile management).
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+1. In the terminal, git clone git@github.com:nss-day-cohort-41/tabloid-fullstack-shocking-secret-keepers.git
+2. open Visual Studio and select to open the pertinent file
+3. Open SQL Server Object Explorer
+4. Go to Solution Explorer
+5. Click Folder icon and change it to 'Folder View'
+6. From the SQL Folder click `01_Tabloid_Create_DB.sql`
+7. Click Run
+8. Click `02_Tabloid_Seed_Data.sql` to populate the database
+9. Click Run
+10. Click Run Tabloid
+11. cd into client directory
+12. Install your dependencies by running `npm install` from the same directory as your `package.json` file
+13. once installed, `npm start` (this will automatically open a webpage in your browser)
+14. Click the `Register` button
+15. If registration is successful, the application will take you to the homepage and you will be greeted with 'hello'
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Getting Started with Authentication/Authorization with Firebase for Admin Users
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+1. The owner/admin of this project should create their own Firebase project. Please follow the following instructions:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   - Go to [Firebase](https://console.firebase.google.com/u/0/) and add a new project. You can name it whatever you want (Tabloid is a good name)
+   - Go to the Authentication tab, click "Set up sign in method", and enable the Username and Password option.
+   - Your users will register on the Tabloid app and you can keep track of their authentication information with Firebase.
+   - Once firebase creates a UID for these users, the UserProfile table in SQL Server database should be automatically updated and each user will have their own unique `FirebaseUserId`.
+   - As admin, you can keep track of who is admin and who is author. In the database, the UserTypeId will be 1 for admin and 2 for author.
+   - Click the Gear icon in the sidebar to go to Project Settings. You'll need the information on this page for the next few steps
 
-### `npm run eject`
+2. Go to the `appSettings.Local.json.example` file. Replace the value for FirebaseProjectId with your own
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. Rename the `appSettings.Local.json.example` file to remove the `.example` extension. This file should now just be called `appSettings.Local.json`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Open your `client` directory in VsCode. Open the `.env.local.example` file and replace `__YOUR_API_KEY_HERE__` with your own firebase Web API Key
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+5. Rename the `.env.local.example` file to remove the `.example` extension. This file should now just be called `.env.local`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Usage
 
-## Learn More
+**Post View**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- This page is a list of ALL user's posts; users will be able to view the title, image, author, category of the post, and publish date of the post
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. User can add a post by clicking `New Post`
+2. Note that users can choose not to specify a category and if not specified, it will appear as "other" for that post
+3. View post details by clicking the `Details` button
+4. If the user is the author of the post, they can edit and delete only their own posts by clicking the `Edit` icon and/or `Delete` button, respectively
 
-### Code Splitting
+**Post Details**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- This page is a detailed view of the respective post the user selects; users will be able to view everything aforementioned as well as an estimated read time and the contents of the post. Users will also be able to view the tags that are attached to the post.
 
-### Analyzing the Bundle Size
+1. Add a comment to the selected post by clicking `Add Comment`
+2. View a list of comments attached to this post by clicking `View Comments`
+3. Add tags to the post by clicking `Add Tag`
+4. Delete tags from the post by clicking `Delete Tag`
+5. If the user is the author of the post, they will also be able to edit and delete the post by clicking on the `Edit` icon and/or `Delete` icon, respectively
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+**Add Tags**
+To add more than one tag, hold down CTRL and select the tags you wish to associate with the post and click `Add Tags`
 
-### Making a Progressive Web App
+**Delete Tags**
+To delete more than one tag, hold down CTRL and select the tags you wish to delete from the post and click `Delete Tags`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+**Comments List**
 
-### Advanced Configuration
+- This page will list all the comments associated with the user's selected post; users will be able to see the author of the post, subject, comment, and date written for the comment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+1. The user can edit and delete comments by clicking the the `Edit` icon and/or `Delete` icon, respectively
 
-### Deployment
+**My Posts View**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+- This page is a list of all the posts written by the user that is logged in; you can add a post by clicking `Add Post`
 
-### `npm run build` fails to minify
+1. View post details by clicking the `Details` button
+2. Edit and delete posts by clicking the the `Edit` icon and/or `Delete` icon, respectively
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Technologies Used
+
+1. JavaScript
+2. React Library
+3. C# with ASP.NET Core Web API
+4. Microsoft SQL Server Express
+
+## Authors and Acknowledgment
+
+Our group consisted of Kelley Crittenden, Tyler Hilliard, Brett Stoudt, and Sisi Freeley. Thank you to everyone in the group for working, communicating, and troubleshooting so well together! You guys are all awesome!
+
+### ERD
+
+[Tabloid ERD]("https://github.com/nss-day-cohort-41/tabloidmvc-the-lobster-rolls/blob/master/Tabloid.png")
