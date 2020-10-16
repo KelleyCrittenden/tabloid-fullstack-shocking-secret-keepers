@@ -41,7 +41,7 @@ namespace Tabloid.Controllers
             return Ok(_postReactionRepository.GetAllPostReactions());
         }
 
-        //this will show the list of reactions for that specific post
+        //GET: ALL Reactions made on a single post
         [HttpGet("GetAllReactionsByPost/{id}")]
         public IActionResult GetAllReactionsByPost(int id)
         {
@@ -50,7 +50,7 @@ namespace Tabloid.Controllers
 
         
 
-
+        //POST : Add Reaction to a Post
         [HttpPost("PostReaction")]
         public IActionResult Post(PostReaction postReaction)
         {
@@ -61,6 +61,7 @@ namespace Tabloid.Controllers
 
         }
 
+        //POST: Create new Reaction Type
         [HttpPost]
         public IActionResult Post(Reaction reaction)
         {
