@@ -7,5 +7,6 @@ namespace Tabloid.Repositories
     {
         void AddPostReaction(PostReaction postReaction);
         List<PostReaction> GetAllReactionsByPostId(int id);
+        List<PostReaction> GetAllPostReactions();
     }
 }

@@ -14,7 +14,53 @@ namespace Tabloid.Repositories
     {
         public PostReactionRepository(IConfiguration config) : base(config) { }
 
+        public List<PostReaction> GetAllPostReactions()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                      SELECT pr.Id As PostReactionId, pr.PostId, pr.ReactionId, pr.UserProfileId AS UserProfileIdReactingToPost, 
+                        r.Id As ReactionId, r.Name, r.ImageLocation 
+                        FROM PostReaction pr
+                        JOIN  Reaction r
+                        ON pr.ReactionId = r.Id
+                        
+                       ";
+                    
 
+                    var postReactions = new List<PostReaction>();
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        PostReaction postReaction = new PostReaction
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("PostReactionId")),
+                            PostId = reader.GetInt32(reader.GetOrdinal("PostId")),
+                            ReactionId = reader.GetInt32(reader.GetOrdinal("ReactionId")),
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileIdReactingToPost")),
+                            Reaction = new Reaction
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("ReactionId")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation"))
+                            }
+                        };
+
+                        postReactions.Add(postReaction);
+
+                    }
+
+                    reader.Close();
+
+                    return postReactions;
+                }
+            }
+        }
 
         public List<PostReaction> GetAllReactionsByPostId(int id)
         {
