@@ -7,6 +7,7 @@ export const SubscriptionProvider = (props) => {
     const getToken = () => firebase.auth().currentUser.getIdToken();
 
     const [subscription, setSubscription] = useState({})
+    const [allSubsribedPosts, setAllSubscribedPosts] = useState([])
 
     const getSubscriptionByUserId = (userId, authorId) => {
         return getToken().then((token) => {
@@ -16,6 +17,17 @@ export const SubscriptionProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             }).then(resp => resp.json()).then(setSubscription)
+        })
+    };
+
+    const getAllSubscribedPostsForUser = (userId) => {
+        return getToken().then((token) => {
+            fetch(`/api/subscription/subscribedposts/${userId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(resp => resp.json()).then(setAllSubscribedPosts);
         })
     };
 
@@ -35,7 +47,7 @@ export const SubscriptionProvider = (props) => {
 
     return (
 
-        <SubscriptionContext.Provider value={{ addSubscription, subscription, getSubscriptionByUserId }}>
+        <SubscriptionContext.Provider value={{ allSubsribedPosts, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId }}>
             {props.children}
         </SubscriptionContext.Provider>
     );
