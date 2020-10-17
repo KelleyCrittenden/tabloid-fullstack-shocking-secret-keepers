@@ -14,10 +14,12 @@ namespace Tabloid.Controllers
     public class SubscriptionController : ControllerBase
     {
         private readonly ISubscriptionRepository _subscriptionRepository;
+        private readonly IPostRepository _postRepository;
 
-        public SubscriptionController(ISubscriptionRepository subscriptionRepository)
+        public SubscriptionController(ISubscriptionRepository subscriptionRepository, IPostRepository postRepository )
         {
             _subscriptionRepository = subscriptionRepository;
+            _postRepository = postRepository;
         }
 
         [HttpGet]
@@ -26,10 +28,11 @@ namespace Tabloid.Controllers
             return Ok(_subscriptionRepository.GetAllSubscriptions());
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetSubscriptionById(int id)
+        [HttpGet("{id}&{authorId}")]
+        public IActionResult GetSubscriptionById(int id, int authorId)
         {
-            return Ok(_subscriptionRepository.GetSubscriptionByUserId(id));
+           
+            return Ok(_subscriptionRepository.GetSubscriptionByUserId(id, authorId));
         }
 
         [HttpPost]

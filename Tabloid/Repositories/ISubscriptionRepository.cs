@@ -7,6 +7,6 @@ namespace Tabloid.Repositories
     {
         void AddSubscription(Subscription subscription);
         List<Subscription> GetAllSubscriptions();
-        Subscription GetSubscriptionByUserId(int id);
+        Subscription GetSubscriptionByUserId(int id, int authorId);
     }
 }

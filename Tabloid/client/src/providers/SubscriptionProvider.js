@@ -8,9 +8,9 @@ export const SubscriptionProvider = (props) => {
 
     const [subscription, setSubscription] = useState({})
 
-    const getSubscriptionByUserId = (userId) => {
+    const getSubscriptionByUserId = (userId, authorId) => {
         return getToken().then((token) => {
-            fetch(`/api/subscription/${userId}`, {
+            fetch(`/api/subscription/${userId}&${authorId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`

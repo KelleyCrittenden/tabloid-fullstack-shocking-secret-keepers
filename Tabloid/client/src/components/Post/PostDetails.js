@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext, PostProvider } from "../../providers/PostProvider";
 import { SubscriptionContext } from "../../providers/SubscriptionProvider";
-import { Card, CardImg, CardBody, Row, Button, Col, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import { Card, CardImg, CardBody, Row, Button, Col } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 import { Link, NavLink, useParams } from "react-router-dom";
@@ -11,22 +11,26 @@ const PostDetails = () => {
 
     let userId = sessionStorage.userProfileId
     const { getPost, post } = useContext(PostContext);
+    console.log("post", post);
     //using subscription context for posting of new subscription
     const { addSubscription, subscription, getSubscriptionByUserId } = useContext(SubscriptionContext);
-    console.log(subscription);
+    console.log("subscription", subscription);
     //setting new subscription object into state
     const [newSubscription, setNewSubscription] = useState({
         subscriberUserProfileId: parseInt(userId)
     })
-    console.log(newSubscription)
+    console.log("newSub", newSubscription)
 
     const { id } = useParams();
     const history = useHistory();
 
     useEffect(() => {
         getPost(id);
-        getSubscriptionByUserId(userId);
+        getSubscriptionByUserId(userId, post.userProfileId);
     }, []);
+
+
+
     const calculateReadTime = () => {
         let time = 0;
         let test = 0;
@@ -45,6 +49,8 @@ const PostDetails = () => {
         newSubscription.providerUserProfileId = post.userProfileId;
         newSubscription.endDateTime = new Date().toISOString();
         addSubscription(newSubscription);
+        alert("You are now subscribed to this author")
+        //should take away the button to subscribe
 
     }
 
@@ -54,14 +60,16 @@ const PostDetails = () => {
     // }, [])
 
     return (
+
         <>
-            {(userId === post.userProfileId || subscription.isSubscribed === 1) ? null :
-                <Button onClick={subscribeToAuthor}>Subscribe to this Author</Button>
-            }
+
+            {parseInt(userId) === post.userProfileId || subscription.isSubscribed === 1 ? null :
+                <Button onClick={subscribeToAuthor}>Subscribe to this Author</Button>}
+
             <Link to={`/commentsbypost/${id}`}> <Button>View Comments</Button></Link>
             <Link to={`/comments/add/${id}`}> <Button>Add Comment</Button></Link>
-            <Card className="m-4">
 
+            <Card className="m-4">
                 <Row margin="m-4">
                     <h3 className="text-left px-2">Posted by: <strong>{post.userProfile.displayName}</strong></h3>
 
@@ -90,7 +98,11 @@ const PostDetails = () => {
 
                 </CardBody>
             </Card>
+
+
+
         </>
+
 
     );
 };

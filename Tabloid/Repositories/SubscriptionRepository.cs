@@ -35,7 +35,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public Subscription GetSubscriptionByUserId(int id)
+        public Subscription GetSubscriptionByUserId(int id, int authorId)
         {
             using (var conn = Connection)
             {
@@ -45,14 +45,17 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                        SELECT Id, SubscriberUserProfileId, ProviderUserProfileId, BeginDateTime, EndDateTime, IsSubscribed
                         FROM Subscription
-                       WHERE SubscriberUserProfileId = @id ";
+                       WHERE SubscriberUserProfileId = @id 
+                       AND ProviderUserProfileId = @authorId ";
 
                     cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@authorId", authorId);
+                    //var subscriptions = new List<Subscription>();
                     var reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
-                        Subscription subscription = new Subscription()
+                        Subscription subscription = new Subscription
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             SubscriberUserProfileId = reader.GetInt32(reader.GetOrdinal("SubscriberUserProfileId")),
@@ -62,16 +65,17 @@ namespace Tabloid.Repositories
                             IsSubscribed = reader.GetInt32(reader.GetOrdinal("IsSubscribed"))
                             
                         };
-
                         reader.Close();
                         return subscription;
+
+                        //subscriptions.Add(subscription);
+
                     }
                     else
                     {
                         reader.Close();
                         return null;
                     }
-
                 }
             }
         }
