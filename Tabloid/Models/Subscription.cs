@@ -13,5 +13,6 @@ namespace Tabloid.Models
         public DateTime BeginDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
         public int IsSubscribed { get; set; }
+        public List<Post> Posts { get; set; }
     }
 }

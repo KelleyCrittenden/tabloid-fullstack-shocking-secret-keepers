@@ -14,18 +14,18 @@ namespace Tabloid.Controllers
     public class SubscriptionController : ControllerBase
     {
         private readonly ISubscriptionRepository _subscriptionRepository;
-        private readonly IPostRepository _postRepository;
+        
 
-        public SubscriptionController(ISubscriptionRepository subscriptionRepository, IPostRepository postRepository )
+        public SubscriptionController(ISubscriptionRepository subscriptionRepository)
         {
             _subscriptionRepository = subscriptionRepository;
-            _postRepository = postRepository;
+            
         }
 
-        [HttpGet]
-        public IActionResult GetAllSubscriptions()
+        [HttpGet("subscribedposts/{id}")]
+        public IActionResult GetAllSubscribedPostsByUser(int id)
         {
-            return Ok(_subscriptionRepository.GetAllSubscriptions());
+            return Ok(_subscriptionRepository.GetSubscribedPostsForUser(id));
         }
 
         [HttpGet("{id}&{authorId}")]

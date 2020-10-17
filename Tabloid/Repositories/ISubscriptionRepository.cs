@@ -6,7 +6,7 @@ namespace Tabloid.Repositories
     public interface ISubscriptionRepository
     {
         void AddSubscription(Subscription subscription);
-        List<Subscription> GetAllSubscriptions();
+        List<Subscription> GetSubscribedPostsForUser(int id);
         Subscription GetSubscriptionByUserId(int id, int authorId);
     }
 }

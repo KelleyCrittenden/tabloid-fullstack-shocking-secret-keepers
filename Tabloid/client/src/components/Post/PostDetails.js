@@ -26,8 +26,12 @@ const PostDetails = () => {
 
     useEffect(() => {
         getPost(id);
+
+    }, [id, userId]);
+
+    useEffect(() => {
         getSubscriptionByUserId(userId, post.userProfileId);
-    }, []);
+    }, [userId])
 
 
 
@@ -62,9 +66,16 @@ const PostDetails = () => {
     return (
 
         <>
+            {/* will only show the subscribe button if the person logged in is not the author of the post 
+            AND if there IS NOT already a subscription between the author and user, otherwise show nothing */}
+            {parseInt(userId) !== post.userProfileId && subscription === null ?
+                <Button onClick={subscribeToAuthor}>Subscribe to this Author</Button> : null}
 
-            {parseInt(userId) === post.userProfileId || subscription.isSubscribed === 1 ? null :
-                <Button onClick={subscribeToAuthor}>Subscribe to this Author</Button>}
+
+            {/* will only show the unsubscribe button if the person logged in is not the author of the post AND
+            if they are ALREADY subscribed to the author, otherwise show nothing  */}
+            {parseInt(userId) !== post.userProfileId && subscription !== null ?
+                <Button onClick={subscribeToAuthor}>Unsubscribe to this Author</Button> : null}
 
             <Link to={`/commentsbypost/${id}`}> <Button>View Comments</Button></Link>
             <Link to={`/comments/add/${id}`}> <Button>Add Comment</Button></Link>
