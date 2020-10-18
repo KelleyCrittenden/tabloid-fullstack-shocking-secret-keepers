@@ -32,7 +32,7 @@ export const ReactionProvider = (props) => {
 
     const getAllReactionsForPost = (postId) => {
         return getToken().then((token) => {
-            fetch(`/api/reaction/GetAllReactionsByPost/${postId}`, {
+            fetch(`/api/reaction/GetAllReactionsCountedByPost/${postId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`

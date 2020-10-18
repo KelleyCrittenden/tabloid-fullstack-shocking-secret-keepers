@@ -11,10 +11,10 @@ export default function PostReaction({ postReaction }) {
 
             <Col>
                 <CardImg top src={postReaction.reaction.imageLocation} className="UserProfileAvatar" />
+
+                <span>{postReaction.reaction.reactionCount}</span>
             </ Col>
-            <Col>
-                {/* Add count function  */}
-            </Col>
+
             {/* {activeUser.userTypeId === 1 &&
                         <>
                             <Col sm="1">

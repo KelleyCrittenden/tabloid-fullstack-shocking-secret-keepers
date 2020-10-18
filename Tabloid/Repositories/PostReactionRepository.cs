@@ -152,33 +152,16 @@ namespace Tabloid.Repositories
 
 
                         var reactionId = reader.GetInt32(reader.GetOrdinal("ReactionId"));
-                        var anotherPostReaction = postReactions.Find(pr => pr.Id == reactionId);
+                        var anotherPostReaction = postReactions.Find(pr => pr.ReactionId == reactionId);
                         if (anotherPostReaction == null) {
 
-                            PostReaction newPostReaction = new PostReaction
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("PostReactionId")),
-                                PostId = reader.GetInt32(reader.GetOrdinal("PostId")),
-                                ReactionId = reader.GetInt32(reader.GetOrdinal("ReactionId")),
-                                UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileIdReactingToPost")),
-                                Reaction = new Reaction
-                                {
-                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                    Name = reader.GetString(reader.GetOrdinal("Name")),
-                                    ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
-                                    ReactionCount = 1
-                                }
-                            };
-                            postReactions.Add(newPostReaction);
-                        }else
-                        {
+                            postReactions.Add(postReaction);
 
-                            int initalReactionIndex = postReactions.FindIndex(pr => pr.Id == reactionId);
-                            //  var newPRs= postReactions.Splice()
+                        } else {
+
+                            int initalReactionIndex = postReactions.FindIndex(pr => pr.ReactionId == reactionId);
                             postReactions[initalReactionIndex].Reaction.ReactionCount = postReactions[initalReactionIndex].Reaction.ReactionCount + 1;
-                            //anotherPostReaction.Count = (anotherPostReaction.Count + 1);
-                            //newPostReaction.IsNullOrEmpty();
-                            //postReactions.Add(anotherPostReaction);
+
                         }
                     }
                         reader.Close();
