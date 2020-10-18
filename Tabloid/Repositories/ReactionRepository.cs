@@ -92,6 +92,7 @@ namespace Tabloid.Repositories
             }
         }
 
+
         public void AddReaction(Reaction reaction)
         {
             using (var conn = Connection)

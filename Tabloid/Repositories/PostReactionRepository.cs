@@ -110,6 +110,84 @@ namespace Tabloid.Repositories
             }
         }
 
+        public List<PostReaction> GetAllReactionsCountedByPostId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                     SELECT pr.Id As PostReactionId, pr.PostId, pr.ReactionId, pr.UserProfileId AS UserProfileIdReactingToPost, 
+                        r.Id, r.Name, r.ImageLocation 
+                        FROM PostReaction pr
+                        JOIN  Reaction r
+                        ON pr.ReactionId = r.Id
+                        WHERE pr.PostId = @id
+                       ";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    var postReactions = new List<PostReaction>();
+
+                    var reader = cmd.ExecuteReader();
+
+                   // var count = 1;
+
+                    while (reader.Read())
+                    {
+                        PostReaction postReaction = new PostReaction
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("PostReactionId")),
+                            PostId = reader.GetInt32(reader.GetOrdinal("PostId")),
+                            ReactionId = reader.GetInt32(reader.GetOrdinal("ReactionId")),
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileIdReactingToPost")),
+                            Reaction = new Reaction
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
+                                ReactionCount = 1
+                            }
+                        };
+
+
+                        var reactionId = reader.GetInt32(reader.GetOrdinal("ReactionId"));
+                        var anotherPostReaction = postReactions.Find(pr => pr.Id == reactionId);
+                        if (anotherPostReaction == null) {
+
+                            PostReaction newPostReaction = new PostReaction
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("PostReactionId")),
+                                PostId = reader.GetInt32(reader.GetOrdinal("PostId")),
+                                ReactionId = reader.GetInt32(reader.GetOrdinal("ReactionId")),
+                                UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileIdReactingToPost")),
+                                Reaction = new Reaction
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                    Name = reader.GetString(reader.GetOrdinal("Name")),
+                                    ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
+                                    ReactionCount = 1
+                                }
+                            };
+                            postReactions.Add(newPostReaction);
+                        }else
+                        {
+
+                            int initalReactionIndex = postReactions.FindIndex(pr => pr.Id == reactionId);
+                            //  var newPRs= postReactions.Splice()
+                            postReactions[initalReactionIndex].Reaction.ReactionCount = postReactions[initalReactionIndex].Reaction.ReactionCount + 1;
+                            //anotherPostReaction.Count = (anotherPostReaction.Count + 1);
+                            //newPostReaction.IsNullOrEmpty();
+                            //postReactions.Add(anotherPostReaction);
+                        }
+                    }
+                        reader.Close();
+
+
+                    return postReactions;
+                }
+            }
+        }
 
         public void AddPostReaction(PostReaction postReaction)
         {

@@ -4,17 +4,19 @@ import { Card, CardImg, CardBody, Row, Button, Col } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 import { Link, NavLink, useParams } from "react-router-dom";
+import PostReactionList from "../Reaction/PostReactionList";
+import { ReactionContext } from "../../providers/ReactionProvider";
 
 const PostDetails = () => {
 
-
+    const { postReactions, getAllReactionsForPost } = useContext(ReactionContext);
     const { getPost, post } = useContext(PostContext);
     const { id } = useParams();
     const history = useHistory();
 
     useEffect(() => {
-        debugger
         getPost(id);
+        getAllReactionsForPost(id);
     }, []);
     const calculateReadTime = () => {
         let time = 0;
@@ -64,9 +66,12 @@ const PostDetails = () => {
                 <CardBody>
                     <CardImg className="postDetailImg" top src={post.imageLocation} alt={post.title} />
                     <p>{post.content}</p>
-
-
                 </CardBody>
+                <Row>
+                    {postReactions.length != 0 ? (
+                        <PostReactionList key={post.id} />)
+                        : null}
+                </Row>
             </Card>
         </>
 

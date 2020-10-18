@@ -8,5 +8,6 @@ namespace Tabloid.Repositories
         void AddReaction(Reaction reaction);
         List<Reaction> GetAllReactions();
         Reaction GetReactionById(int id);
+
     }
 }

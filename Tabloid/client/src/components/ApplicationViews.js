@@ -13,10 +13,10 @@ import TagList from "./Tag/TagList";
 import TagForm from "./Tag/TagForm";
 import TagEditForm from "./Tag/TagEditForm"
 import TagDelete from "./Tag/TagDelete"
-import CategoryList from "./Category/CategoryList";
-import CategoryAddForm from "./Category/CategoryAddForm";
-import CategoryUpdateForm from "./Category/CategoryUpdateForm";
-import CategoryDelete from "./Category/CategoryDelete";
+import CategoryList from "./category/CategoryList";
+import CategoryAddForm from "./category/CategoryAddForm";
+import CategoryUpdateForm from "./category/CategoryUpdateForm";
+import CategoryDelete from "./category/CategoryDelete";
 import PostList from "./Post/PostList"
 import UserPostList from "./Post/UserPostList"
 import PostDetails from "./Post/PostDetails";

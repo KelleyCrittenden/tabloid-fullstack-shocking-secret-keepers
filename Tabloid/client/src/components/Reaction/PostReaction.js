@@ -2,20 +2,20 @@ import React, { useContext } from "react";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { Card, Button, Col, Row, CardImg } from "reactstrap";
 
-export default function Reaction({ reaction }) {
+export default function PostReaction({ postReaction }) {
     const { activeUser } = useContext(UserProfileContext);
-
+    console.log(postReaction, "reaction")
     return (
-        <Col>
-            <Card body>
-                <Row>
-                    <Col sm="9">
-                        <strong>{reaction.name}</strong>
-                    </Col>
-                    <Col>
-                        <CardImg top className="UserProfileAvatar" src={reaction.imageLocation} alt={reaction.name} />
-                    </ Col>
-                    {/* {activeUser.userTypeId === 1 &&
+
+        <>
+
+            <Col>
+                <CardImg top src={postReaction.reaction.imageLocation} className="UserProfileAvatar" />
+            </ Col>
+            <Col>
+                {/* Add count function  */}
+            </Col>
+            {/* {activeUser.userTypeId === 1 &&
                         <>
                             <Col sm="1">
                                 <Button type="button" id={category.id} href={`/category/edit/${category.id}`}>Edit</Button>
@@ -26,8 +26,7 @@ export default function Reaction({ reaction }) {
                             </Col>
                         </>
                     } */}
-                </Row>
-            </Card >
-        </Col >
+        </>
+
     );
 }

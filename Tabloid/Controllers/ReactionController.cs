@@ -48,7 +48,14 @@ namespace Tabloid.Controllers
             return Ok(_postReactionRepository.GetAllReactionsByPostId(id));
         }
 
-        
+        //GET: ALL Reactions made on a single post
+        [HttpGet("GetAllReactionsCountedByPost/{id}")]
+        public IActionResult GetAllReactionsCountByPost(int id)
+        {
+            return Ok(_postReactionRepository.GetAllReactionsCountedByPostId(id));
+        }
+
+
 
         //POST : Add Reaction to a Post
         [HttpPost("PostReaction")]

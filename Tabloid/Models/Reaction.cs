@@ -18,6 +18,10 @@ namespace Tabloid.Models
         [DisplayName("Image")]
         public string ImageLocation { get; set; }
 
+        public int ReactionCount { get; set; }
+
+
+
 
     }
 }
