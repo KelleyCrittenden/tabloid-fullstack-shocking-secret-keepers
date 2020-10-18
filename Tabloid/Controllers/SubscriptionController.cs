@@ -28,7 +28,7 @@ namespace Tabloid.Controllers
             return Ok(_subscriptionRepository.GetSubscribedPostsForUser(id));
         }
 
-        [HttpGet("{id}&{authorId}")]
+        [HttpGet("{id}/getby/{authorId}")]
         public IActionResult GetSubscriptionById(int id, int authorId)
         {
            
@@ -40,6 +40,14 @@ namespace Tabloid.Controllers
         {
             _subscriptionRepository.AddSubscription(subscription);
             return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(Subscription subscription)
+        {
+          
+            _subscriptionRepository.UpdateSubscription(subscription);
+            return NoContent();
         }
 
     }

@@ -178,5 +178,35 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public void UpdateSubscription(Subscription subscription)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE Subscription
+                            SET  
+                                SubscriberUserProfileId = @subscriberUserProfileId, 
+                                ProviderUserProfileId = @providerUserProfileId,
+                                EndDateTime = @endDateTime,
+                                IsSubscribed = @isSubscribed
+                            WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@subscriberUserProfileId", subscription.SubscriberUserProfileId);
+                    cmd.Parameters.AddWithValue("@providerUserProfileId", subscription.ProviderUserProfileId);
+                    cmd.Parameters.AddWithValue("@endDateTime", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@id", subscription.Id);
+                    cmd.Parameters.AddWithValue("@isSubscribed", 0);
+
+                   
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

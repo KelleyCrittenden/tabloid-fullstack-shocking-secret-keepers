@@ -10,7 +10,7 @@ export default function Hello() {
   const { activeUser } = useContext(UserProfileContext);
 
 
-  const { allSubsribedPosts, getAllSubscribedPostsForUser } = useContext(SubscriptionContext);
+  const { allSubscribedPosts, getAllSubscribedPostsForUser } = useContext(SubscriptionContext);
 
   useEffect(() => {
     getAllSubscribedPostsForUser(parseInt(activeUser.id))
@@ -30,14 +30,11 @@ export default function Hello() {
         textAlign: "center",
       }}>Hello, Good Morning {activeUser.displayName}
         <h5> Your Subscribed Posts</h5>
-        {allSubsribedPosts.map(subscribedPost => {
+        {allSubscribedPosts.map(subscribedPost => {
           return <SubscribedPost key={subscribedPost.id} subscribedPost={subscribedPost} />
         })}
 
       </div>
-
-
-
 
     );
   }
@@ -53,7 +50,7 @@ export default function Hello() {
       }}>Hello, Good Afternoon {activeUser.displayName}
 
         <h5> Your Subscribed Posts</h5>
-        {allSubsribedPosts.map(subscribedPost => {
+        {allSubscribedPosts.map(subscribedPost => {
           return <SubscribedPost key={subscribedPost.id} subscribedPost={subscribedPost} />
         })}
 
@@ -73,7 +70,7 @@ export default function Hello() {
 
         <h5> Your Subscribed Posts</h5>
 
-        {allSubsribedPosts.map(subscribedPost => {
+        {allSubscribedPosts.map(subscribedPost => {
           return <SubscribedPost key={subscribedPost.id} subscribedPost={subscribedPost} />
         })}
 
