@@ -51,13 +51,6 @@ const PostDetails = () => {
 
     }, [subscription])
 
-    // useEffect(() => {
-    //     // debugger;
-    //     setUpdatedSubscription(subscription);
-
-
-    // }, [subscription])
-
 
     const calculateReadTime = () => {
         let time = 0;
@@ -100,7 +93,7 @@ const PostDetails = () => {
     const reactivateASubscription = (e) => {
         // debugger
         e.preventDefault();
-        reactivateSubscription(postSubscription.id);
+        reactivateSubscription(subscription.id);
         getSubscriptionByUserId(parseInt(userId), post.userProfileId);
 
     }
@@ -129,28 +122,25 @@ const PostDetails = () => {
         return null;
     };
 
-    // if (!subscription) {
-    //     return null
-    // }
 
     return (
 
         <>
 
 
-            {/* NOT Working!! will only show the SUBSCRIBE button if the person logged in is not the author of the post 
+            {/* will only show the SUBSCRIBE button if the person logged in is not the author of the post 
             AND if there IS NOT already a subscription between the author and user (fresh entry in database), otherwise show nothing */}
-            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed === undefined ?
+            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed == null ?
                 <Button onClick={subscribeToAuthor} color="success">Subscribe to this Author</Button> : null}
 
-            {/* NOT WORKING!! THIS will only show up if the author and user already have a subscription and isSubscribed === 1
+            {/*THIS will only show up if the author and user already have a subscription and isSubscribed === 1
             when click button will UPDATE in database where isSubscribed will turn to 0, but there will still be an entry between author and user */}
-            {/* {parseInt(userId) !== post.userProfileId && subscription.isSubscribed === 1 ? */}
-            <Button type="button" onClick={unsubscribe} color="danger">Unsubscribe from this Author</Button>
+            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed === 1 ?
+                <Button type="button" onClick={unsubscribe} color="danger">Unsubscribe from this Author</Button> : null}
 
             {/* this will only show up if there is already a subscription between the two, but currently unsubscribed where isSubscribed === 0 */}
-            {/* {parseInt(userId) !== post.userProfileId && subscription.isSubscribed === 0 ? */}
-            <Button type="button" onClick={reactivateASubscription} color="warning">Reactivate Subscription</Button>
+            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed == 0 ?
+                <Button type="button" onClick={reactivateASubscription} color="warning">Reactivate Subscription</Button> : null}
 
             <Link to={`/commentsbypost/${id}`}> <Button>View Comments</Button></Link>
             <Link to={`/comments/add/${id}`}> <Button>Add Comment</Button></Link>

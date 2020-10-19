@@ -192,12 +192,12 @@ namespace Tabloid.Repositories
                                 ProviderUserProfileId = @providerUserProfileId,
                                 EndDateTime = @endDateTime,
                                 IsSubscribed = @isSubscribed
-                            WHERE SubscriberUserProfileId = @id";
+                            WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@subscriberUserProfileId", subscription.SubscriberUserProfileId);
                     cmd.Parameters.AddWithValue("@providerUserProfileId", subscription.ProviderUserProfileId);
                     cmd.Parameters.AddWithValue("@endDateTime", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@id", subscription.SubscriberUserProfileId);
+                    cmd.Parameters.AddWithValue("@id", subscription.Id);
                     cmd.Parameters.AddWithValue("@isSubscribed", 0);
 
                    

@@ -17,11 +17,19 @@ export const SubscriptionProvider = (props) => {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            }).then(resp => {
-                if (resp.status === 200) {
-                    setSubscription(resp.json())
-                }
-            })
+
+            }).then(resp => resp.json()).then(setSubscription)
+                .catch(error => {
+                    console.error('Error:', error)
+                })
+            // .then(resp => {
+            //     if (resp.status === 200) {
+            //         setSubscription(resp.json())
+            //     }
+            //     else {
+            //         setSubscription(null);
+            //     }
+            // })
 
         })
     }
@@ -69,7 +77,7 @@ export const SubscriptionProvider = (props) => {
     const reactivateSubscription = (subscriptionId) => {
 
         return getToken().then((token) =>
-            fetch(`api/subscription/reactivate/${subscriptionId}`, {
+            fetch(`/api/subscription/reactivate/${subscriptionId}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
