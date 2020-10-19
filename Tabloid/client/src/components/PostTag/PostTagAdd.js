@@ -25,12 +25,6 @@ export default function AddPostTag() {
             .then(() => history.push(`/post/details/${post.id}`))
     };
 
-    // const handleFieldChange = e => {
-    //     const stateToChange = { ...newPostTag };
-    //     stateToChange[e.target.id] = e.target.value;
-    //     setNewPostTag(stateToChange)
-    // };
-
     useEffect(() => {
         getAllTags();
     }, []);
@@ -45,15 +39,14 @@ export default function AddPostTag() {
             <p>Choose Tag to Add: </p>
 
             <ListGroup>
-                {/* Map Over Tags */}
                 {tags.map(tag =>
 
                     <ListGroupItem key={tag.id}> {tag.name}
                         <Button id={tag.id} onClick={createPostTag}>Add Tag</Button>
                     </ListGroupItem>)}
             </ListGroup>
-
             <Button onClick={Cancel}>Cancel</Button>
+
         </>
     );
 }
