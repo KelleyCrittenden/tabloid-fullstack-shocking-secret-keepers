@@ -66,7 +66,7 @@ export default function PostReactionList() {
     }
 
     return (
-        <Col >
+        <Col sm="12" md={{ size: 5, offset: 0 }}>
 
 
             <Row>

@@ -4,7 +4,6 @@ import { Card, Button, Col, Row, CardImg } from "reactstrap";
 
 export default function PostReaction({ postReaction }) {
     const { activeUser } = useContext(UserProfileContext);
-    console.log(postReaction, "reaction")
     return (
 
         <>

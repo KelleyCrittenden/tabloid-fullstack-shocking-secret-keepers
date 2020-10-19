@@ -153,6 +153,8 @@ namespace Tabloid.Repositories
 
                         var reactionId = reader.GetInt32(reader.GetOrdinal("ReactionId"));
                         var anotherPostReaction = postReactions.Find(pr => pr.ReactionId == reactionId);
+                        //var anotherPostReaction = postReactions.FirstOrDefault(pr => pr.ReactionId == reactionId);
+
                         if (anotherPostReaction == null) {
 
                             postReactions.Add(postReaction);

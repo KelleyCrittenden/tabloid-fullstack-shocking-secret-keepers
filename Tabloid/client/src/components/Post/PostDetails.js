@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext, PostProvider } from "../../providers/PostProvider";
-import { Card, CardImg, CardBody, Row, Button, Col } from "reactstrap";
+import { Card, CardImg, CardBody, Row, Button, Col, CardFooter } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 import { Link, NavLink, useParams } from "react-router-dom";
 import PostReactionList from "../Reaction/PostReactionList";
 import { ReactionContext } from "../../providers/ReactionProvider";
+import AddPostReactionList from "../Reaction/AddPostReactionList";
 
 const PostDetails = () => {
 
-    const { postReactions, getAllReactionsForPost } = useContext(ReactionContext);
+    const { postReactions, getAllReactionsForPost, allReactionTypes, getAllReactions } = useContext(ReactionContext);
     const { getPost, post } = useContext(PostContext);
     const { id } = useParams();
     const history = useHistory();
@@ -17,6 +18,7 @@ const PostDetails = () => {
     useEffect(() => {
         getPost(id);
         getAllReactionsForPost(id);
+        getAllReactions();
     }, []);
     const calculateReadTime = () => {
         let time = 0;
@@ -72,6 +74,15 @@ const PostDetails = () => {
                         <PostReactionList key={post.id} />)
                         : null}
                 </Row>
+                <CardFooter>
+                    <Row>
+                        {(allReactionTypes.length != 0)
+                            //||  postReactions.map(pr => pr.userId.includes("") 
+                            ? (
+                                <AddPostReactionList key={post.id} />)
+                            : null}
+                    </Row>
+                </CardFooter>
             </Card>
         </>
 

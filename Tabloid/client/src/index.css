@@ -24,3 +24,11 @@ p {
 .postDetailImg {
   max-width: 125em;
 }
+
+.border-button {
+  outline: solid 5px #FC5185;
+  transition: outline 0.6s linear;
+  margin: 0.5em; /* Increased margin since the outline expands outside the element */
+}
+
+.border-button:hover { outline-width: 10px; }
