@@ -8,14 +8,10 @@ export const ReactionProvider = (props) => {
     //All Reaction Types
     const [allReactionTypes, setAllReactionTypes] = useState([]);
 
-    //Single Reaction Type... needed?
-    //const [reaction, setReaction] = useState({});
 
     //All Reactions on a post
     const [postReactions, setpostReactions] = useState([]);
 
-    //Single Reaction on a post.. needed?
-    //const [postReaction, setPostReaction] = useState({});
 
     const getToken = () => firebase.auth().currentUser.getIdToken();
 
@@ -30,6 +26,7 @@ export const ReactionProvider = (props) => {
         })
     };
 
+    //Count of reaction types by postId
     const getAllReactionsForPost = (postId) => {
         return getToken().then((token) => {
             fetch(`/api/reaction/GetAllReactionsCountedByPost/${postId}`, {

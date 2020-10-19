@@ -25,6 +25,9 @@ p {
   max-width: 125em;
 }
 
+.PostReactionImg {
+  max-width: 5em;
+}
 .border-button {
   outline: solid 5px #FC5185;
   transition: outline 0.6s linear;

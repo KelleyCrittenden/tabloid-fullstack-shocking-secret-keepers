@@ -48,6 +48,7 @@ CREATE TABLE [Subscription] (
   [ProviderUserProfileId] integer NOT NULL,
   [BeginDateTime] datetime NOT NULL,
   [EndDateTime] datetime,
+  [IsSubscribed] integer NOT NULL DEFAULT 1,
 
   CONSTRAINT [FK_Subscription_UserProfile_Subscriber] FOREIGN KEY ([SubscriberUserProfileId])
 	REFERENCES [UserProfile] ([Id]),
