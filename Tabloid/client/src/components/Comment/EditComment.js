@@ -6,21 +6,25 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 const EditComment = () => {
     let userId = sessionStorage.userProfileId
-    console.log(userId);
+
     //id of comment(when user clicks the editcomment button on comment )
     const { id } = useParams();
     const history = useHistory();
 
     const { editComment, comment, getCommentById } = useContext(CommentContext);
-    console.log(comment);
+
     const [isLoading, setIsLoading] = useState(false);
     //represents form field state
     const [updatedComment, setUpdatedComment] = useState({})
-    console.log(updatedComment);
+
 
     //getting the individual comment using params (will run after initial load of page)
     useEffect(() => {
-        getCommentById(id);
+        getCommentById(id)
+
+
+
+
     }, [])
 
     //handling the field change in the form to update with what user types 
@@ -34,6 +38,12 @@ const EditComment = () => {
     //with what comment is 
     useEffect(() => {
         setUpdatedComment(comment)
+
+        let href = window.location.href.split("/")[5]
+        if (comment.userProfileId != sessionStorage.userProfileId && comment.id == href) {
+
+            history.push("/post");
+        }
     }, [comment])
 
 

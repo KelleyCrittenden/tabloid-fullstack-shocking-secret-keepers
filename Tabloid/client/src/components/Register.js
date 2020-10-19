@@ -11,9 +11,10 @@ export default function Register() {
   const [lastName, setLastName] = useState();
   const [displayName, setDisplayName] = useState();
   const [email, setEmail] = useState();
-  const [imageLocation, setImageLocation] = useState();
+  const [imageLocation, setImageLocation] = useState(" ");
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+  const [imageName, setImageName] = useState();
 
   const registerClick = (e) => {
     e.preventDefault();
@@ -24,7 +25,27 @@ export default function Register() {
       register(userProfile, password)
         .then(() => history.push("/"));
     }
- };
+  };
+  const checkUploadResult = (resultEvent) => {
+    if (resultEvent.event === 'success') {
+
+      setImageLocation(resultEvent.info.secure_url)
+      setImageName(resultEvent.info.original_filename + `.${resultEvent.info.original_extension}`)
+
+    }
+  }
+
+
+
+  const showWidget = (event) => {
+    let widget = window.cloudinary.createUploadWidget({
+      cloudName: "dgllrw1m3",
+      uploadPreset: "kxr8ogeo"
+    },
+      (error, result) => { checkUploadResult(result) })
+
+    widget.open()
+  }
 
   return (
     <Form onSubmit={registerClick}>
@@ -46,8 +67,9 @@ export default function Register() {
           <Input id="email" type="text" onChange={e => setEmail(e.target.value)} />
         </FormGroup>
         <FormGroup>
-          <Label htmlFor="imageLocation">Profile Image URL</Label>
-          <Input id="imageLocation" type="text" onChange={e => setImageLocation(e.target.value)} />
+          <div>
+            <Button onClick={showWidget}>Upload Photo</Button> <p>{imageName}</p>
+          </div>
         </FormGroup>
         <FormGroup>
           <Label for="password">Password</Label>

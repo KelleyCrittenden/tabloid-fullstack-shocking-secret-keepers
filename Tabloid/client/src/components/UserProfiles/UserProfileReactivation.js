@@ -6,7 +6,7 @@ import { currentDateTime } from "../Comment/helperFunctions"
 const UserProfileReactivation = () => {
 
     const { getDeactivatedUsers, reactivateUserProfile, deactivatedUsers } = useContext(UserProfileContext);
-    console.log(deactivatedUsers);
+
     const history = useHistory();
 
     useEffect(() => {
