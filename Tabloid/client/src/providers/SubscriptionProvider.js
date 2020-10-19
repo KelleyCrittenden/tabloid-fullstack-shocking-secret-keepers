@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as firebase from "firebase/app";
 
 export const SubscriptionContext = React.createContext();
@@ -8,7 +8,14 @@ export const SubscriptionProvider = (props) => {
 
     const [subscription, setSubscription] = useState({})
     const [allSubscribedPosts, setAllSubscribedPosts] = useState([])
+    let [tertiarysubs, setTertiarySubs] = useState([])
+    const [tertiarySubscribed, setTertiarySubscribed] = useState([])
+    const [completed, setCompleted] = useState(false);
+    let [secondarySubscribed, setSecondarySubscribed] = useState([])
 
+    useEffect(() => {
+        setTertiarySubscribed(tertiarysubs)
+    }, [completed == true])
     const getSubscriptionByUserId = (userId, authorId) => {
 
         return getToken().then((token) => {
@@ -28,6 +35,54 @@ export const SubscriptionProvider = (props) => {
             })
         })
     }
+    const getAllTertiarySubscriptionsByUserId = (userId, resp) => {
+
+        return getToken().then((token) => {
+            debugger
+            fetch(`/api/subscription/tertiary`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    Subs: resp,
+                    id: userId
+                })
+
+
+
+
+            }).then((resp) => resp.json()).then((resp) => {
+                debugger
+                setTertiarySubscribed(resp)
+
+
+
+
+
+            })
+        })
+    }
+
+
+
+    const getAllSubscriptionsByUserId = (userId) => {
+
+        return getToken().then((token) => {
+            fetch(`/api/subscription/${userId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+            }).then((resp) => (resp.json())).then((resp) => (getAllTertiarySubscriptionsByUserId(userId, resp)))
+
+
+
+
+        })
+    }
+
 
 
 
@@ -74,7 +129,7 @@ export const SubscriptionProvider = (props) => {
 
     return (
 
-        <SubscriptionContext.Provider value={{ unsubscribeFromAuthor, allSubscribedPosts, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId }}>
+        <SubscriptionContext.Provider value={{ unsubscribeFromAuthor, allSubscribedPosts, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId, tertiarySubscribed, getAllSubscriptionsByUserId }}>
             {props.children}
         </SubscriptionContext.Provider>
     );

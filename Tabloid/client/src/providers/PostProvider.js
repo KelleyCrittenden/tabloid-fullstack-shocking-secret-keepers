@@ -5,6 +5,7 @@ export const PostContext = React.createContext();
 
 export function PostProvider(props) {
     const [posts, setPosts] = useState([]);
+    const [recommendedPosts, setRecommendedPosts] = useState([]);
     const [post, setPost] = useState({ userProfile: {}, category: {} });
     const { getToken } = useContext(UserProfileContext);
     const [categories, setCategories] = useState([])
@@ -18,6 +19,22 @@ export function PostProvider(props) {
         })
             .then((res) => res.json())
             .then(setPosts));
+    };
+
+    const getAllPostsByUserId = (id) => {
+        getToken().then((token) => fetch(`/api/post/recommended/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                for (let post in res) {
+                    recommendedPosts.push(post)
+                }
+
+            }));
     };
 
     const addPost = (post) => {
@@ -103,7 +120,7 @@ export function PostProvider(props) {
         );
     };
     return (
-        <PostContext.Provider value={{ posts, setPost, post, categories, getAllPosts, addPost, getAllSearch, getPost, getAllPostsByUser, editPost, softDeletePost, categoriesForPost }}>
+        <PostContext.Provider value={{ posts, setPost, post, categories, getAllPosts, addPost, getAllSearch, getPost, getAllPostsByUser, editPost, softDeletePost, categoriesForPost, getAllPostsByUserId, recommendedPosts, setRecommendedPosts }}>
             {props.children}
         </PostContext.Provider>
     );
