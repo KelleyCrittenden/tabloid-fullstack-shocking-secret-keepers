@@ -42,11 +42,32 @@ namespace Tabloid.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Put(Subscription subscription)
+        [HttpPut("unsubscribe/{id}")]
+        public IActionResult Put(int id, Subscription subscription)
         {
-          
+            if (id != subscription.Id)
+            {
+                return BadRequest();
+            }
+
             _subscriptionRepository.UpdateSubscription(subscription);
+            return NoContent();
+        }
+
+        [HttpPut("reactivate/{id}")]
+        public IActionResult Reactivate(int id)
+        {
+
+            _subscriptionRepository.ReactivateSubscription(id);
+            return NoContent();
+
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _subscriptionRepository.DeleteSubscription(id);
+            //return status 204
             return NoContent();
         }
 

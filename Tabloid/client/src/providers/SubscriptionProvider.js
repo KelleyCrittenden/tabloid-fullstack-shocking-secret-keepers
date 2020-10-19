@@ -21,16 +21,10 @@ export const SubscriptionProvider = (props) => {
                 if (resp.status === 200) {
                     setSubscription(resp.json())
                 }
-                else {
-                    setSubscription(null);
-                }
-
             })
+
         })
     }
-
-
-
 
 
     const getAllSubscribedPostsForUser = (userId) => {
@@ -58,9 +52,9 @@ export const SubscriptionProvider = (props) => {
         })
     };
 
-    const unsubscribeFromAuthor = (subscription) => {
+    const unsubscribeFromAuthor = (subscriptionId, subscription) => {
         return getToken().then((token) => {
-            fetch(`/api/subscription/${subscription.id}`, {
+            fetch(`/api/subscription/unsubscribe/${subscriptionId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -72,9 +66,33 @@ export const SubscriptionProvider = (props) => {
         })
     };
 
+    const reactivateSubscription = (subscriptionId) => {
+
+        return getToken().then((token) =>
+            fetch(`api/subscription/reactivate/${subscriptionId}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            }));
+
+    };
+
+    const deleteSubscription = (subscriptionId) => {
+        return getToken().then((token) => {
+            fetch(`/api/subscription/${subscriptionId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        })
+    }
+
     return (
 
-        <SubscriptionContext.Provider value={{ unsubscribeFromAuthor, allSubscribedPosts, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId }}>
+        <SubscriptionContext.Provider value={{ reactivateSubscription, deleteSubscription, unsubscribeFromAuthor, allSubscribedPosts, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId }}>
             {props.children}
         </SubscriptionContext.Provider>
     );

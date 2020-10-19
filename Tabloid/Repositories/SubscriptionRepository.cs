@@ -192,12 +192,12 @@ namespace Tabloid.Repositories
                                 ProviderUserProfileId = @providerUserProfileId,
                                 EndDateTime = @endDateTime,
                                 IsSubscribed = @isSubscribed
-                            WHERE Id = @id";
+                            WHERE SubscriberUserProfileId = @id";
 
                     cmd.Parameters.AddWithValue("@subscriberUserProfileId", subscription.SubscriberUserProfileId);
                     cmd.Parameters.AddWithValue("@providerUserProfileId", subscription.ProviderUserProfileId);
                     cmd.Parameters.AddWithValue("@endDateTime", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@id", subscription.Id);
+                    cmd.Parameters.AddWithValue("@id", subscription.SubscriberUserProfileId);
                     cmd.Parameters.AddWithValue("@isSubscribed", 0);
 
                    
@@ -205,6 +205,50 @@ namespace Tabloid.Repositories
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        public void ReactivateSubscription(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Subscription
+                        SET
+                        IsSubscribed = @isSubscribed
+                        WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@isSubscribed", 1);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+
+        }
+
+        public void DeleteSubscription(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                 DELETE FROM Subscription
+                                 WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+
         }
     }
 }
