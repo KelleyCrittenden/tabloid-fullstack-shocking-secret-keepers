@@ -12,13 +12,12 @@ export default function AddPostTag() {
     const { tag, tags, getAllTags } = useContext(TagContext);
     const { addPostTag } = useContext(PostTagContext);
     const { post } = useContext(PostContext)
+    const [selected, setSelected] = useState([]);
 
     const [newPostTag, setNewPostTag] = useState({
         postId: parseInt(id),
         tagId: "",
     });
-
-    const [selected, setSelected] = useState([]);
 
     const createPostTag = (e) => {
         e.preventDefault();
@@ -32,7 +31,7 @@ export default function AddPostTag() {
     }, []);
 
     const Cancel = () => {
-        history.push(`{/post/details/${post.id}`)
+        history.push(`/post/details/${post.id}`)
     }
 
     return (
@@ -41,12 +40,13 @@ export default function AddPostTag() {
             <h1>Select Tags</h1>
             {/* showing user what has been slected  */}
             <pre>{JSON.stringify(selected)}</pre>
+
             <MultiSelect
-                key={tag.name}
-                options={tags}
+                options={tags} // options to display in the dropdown
+                displayValue="name"
                 value={selected}
                 onChange={setSelected}
-                labelledBy={"Select"}
+                labelledBy={"Select tag(s)"}
             />
             {/* <p>Choose Tag to Add: </p>
 
@@ -57,7 +57,7 @@ export default function AddPostTag() {
                         <Button id={tag.id} onClick={createPostTag}>Add Tag</Button>
                     </ListGroupItem>)}
             </ListGroup> */}
-            <Button id={tag.id} onClick={createPostTag}>Add Tag(s)</Button>
+            <Button onClick={createPostTag}>Add Tag(s)</Button>&nbsp;
             <Button onClick={Cancel}>Cancel</Button>
 
         </>

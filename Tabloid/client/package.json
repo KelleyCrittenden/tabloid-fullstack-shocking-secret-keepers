@@ -15,6 +15,7 @@
     "react-multi-select-component": "^3.0.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
     "reactstrap": "^8.5.1"
   },
   "scripts": {

@@ -1,11 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext, PostProvider } from "../../providers/PostProvider";
-<<<<<<< HEAD
 import { Card, CardImg, CardBody, Row, Button, Col, ListGroup } from "reactstrap";
-=======
 import { SubscriptionContext } from "../../providers/SubscriptionProvider";
-import { Card, CardImg, CardBody, Row, Button, Col } from "reactstrap";
->>>>>>> master
 import { useHistory } from "react-router-dom";
 import PostTag from "../PostTag/PostTag";
 import { Link, NavLink, useParams } from "react-router-dom";
@@ -13,12 +9,9 @@ import { PostTagContext } from "../../providers/PostTagProvider";
 import AddPostTag from "../PostTag/PostTagAdd";
 
 
-<<<<<<< HEAD
-=======
 const PostDetails = () => {
 
     let userId = sessionStorage.userProfileId
->>>>>>> master
     const { getPost, post } = useContext(PostContext);
     console.log("post", post);
 
@@ -155,7 +148,6 @@ const PostDetails = () => {
 
             </Card>
 
-<<<<<<< HEAD
             <h4>Tags: </h4>
             { (postTags.length > 0) ?
                 <ListGroup>
@@ -176,11 +168,9 @@ const PostDetails = () => {
 
             }
             <Link to={`/posttag/add/${id}`}>
-                <Button type="button" id="addPostTagButton" >Add Tag</Button>
+                <Button type="button" id="addPostTagButton"> Add Tag </Button>
             </Link>
-=======
 
->>>>>>> master
 
         </>
 
