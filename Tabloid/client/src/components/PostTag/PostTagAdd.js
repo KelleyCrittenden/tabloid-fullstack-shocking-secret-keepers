@@ -46,7 +46,7 @@ export default function AddPostTag() {
                 displayValue="name"
                 value={selected}
                 onChange={setSelected}
-                labelledBy={"Select tag(s)"}
+                labelledBy={"Select"}
             />
             {/* <p>Choose Tag to Add: </p>
 

@@ -28,7 +28,7 @@ const Post = ({ post }) => {
                     <Row>
                         <Col sm="4">
                             {window.location.href == "http://localhost:3000/post" ?
-                                <NavLink to={`post/details/${post.id}`}><Button to={`/post/details/${post.id}`} >Details</Button></NavLink> : <NavLink to={`details/${post.id}`}><Button to={`details/${post.id}`} >Details</Button></NavLink>}
+                                <NavLink to={`post/details/${post.id}`}><Button >Details</Button></NavLink> : <NavLink to={`details/${post.id}`}><Button >Details</Button></NavLink>}
                         </Col>
                         <Col sm="4">
                             {window.location.href == "http://localhost:3000/post" ?
