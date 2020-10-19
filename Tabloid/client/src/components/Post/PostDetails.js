@@ -1,14 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext, PostProvider } from "../../providers/PostProvider";
+import { Card, CardImg, CardBody, Row, Button, Col, CardFooter } from "reactstrap";
 import { SubscriptionContext } from "../../providers/SubscriptionProvider";
-import { Card, CardImg, CardBody, Row, Button, Col } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 import { Link, NavLink, useParams } from "react-router-dom";
+import PostReactionList from "../Reaction/PostReactionList";
+import { ReactionContext } from "../../providers/ReactionProvider";
+import AddPostReactionList from "../Reaction/AddPostReactionList";
 
 
 const PostDetails = () => {
 
+    const { postReactions, getAllReactionsForPost, allReactionTypes, getAllReactions } = useContext(ReactionContext);
     let userId = sessionStorage.userProfileId
     const { getPost, post } = useContext(PostContext);
     console.log("post", post);
@@ -28,9 +32,9 @@ const PostDetails = () => {
     const history = useHistory();
 
     useEffect(() => {
-
         getPost(id);
-
+        getAllReactionsForPost(id);
+        getAllReactions();
     }, []);
 
     useEffect(() => {
@@ -110,11 +114,20 @@ const PostDetails = () => {
     //     getSubscriptionByUserId(parseInt(userId), post.userProfileId);
     // }
 
+    //allows only 1 reaction from a user per post
+    const availableReactions = () => {
 
-    // useEffect(() => {
-    //     debugger
-    //     getAllPosts();
-    // }, [])
+        //if array of reaction types have not loaded return null
+        if ((allReactionTypes.length != 0)) {
+
+            //return previous reaction if it exists in postReactions array where userProfileId equals active user
+            var previousReaction = postReactions.find(pr => pr.userProfileId == parseInt(userId))
+            if (previousReaction == undefined) {
+                return (<AddPostReactionList key={post.id} />)
+            } else return null;
+        }
+        return null;
+    };
 
     // if (!subscription) {
     //     return null
@@ -167,9 +180,17 @@ const PostDetails = () => {
                 <CardBody>
                     <CardImg className="postDetailImg" top src={post.imageLocation} alt={post.title} />
                     <p>{post.content}</p>
-
-
                 </CardBody>
+                <Row>
+                    {postReactions.length != 0 ? (
+                        <PostReactionList key={post.id} />)
+                        : null}
+                </Row>
+                <CardFooter>
+                    <Row>
+                        {availableReactions()}
+                    </Row>
+                </CardFooter>
             </Card>
 
 
