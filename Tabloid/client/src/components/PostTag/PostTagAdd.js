@@ -4,12 +4,12 @@ import { useHistory, useParams } from "react-router-dom";
 import { ListGroup, Button, ListGroupItem } from "reactstrap"
 import React, { useContext, useState, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
+import MultiSelect from "react-multi-select-component";
 
 export default function AddPostTag() {
     const history = useHistory();
     const { id } = useParams();
-    const { tags, getAllTags } = useContext(TagContext);
-    console.log(tags, "grabbing tags")
+    const { tag, tags, getAllTags } = useContext(TagContext);
     const { addPostTag } = useContext(PostTagContext);
     const { post } = useContext(PostContext)
 
@@ -17,6 +17,8 @@ export default function AddPostTag() {
         postId: parseInt(id),
         tagId: "",
     });
+
+    const [selected, setSelected] = useState([]);
 
     const createPostTag = (e) => {
         e.preventDefault();
@@ -29,14 +31,24 @@ export default function AddPostTag() {
         getAllTags();
     }, []);
 
-
     const Cancel = () => {
         history.push(`{/post/details/${post.id}`)
     }
 
     return (
         <>
-            <p>Choose Tag to Add: </p>
+
+            <h1>Select Tags</h1>
+            {/* showing user what has been slected  */}
+            <pre>{JSON.stringify(selected)}</pre>
+            <MultiSelect
+                key={tag.name}
+                options={tags}
+                value={selected}
+                onChange={setSelected}
+                labelledBy={"Select"}
+            />
+            {/* <p>Choose Tag to Add: </p>
 
             <ListGroup>
                 {tags.map(tag =>
@@ -44,7 +56,8 @@ export default function AddPostTag() {
                     <ListGroupItem key={tag.id}> {tag.name}
                         <Button id={tag.id} onClick={createPostTag}>Add Tag</Button>
                     </ListGroupItem>)}
-            </ListGroup>
+            </ListGroup> */}
+            <Button id={tag.id} onClick={createPostTag}>Add Tag(s)</Button>
             <Button onClick={Cancel}>Cancel</Button>
 
         </>
