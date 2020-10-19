@@ -79,33 +79,24 @@ const PostDetails = () => {
 
     }
 
+    //unsubscribe from author 
     const unsubscribe = (e) => {
         e.preventDefault();
         updatedSubscription.subscriberUserProfileId = parseInt(userId)
         updatedSubscription.providerUserProfileId = post.userProfileId
         //change end date time to current time and isSubscribed should be edited to 0 (in repository), therefore... show the subscribe button again
-        unsubscribeFromAuthor(updatedSubscription.id, updatedSubscription);
+        //get the subscription info and should then should refresh and show reactivate subscription button
+        unsubscribeFromAuthor(updatedSubscription.id, updatedSubscription).then(() => getSubscriptionByUserId(parseInt(userId), post.userProfileId))
+
         alert("You are no longer subscribed to this author");
-        //get the subscription info and should then should refresh and show subscribe button
-        getSubscriptionByUserId(parseInt(userId), post.userProfileId);
     }
 
     const reactivateASubscription = (e) => {
         // debugger
         e.preventDefault();
-        reactivateSubscription(subscription.id);
+        reactivateSubscription(postSubscription.id);
         getSubscriptionByUserId(parseInt(userId), post.userProfileId);
-
     }
-    // const unsubscribe = (e) => {
-    //     e.preventDefault();
-
-    //     //change end date time to current time and isSubscribed should be edited to 0 (in repository), therefore... show the subscribe button again
-    //     deleteSubscription(parseInt(userId))
-    //     alert("You are no longer subscribed to this author");
-    //     //get the subscription info and should then should refresh and show subscribe button
-    //     getSubscriptionByUserId(parseInt(userId), post.userProfileId);
-    // }
 
     //allows only 1 reaction from a user per post
     const availableReactions = () => {
@@ -139,7 +130,7 @@ const PostDetails = () => {
                 <Button type="button" onClick={unsubscribe} color="danger">Unsubscribe from this Author</Button> : null}
 
             {/* this will only show up if there is already a subscription between the two, but currently unsubscribed where isSubscribed === 0 */}
-            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed == 0 ?
+            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed === 0 ?
                 <Button type="button" onClick={reactivateASubscription} color="warning">Reactivate Subscription</Button> : null}
 
             <Link to={`/commentsbypost/${id}`}> <Button>View Comments</Button></Link>
