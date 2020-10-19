@@ -31,7 +31,7 @@ namespace Tabloid.Controllers
         [HttpGet("{id}/getby/{authorId}")]
         public IActionResult GetSubscriptionById(int id, int authorId)
         {
-           
+
             return Ok(_subscriptionRepository.GetSubscriptionByUserId(id, authorId));
         }
 

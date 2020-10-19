@@ -49,7 +49,7 @@ namespace Tabloid.Repositories
 
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@authorId", authorId);
-                    //var subscriptions = new List<Subscription>();
+                 
                     var reader = cmd.ExecuteReader();
 
                     if (reader.Read())
@@ -66,9 +66,7 @@ namespace Tabloid.Repositories
                         };
                         reader.Close();
                         return subscription;
-
-                        //subscriptions.Add(subscription);
-
+                      
                     }
                     else
                     {

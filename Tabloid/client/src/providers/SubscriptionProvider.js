@@ -19,19 +19,19 @@ export const SubscriptionProvider = (props) => {
                 }
             }).then(resp => {
                 if (resp.status === 200) {
-                    setSubscription(resp.json());
-
-                } else if (resp.status === 204) {
-                    setSubscription(null);
+                    setSubscription(resp.json())
                 }
                 else {
-                    return
+                    setSubscription(null);
                 }
 
             })
-
         })
-    };
+    }
+
+
+
+
 
     const getAllSubscribedPostsForUser = (userId) => {
         return getToken().then((token) => {

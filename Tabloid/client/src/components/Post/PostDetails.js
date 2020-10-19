@@ -15,6 +15,7 @@ const PostDetails = () => {
 
     //using subscription context for posting of new subscription
     const { unsubscribeFromAuthor, addSubscription, subscription, getSubscriptionByUserId } = useContext(SubscriptionContext);
+    const [postSubscription, setPostSubscription] = useState({});
     console.log("subscription", subscription);
 
     //setting new subscription object into state
@@ -37,6 +38,11 @@ const PostDetails = () => {
         // debugger
         getSubscriptionByUserId(parseInt(userId), post.userProfileId);
     }, [post])
+
+    useEffect(() => {
+        // debugger;
+        setPostSubscription(subscription);
+    }, [subscription])
 
 
     const calculateReadTime = () => {
@@ -89,15 +95,16 @@ const PostDetails = () => {
     return (
 
         <>
-            {/* will only show the subscribe button if the person logged in is not the author of the post 
+            {/* NOT Working!! will only show the subscribe button if the person logged in is not the author of the post 
             AND if there IS NOT already a subscription between the author and user, otherwise show nothing */}
-            {parseInt(userId) !== post.userProfileId && (subscription === null || subscription.isSubscribed === 0) ?
-                <Button onClick={subscribeToAuthor} color="success">Subscribe to this Author</Button> : null}
+            {/* {parseInt(userId) !== post.userProfileId || subscription.isSubscribed === 0 ? */}
+            <Button onClick={subscribeToAuthor} color="success">Subscribe to this Author</Button>
+            {/* : null} */}
 
             {/* NOT WORKING!! still having issues getting the authorid in time; how do I get this to not be undefined???? */}
-            {subscription !== null && subscription.isSubscribed === 1 ?
-                <Button type="button" onClick={unsubscribe} color="danger">Unsubscribe from this Author</Button>
-                : null}
+            {/* {subscription !== null && subscription.isSubscribed === 1 ? */}
+            <Button type="button" onClick={unsubscribe} color="danger">Unsubscribe from this Author</Button>
+            {/*: null} */}
 
 
             <Link to={`/commentsbypost/${id}`}> <Button>View Comments</Button></Link>
