@@ -1,18 +1,11 @@
 import React, { useContext } from "react";
 import { Card, CardImg, CardBody, Row, Button, Col } from "reactstrap";
 
-<<<<<<< HEAD
-import { NavLink, Link, useParams } from "react-router-dom";
-
-const Post = ({ post }) => {
-    const { id } = useParams();
-=======
 import { NavLink } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 const Post = ({ post }) => {
     const { activeUser } = useContext(UserProfileContext);
->>>>>>> master
 
     if (post.userProfileId == parseInt(sessionStorage.userProfileId)) {
         return (
