@@ -38,17 +38,12 @@ const PostDetails = () => {
     }, []);
 
     useEffect(() => {
-        // debugger
-
         getSubscriptionByUserId(parseInt(userId), post.userProfileId);
-
     }, [post])
 
     useEffect(() => {
-
         setPostSubscription(subscription);
         setUpdatedSubscription(subscription);
-
     }, [subscription])
 
 
@@ -76,7 +71,6 @@ const PostDetails = () => {
         //should take away the button to subscribe and show unsubscribe button
         getSubscriptionByUserId(parseInt(userId), post.userProfileId);
 
-
     }
 
     //unsubscribe from author 
@@ -84,14 +78,14 @@ const PostDetails = () => {
         e.preventDefault();
         updatedSubscription.subscriberUserProfileId = parseInt(userId)
         updatedSubscription.providerUserProfileId = post.userProfileId
-        //change end date time to current time and isSubscribed should be edited to 0 (in repository), therefore... show the subscribe button again
+        //change end date time to current time and isSubscribed should be edited to 0, therefore... show the subscribe button again
         //get the subscription info and should then should refresh and show reactivate subscription button
         unsubscribeFromAuthor(updatedSubscription.id, updatedSubscription);
         getSubscriptionByUserId(parseInt(userId), post.userProfileId);
-
         alert("You are no longer subscribed to this author");
     }
 
+    //when unsubscribed isSubscribed === 0, changes it back to subscribed, isSubscribed === 1
     const reactivateASubscription = (e) => {
         // debugger
         e.preventDefault();
@@ -122,7 +116,7 @@ const PostDetails = () => {
 
             {/* will only show the SUBSCRIBE button if the person logged in is not the author of the post 
             AND if there IS NOT already a subscription between the author and user (fresh entry in database), otherwise show nothing */}
-            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed == undefined ?
+            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed == null ?
                 <Button onClick={subscribeToAuthor} color="success">Subscribe to this Author</Button> : null}
 
             {/*THIS will only show up if the author and user already have a subscription and isSubscribed === 1

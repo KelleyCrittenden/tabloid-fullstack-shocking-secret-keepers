@@ -19,9 +19,13 @@ export const SubscriptionProvider = (props) => {
                 }
 
             }).then(resp => resp.json()).then(setSubscription)
-                .catch(error => {
-                    console.error('Error:', error)
-                })
+                .catch(() => getSubscriptionByUserId())
+
+
+
+            // .catch(error => {
+            //     console.error('Error:', error)
+            // })
             // .then(resp => {
             //     if (resp.status === 200) {
             //         setSubscription(resp.json())
