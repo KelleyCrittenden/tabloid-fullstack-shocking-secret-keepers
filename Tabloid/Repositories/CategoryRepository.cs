@@ -2,7 +2,6 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Tabloid.Models;
-using Tabloid.Utils;
 //Maintained by Brett Stoudt
 namespace Tabloid.Repositories
 {
@@ -160,27 +159,6 @@ namespace Tabloid.Repositories
                 }
             }
         }
-        //public void DeleteCategory(int id)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //                    UPDATE Category
-        //                    SET 
-        //                    IsDeleted = @IsDeleted
-        //                    WHERE Id = @id
-        //                ";
-
-        //            cmd.Parameters.AddWithValue("@IsDeleted", 1);
-        //            cmd.Parameters.AddWithValue("@id", id);
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
 
         //Declare Category Properties
         private Category NewCategoryFromReader(SqlDataReader reader)
