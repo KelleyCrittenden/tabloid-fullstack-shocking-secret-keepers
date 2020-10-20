@@ -8,9 +8,8 @@ import { PostContext } from "../../providers/PostProvider";
 export default function AddPostTag() {
     const history = useHistory();
     const { id } = useParams();
-    const { tag, tags, getAllTags } = useContext(TagContext);
+    const { tags, getAllTags } = useContext(TagContext);
     const { addPostTag } = useContext(PostTagContext);
-    const { post } = useContext(PostContext)
     const [selected, setSelected] = useState([]);
 
     const handleSelected = (e) => {
@@ -58,19 +57,22 @@ export default function AddPostTag() {
                 </select>
                 <span validation-for="TagsSelected" class="text-danger"></span>
             </div>
-            <div>
-                <label for="TagSelectedList" class="control-label">Tags Currently Selected: </label>
-                {(selected.length > 0) ?
-                    <ListGroup>
-                        {
-                            selected.map(selected => {
-                                return <selected key={selected.id} selected={selected} />
-                            })
-                        }
-                    </ListGroup>
-                    :
-                    null}
-            </div>
+            {/* <div>
+            
+                    <label for="TagSelectedList" class="control-label">Tags Currently Selected: </label>
+
+                    {(selected.length > 0) ?
+                        <ListGroup>
+                            {
+                                selected.map(selected => {
+                                    return <selected key={selected.id} selected={selected} />
+                                })
+                            }
+                        </ListGroup>
+                        :
+                        null}
+
+            </div> */}
 
             <Button color="primary" onClick={createPostTag}>Add Tag(s)</Button>&nbsp;
             <Button onClick={Cancel}>Cancel</Button>
