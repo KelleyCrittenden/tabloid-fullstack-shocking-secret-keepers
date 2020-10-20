@@ -36,9 +36,10 @@ export default function DeletedPostTag() {
     return (
         <>
             <div class="form-group">
-                <label for="PostTagsSelected" class="control-label">Select Tags to Delete</label>
+                <h3>Select Tag(s) to Delete</h3>
+                <label for="PostTagsSelected" class="control-label"></label>
                 <select isMulti mulitple={true} for="PostTagsSelected" class="form-control" onChange={handleSelected}>
-                    <option>Choose Tag...</option>
+                    <option>Choose Tag(s)...</option>
                     {postTags.map(postTag => {
                         return <option
                             key={postTag.id}

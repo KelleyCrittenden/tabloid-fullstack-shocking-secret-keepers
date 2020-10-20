@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { ListGroup, Button, ListGroupItem } from "reactstrap"
 import React, { useContext, useState, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
+import PostTag from "./PostTag";
 
 export default function AddPostTag() {
     const history = useHistory();
@@ -15,6 +16,7 @@ export default function AddPostTag() {
     const handleSelected = (e) => {
         const selectedTag = e.target.value
         selected.push(selectedTag);
+        // debugger
         setSelected(selected);
     }
 
@@ -43,9 +45,10 @@ export default function AddPostTag() {
         <>
 
             <div class="form-group">
-                <label for="TagsSelected" class="control-label">Select Tags</label>
+                <h3>Select Tag(s) to Add</h3>
+                <label for="TagsSelected" class="control-label"></label>
                 <select isMulti mulitple={true} for="TagsSelected" class="form-control" onChange={handleSelected}>
-                    <option>Choose Tag...</option>
+                    <option>Choose Tag(s)...</option>
                     {tags.map(tag => {
                         return <option
                             key={tag.id}
@@ -57,21 +60,24 @@ export default function AddPostTag() {
                 </select>
                 <span validation-for="TagsSelected" class="text-danger"></span>
             </div>
-            {/* <div>
-            
-                    <label for="TagSelectedList" class="control-label">Tags Currently Selected: </label>
+            <div>
 
-                    {(??????.length > 0) ?
-                        <ListGroup>
-                            {
-                              map over selected tags
-                                })
-                            }
-                        </ListGroup>
-                        :
-                        null}
+                {/* <label for="TagSelectedList" class="control-label">Tags Currently Selected: </label> */}
 
-            </div> */}
+                {(selected.length > 0) ?
+                    <ListGroup>
+                        {
+                            // tags.map(tag => {
+                            //     var tagId = tag.id
+                            //     if (selected.includes(tagId.toString())) {
+                            //         return (<p key={tagId}> {tag.name} </p>)
+
+                        }
+                    </ListGroup>
+                    :
+                    null}
+
+            </div>
 
             <Button color="primary" onClick={createPostTag}>Add Tag(s)</Button>&nbsp;
             <Button onClick={Cancel}>Cancel</Button>
