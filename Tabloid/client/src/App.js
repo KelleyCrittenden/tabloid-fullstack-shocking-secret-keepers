@@ -20,6 +20,7 @@ function App() {
 
     <Router>
       <UserProfileProvider>
+
         <PostProvider>
           <TagProvider>
             <CategoryProvider>
@@ -36,6 +37,7 @@ function App() {
             </CategoryProvider>
           </TagProvider>
         </PostProvider>
+
       </UserProfileProvider>
     </Router>
 

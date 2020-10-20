@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as firebase from "firebase/app";
 
 export const SubscriptionContext = React.createContext();
@@ -8,6 +8,19 @@ export const SubscriptionProvider = (props) => {
 
     const [subscription, setSubscription] = useState({})
     const [allSubscribedPosts, setAllSubscribedPosts] = useState([])
+    let [tertiarysubs, setTertiarySubs] = useState([])
+    let [tertiarySubscribed, setTertiarySubscribed] = useState([])
+    const [subComplete, setSubComplete] = useState(false)
+
+
+
+
+
+
+
+
+
+
 
     const getSubscriptionByUserId = (userId, authorId) => {
 
@@ -22,6 +35,80 @@ export const SubscriptionProvider = (props) => {
 
         })
     }
+    const getAllTertiarySubscriptionsByUserId = (response) => {
+        setSubComplete(false)
+
+
+        response.map(subscription => {
+            let sortedResp = []
+
+            return getToken().then((token) => {
+
+                fetch(`/api/subscription/tertiary/${subscription.providerUserProfileId}`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+
+
+
+
+
+                }).then((resp) => resp.json()).then((resp) => {
+
+
+                    for (let sub of resp) {
+                        if (sub == sessionStorage.activeUserId) {
+
+                        }
+                        else {
+
+                            sortedResp.push(sub)
+                        }
+                    }
+
+
+                    sortedResp.map(subId => {
+
+                        tertiarysubs.push(subId)
+                        if (subId == sortedResp[sortedResp.length - 1]) {
+                            if (subComplete == false) {
+                                setSubComplete(true)
+                            }
+                            else {
+                                setSubComplete(false)
+                            }
+
+                        }
+
+                    })
+
+
+                })
+            })
+        })
+
+    }
+
+
+
+    const getAllSubscriptionsByUserId = (userId) => {
+
+        return getToken().then((token) => {
+            fetch(`/api/subscription/${userId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+            }).then((resp) => (resp.json())).then((resp) => (getAllTertiarySubscriptionsByUserId(resp)))
+
+
+
+
+        })
+    }
+
 
 
     const getAllSubscribedPostsForUser = (userId) => {
@@ -89,7 +176,7 @@ export const SubscriptionProvider = (props) => {
 
     return (
 
-        <SubscriptionContext.Provider value={{ reactivateSubscription, deleteSubscription, unsubscribeFromAuthor, allSubscribedPosts, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId }}>
+        <SubscriptionContext.Provider value={{ unsubscribeFromAuthor, reactivateSubscription, allSubscribedPosts, unsubscribeFromAuthor, deleteSubscription, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId, tertiarySubscribed, getAllSubscriptionsByUserId, tertiarysubs, subComplete, setAllSubscribedPosts, setTertiarySubs }}>
             {props.children}
         </SubscriptionContext.Provider>
     );

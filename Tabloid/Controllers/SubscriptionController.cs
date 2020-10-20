@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.ObjectPool;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
@@ -26,6 +28,28 @@ namespace Tabloid.Controllers
         public IActionResult GetAllSubscribedPostsByUser(int id)
         {
             return Ok(_subscriptionRepository.GetSubscribedPostsForUser(id));
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetAllSubscriptionsByUserId(int id)
+        {
+            return Ok(_subscriptionRepository.GetAllSubscriptionsByUserId(id));
+        }
+
+        [HttpPost("tertiary/{id}")]
+        public IActionResult GetAllTertiarySubscriptionsByUserId(int id)
+        {
+            
+           
+                List<Subscription> secondarySubs = _subscriptionRepository.GetAllSubscriptionsByUserId(id);
+            List<int> tertiarySubs = new List<int>();
+               foreach(Subscription subscription in secondarySubs)
+                {
+                tertiarySubs.Add(subscription.ProviderUserProfileId);
+                    
+                }
+            
+            return Ok(tertiarySubs);
         }
 
         [HttpGet("{id}/getby/{authorId}")]

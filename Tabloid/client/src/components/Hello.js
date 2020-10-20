@@ -10,10 +10,13 @@ export default function Hello() {
   const { activeUser } = useContext(UserProfileContext);
 
 
-  const { allSubscribedPosts, getAllSubscribedPostsForUser } = useContext(SubscriptionContext);
+  const { allSubscribedPosts, getAllSubscribedPostsForUser, getAllSubscriptionsByUserId } = useContext(SubscriptionContext);
 
   useEffect(() => {
+
     getAllSubscribedPostsForUser(parseInt(activeUser.id))
+
+
   }, [])
 
 

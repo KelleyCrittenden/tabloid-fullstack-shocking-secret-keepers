@@ -13,5 +13,6 @@ namespace Tabloid.Repositories
         List<Post> GetUserPostsById(int userProfileId);
         void UpdatePost(Post post);
         List<Category> GetAllCategories();
+        public List<Post> GetAllPostsByUserId(int userProfileId);
     }
 }

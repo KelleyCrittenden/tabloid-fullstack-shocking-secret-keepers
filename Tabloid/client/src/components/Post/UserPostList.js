@@ -5,7 +5,7 @@ import Post from "./Post";
 import { NavLink } from "react-router-dom";
 
 const UserPostList = () => {
-    const { posts, getAllPostsByUser } = useContext(PostContext);
+    const { userPosts, getAllPostsByUser } = useContext(PostContext);
 
     useEffect(() => {
         getAllPostsByUser(parseInt(sessionStorage.userProfileId));
@@ -16,7 +16,7 @@ const UserPostList = () => {
             <div className="row justify-content-center">
                 <NavLink to={"add"}><Button>New Post</Button></NavLink>
                 <div className="cards-column">
-                    {posts.map((post) => (
+                    {userPosts.map((post) => (
                         <Post key={post.id} post={post} />
                     ))}
                 </div>
