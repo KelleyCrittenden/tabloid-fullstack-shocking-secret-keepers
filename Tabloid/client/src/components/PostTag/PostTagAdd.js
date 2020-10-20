@@ -4,7 +4,6 @@ import { useHistory, useParams } from "react-router-dom";
 import { ListGroup, Button, ListGroupItem } from "reactstrap"
 import React, { useContext, useState, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
-import MultiSelect from "react-multi-select-component";
 
 export default function AddPostTag() {
     const history = useHistory();
@@ -14,16 +13,23 @@ export default function AddPostTag() {
     const { post } = useContext(PostContext)
     const [selected, setSelected] = useState([]);
 
-    const [newPostTag, setNewPostTag] = useState({
-        postId: parseInt(id),
-        tagId: "",
-    });
+    const handleSelected = (e) => {
+        const selectedTag = e.target.value
+        selected.push(selectedTag);
+        setSelected(selected);
+    }
 
     const createPostTag = (e) => {
         e.preventDefault();
-        newPostTag.tagId = parseInt(e.target.id)
-        addPostTag(newPostTag)
-            .then(() => history.push(`/post/details/${post.id}`))
+        selected.map(selectedId => {
+            //creating a new postTag object
+            addPostTag({
+                postId: parseInt(id),
+                tagId: parseInt(selectedId)
+            })
+        })
+
+        history.push(`/post/details/${id}`)
     };
 
     useEffect(() => {
@@ -31,34 +37,44 @@ export default function AddPostTag() {
     }, []);
 
     const Cancel = () => {
-        history.push(`/post/details/${post.id}`)
+        history.push(`/post/details/${id}`)
     }
 
     return (
         <>
 
-            <h1>Select Tags</h1>
-            {/* showing user what has been slected  */}
-            <pre>{JSON.stringify(selected)}</pre>
+            <div class="form-group">
+                <label for="TagsSelected" class="control-label">Select Tags</label>
+                <select isMulti mulitple={true} for="TagsSelected" class="form-control" onChange={handleSelected}>
+                    <option>Choose Tag...</option>
+                    {tags.map(tag => {
+                        return <option
+                            key={tag.id}
+                            value={tag.id}>
+                            {tag.name}
+                        </option>
+                    })}
 
-            <MultiSelect
-                options={tags} // options to display in the dropdown
-                displayValue="name"
-                value={selected}
-                onChange={setSelected}
-                labelledBy={"Select"}
-            />
-            {/* <p>Choose Tag to Add: </p>
+                </select>
+                <span validation-for="TagsSelected" class="text-danger"></span>
+            </div>
+            <div>
+                <label for="TagSelectedList" class="control-label">Tags Currently Selected: </label>
+                {(selected.length > 0) ?
+                    <ListGroup>
+                        {
+                            selected.map(selected => {
+                                return <Selected key={selected.id} selected={selected} />
+                            })
+                        }
+                    </ListGroup>
+                    :
+                    null}
+            </div>
 
-            <ListGroup>
-                {tags.map(tag =>
-
-                    <ListGroupItem key={tag.id}> {tag.name}
-                        <Button id={tag.id} onClick={createPostTag}>Add Tag</Button>
-                    </ListGroupItem>)}
-            </ListGroup> */}
-            <Button onClick={createPostTag}>Add Tag(s)</Button>&nbsp;
+            <Button color="primary" onClick={createPostTag}>Add Tag(s)</Button>&nbsp;
             <Button onClick={Cancel}>Cancel</Button>
+
 
         </>
     );

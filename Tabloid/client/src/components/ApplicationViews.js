@@ -29,11 +29,8 @@ import UserProfileDeactivation from "./UserProfiles/UserProfileDeactivation";
 import AddPostTag from "./PostTag/PostTagAdd";
 import UserProfileReactivation from "./UserProfiles/UserProfileReactivation";
 import UserProfileEdit from "./UserProfiles/UserProfileEdit";
-<<<<<<< HEAD
-
-=======
 import ReactionList from "./Reaction/ReactionList";
->>>>>>> master
+
 export default function ApplicationViews(props) {
   const { isLoggedIn, activeUser, userTypeId } = useContext(UserProfileContext);
   const [refresh, setRefresh] = useState(false);

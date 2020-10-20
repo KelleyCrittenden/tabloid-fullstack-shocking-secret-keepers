@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 import PostTag from "../PostTag/PostTag";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { PostTagContext } from "../../providers/PostTagProvider";
-import AddPostTag from "../PostTag/PostTagAdd";
 import PostReactionList from "../Reaction/PostReactionList";
 import { ReactionContext } from "../../providers/ReactionProvider";
 import AddPostReactionList from "../Reaction/AddPostReactionList";
@@ -39,6 +38,7 @@ const PostDetails = () => {
         getPost(id);
         getAllReactionsForPost(id);
         getAllReactions();
+        getAllPostTagsByPost(id);
     }, []);
 
     useEffect(() => {
@@ -190,7 +190,7 @@ const PostDetails = () => {
 
             }
             <Link to={`/posttag/add/${id}`}>
-                <Button type="button" id="addPostTagButton"> Add Tag </Button>
+                <Button color="primary" type="button" id="addPostTagButton"> Add Tag </Button>
             </Link>
 
 

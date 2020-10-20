@@ -26,8 +26,10 @@ function App() {
               <CommentProvider>
                 <ReactionProvider>
                   <SubscriptionProvider>
-                    <Header />
-                    <ApplicationViews />
+                    <PostTagProvider>
+                      <Header />
+                      <ApplicationViews />
+                    </PostTagProvider>
                   </SubscriptionProvider>
                 </ReactionProvider>
               </CommentProvider>
