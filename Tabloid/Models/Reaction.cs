@@ -12,10 +12,13 @@ namespace Tabloid.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         [Required]
         [DisplayName("Image")]
+        [MaxLength(255)]
+
         public string ImageLocation { get; set; }
 
         public int ReactionCount { get; set; }

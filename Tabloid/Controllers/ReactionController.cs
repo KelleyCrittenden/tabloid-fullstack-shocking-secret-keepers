@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-//    [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReactionController : ControllerBase
@@ -18,14 +13,13 @@ namespace Tabloid.Controllers
         private readonly IReactionRepository _reactionRepository;
         private readonly IPostReactionRepository _postReactionRepository;
         private readonly IUserProfileRepository _userProfileRepository;
-        //private readonly IPostRepository _postRepository;
+
 
         public ReactionController(IPostReactionRepository postReactionRepository, IReactionRepository reactionRepository, IUserProfileRepository userProfileRepository)
         {
             _reactionRepository = reactionRepository;
             _postReactionRepository = postReactionRepository;
             _userProfileRepository = userProfileRepository;
-            //_postRepository = postRepository;
         }
 
         [HttpGet]

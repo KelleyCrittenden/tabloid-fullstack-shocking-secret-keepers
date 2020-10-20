@@ -7,19 +7,19 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-    
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
-       // private readonly IPostRepository _postRepository;
+
         private readonly IUserProfileRepository _userProfileRepository;
 
         public CategoryController(ICategoryRepository categoryRepository, IUserProfileRepository userProfileRepository)
         {
             _categoryRepository = categoryRepository;
-           // _postRepository = postRepository;
+
             _userProfileRepository = userProfileRepository;
         }
 
@@ -50,20 +50,20 @@ namespace Tabloid.Controllers
         {
             var currentUserProfile = GetCurrentUserProfile();
 
-            //if (currentUserProfile.UserType.Name != "admin")
-            //{
-            //    return Unauthorized();
-            //}
-            //if (category == null)
-            //{
+            if (currentUserProfile.UserType.Name != "Admin")
+            {
+                return Unauthorized();
+            }
+            if (category == null)
+            {
 
-            //    return NotFound();
+                return NotFound();
 
-            //}
-            //if (id != category.Id)
-            //{
-            //    return BadRequest();
-            //}
+            }
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
             _categoryRepository.UpdateCategory(category);
             return Ok(category);
         }
@@ -92,23 +92,23 @@ namespace Tabloid.Controllers
         ////[ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-        //    if (id == 1)
-        //    {
+            if (id == 1)
+            {
 
-        //        return NotFound();
+                return NotFound();
 
-        //    }
-        //    try
-        //    {
+            }
+            try
+            {
                 _categoryRepository.DeleteCategory(id);
 
                 return Ok(id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Ok(category);
-        //        //ADD 
-        //    }
+        }
+            catch (Exception ex)
+            {
+                return BadRequest();
+
+            }
         }
 
         //Firebase
