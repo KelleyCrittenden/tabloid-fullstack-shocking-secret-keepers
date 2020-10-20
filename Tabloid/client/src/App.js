@@ -4,13 +4,14 @@ import { UserProfileProvider } from "./providers/UserProfileProvider";
 import { TagProvider } from "./providers/TagProvider";
 import { CategoryProvider } from "./providers/CategoryProvider";
 import { PostProvider } from "./providers/PostProvider";
+import { ReactionProvider } from "./providers/ReactionProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { CommentProvider } from './providers/CommentProvider';
 import { SubscriptionProvider } from './providers/SubscriptionProvider';
 
 
-//object undefined error on browser if you do not include the provider in App.js
+//"object undefined" error on browser if you do not include the provider in App.js
 function App() {
 
   return (
@@ -21,10 +22,12 @@ function App() {
           <TagProvider>
             <CategoryProvider>
               <CommentProvider>
-                <SubscriptionProvider>
-                  <Header />
-                  <ApplicationViews />
-                </SubscriptionProvider>
+                <ReactionProvider>
+                  <SubscriptionProvider>
+                    <Header />
+                    <ApplicationViews />
+                  </SubscriptionProvider>
+                </ReactionProvider>
               </CommentProvider>
             </CategoryProvider>
           </TagProvider>

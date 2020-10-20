@@ -87,28 +87,6 @@ namespace Tabloid.Controllers
         }
 
 
-        // GET: Owners/Delete/5
-        // [Authorize(Roles = "Admin")]
-        //public ActionResult Delete(int id)
-        //{
-        //    Category category = _categoryRepository.GetCategoryById(id);
-        //    if (category == null)
-        //    {
-
-        //        return NotFound();
-
-        //    }
-        //    else if (category.Id == 1)
-        //    {
-
-        //        return NotFound();
-
-        //    }
-        //    return Ok(category);
-        //}
-
-        ////PUT: Owners/Delete/5
-        //[HttpPut("{id")]
         [HttpDelete("{id}")]
         //// TRY WITH THIS LATER 
         ////[ValidateAntiForgeryToken]
