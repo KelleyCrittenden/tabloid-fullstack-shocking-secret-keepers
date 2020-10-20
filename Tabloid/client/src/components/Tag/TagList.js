@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Tag from "./Tag";
 import { TagContext } from "../../providers/TagProvider";
-import { Button } from "reactstrap";
+import { Button, Col } from "reactstrap";
 import { useHistory } from 'react-router-dom'
 
 export default function TagList() {
@@ -19,15 +19,17 @@ export default function TagList() {
 
     return (
         <>
-            <Button color="primary" onClick={Create}>
-                Create Tag
+            <Col sm="12" md={{ size: 6, offset: 3 }}>
+                <Button color="primary" onClick={Create}>
+                    Create Tag
             </Button>
 
-            <section>
-                {tags.map((t) => (
-                    <Tag key={t.id} tag={t} />
-                ))}
-            </section>
+                <section>
+                    {tags.map((t) => (
+                        <Tag key={t.id} tag={t} />
+                    ))}
+                </section>
+            </Col>
         </>
     )
 }

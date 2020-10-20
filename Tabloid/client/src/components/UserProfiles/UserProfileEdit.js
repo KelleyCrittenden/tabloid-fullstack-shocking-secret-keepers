@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
-import { Form, FormGroup, Label, Input, Button, ListGroupItemText } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, ListGroupItemText, Col } from "reactstrap";
 import { useHistory, useParams } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 
@@ -60,40 +60,43 @@ const UserProfileEdit = () => {
     }
 
     return (
-        <Form>
-            <FormGroup>
-                <Label className="UserTypeLabel">
-                    User Types
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
+
+            <Form>
+                <FormGroup>
+                    <Label className="UserTypeLabel">
+                        User Types
           </Label>
-                {allUserTypes != undefined ?
-                    <select
-                        className="userProfile"
-                        onChange={handleFieldChange}
+                    {allUserTypes != undefined ?
+                        <select
+                            className="userProfile"
+                            onChange={handleFieldChange}
 
-                        id="userTypeId"
+                            id="userTypeId"
 
-                    >
-                        <option key={0} value={2}>Choose a User Type</option>
-                        {allUserTypes.map(type => {
+                        >
+                            <option key={0} value={2}>Choose a User Type</option>
+                            {allUserTypes.map(type => {
 
-                            return <option key={type.id} value={type.id}>{type.name}</option>
-                        })}
+                                return <option key={type.id} value={type.id}>{type.name}</option>
+                            })}
 
-                    </select> : null
-                }
-            </FormGroup>
+                        </select> : null
+                    }
+                </FormGroup>
 
 
-            <Button
-                className="postButton"
-                onClick={handleNewPost}
-                variant="custom"
-                type="submit"
-            >
-                Save Changes
+                <Button
+                    className="postButton"
+                    onClick={handleNewPost}
+                    variant="custom"
+                    type="submit"
+                >
+                    Save Changes
         </Button>
-            <Button type="button" id="backButton" href={`/userProfile`}>Back</Button>
-        </Form>
+                <Button type="button" id="backButton" href={`/userProfile`}>Back</Button>
+            </Form>
+        </Col>
     )
 }
 export default UserProfileEdit

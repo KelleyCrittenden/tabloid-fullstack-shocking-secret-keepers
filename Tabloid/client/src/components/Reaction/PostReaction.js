@@ -7,7 +7,7 @@ export default function PostReaction({ postReaction }) {
 
             <CardImg top src={postReaction.reaction.imageLocation} className="PostReactionImg" />
 
-            <span>{postReaction.reaction.reactionCount}</span>
+            <span>  {postReaction.reaction.reactionCount}</span>
 
         </ Col>
     );

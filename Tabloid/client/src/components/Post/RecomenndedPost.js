@@ -21,7 +21,7 @@ const RecommendedPost = ({ post }) => {
                     </Col>
 
                     <Col sm="4">
-                        <p>{post.category.name}</p>
+                        <p>Category: {post.category.name}</p>
                     </Col>
                 </Row>
                 <CardImg top src={post.imageLocation} alt={post.title} />
@@ -63,7 +63,7 @@ const RecommendedPost = ({ post }) => {
                     </Col>
 
                     <Col sm="4">
-                        <p>{post.category.name}</p>
+                        <p>Category: {post.category.name}</p>
                     </Col>
                 </Row>
                 <CardImg top src={post.imageLocation} alt={post.title} />
@@ -106,7 +106,7 @@ const RecommendedPost = ({ post }) => {
                     </Col>
 
                     <Col sm="4">
-                        <p>{post.category.name}</p>
+                        <p>Category: {post.category.name}</p>
                     </Col>
                 </Row>
                 <CardImg top src={post.imageLocation} alt={post.title} />

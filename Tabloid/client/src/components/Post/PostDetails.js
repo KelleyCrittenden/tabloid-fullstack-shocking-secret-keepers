@@ -9,6 +9,7 @@ import { PostTagContext } from "../../providers/PostTagProvider";
 import PostReactionList from "../Reaction/PostReactionList";
 import { ReactionContext } from "../../providers/ReactionProvider";
 import AddPostReactionList from "../Reaction/AddPostReactionList";
+import { currentDateTime } from "../Comment/helperFunctions";
 
 
 const PostDetails = () => {
@@ -116,95 +117,96 @@ const PostDetails = () => {
     return (
 
         <>
+            <Col sm="12" md={{ size: 10, offset: 1 }}>
 
-            {/* will only show the SUBSCRIBE button if the person logged in is not the author of the post 
+                {/* will only show the SUBSCRIBE button if the person logged in is not the author of the post 
             AND if there IS NOT already a subscription between the author and user (fresh entry in database), otherwise show nothing */}
-            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed == null ?
-                <Button onClick={subscribeToAuthor} color="success">Subscribe to this Author</Button> : null}
+                {parseInt(userId) !== post.userProfileId && subscription.isSubscribed == null ?
+                    <Button onClick={subscribeToAuthor} color="success">Subscribe to this Author</Button> : null}
 
-            {/*THIS will only show up if the author and user already have a subscription and isSubscribed === 1
+                {/*THIS will only show up if the author and user already have a subscription and isSubscribed === 1
             when click button will UPDATE in database where isSubscribed will turn to 0, but there will still be an entry between author and user */}
-            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed === 1 ?
-                <Button type="button" onClick={unsubscribe} color="danger">Unsubscribe from this Author</Button> : null}
+                {parseInt(userId) !== post.userProfileId && subscription.isSubscribed === 1 ?
+                    <Button type="button" onClick={unsubscribe} color="danger">Unsubscribe from this Author</Button> : null}
 
-            {/* this will only show up if there is already a subscription between the two, but currently unsubscribed where isSubscribed === 0 */}
-            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed === 0 ?
-                <Button type="button" onClick={reactivateASubscription} color="warning">Reactivate Subscription</Button> : null}
+                {/* this will only show up if there is already a subscription between the two, but currently unsubscribed where isSubscribed === 0 */}
+                {parseInt(userId) !== post.userProfileId && subscription.isSubscribed === 0 ?
+                    <Button type="button" onClick={reactivateASubscription} color="warning">Reactivate Subscription</Button> : null}
 
-            <Link to={`/commentsbypost/${id}`}> <Button>View Comments</Button></Link>
-            <Link to={`/comments/add/${id}`}> <Button>Add Comment</Button></Link>
+                <Link to={`/commentsbypost/${id}`}> <Button>View Comments</Button></Link>
+                <Link to={`/comments/add/${id}`}> <Button>Add Comment</Button></Link>
 
-            <Card className="m-4">
-                <Row margin="m-4">
-                    <h3 className="text-left px-2">Posted by: <strong>{post.userProfile.displayName}</strong></h3>
+                <Card className="m-4">
+                    <Row margin="m-4">
+                        <h3 className="text-left px-2">Posted by: <strong>{post.userProfile.displayName}</strong></h3>
 
-                </Row>
-                <Row margin="m-4">
-                    <Col sm="6">
-                        <h1>{post.title}</h1>
-                    </Col>
-
-                    <Col sm="6">
-                        <h3>{post.category.name}</h3>
-                    </Col>
-                </Row>
-                <Row margin="m-4">
-                    <Col sm="6">
-                        <h3>{post.publishDateTime}</h3>
-                    </Col>
-                    <Col sm="6">
-                        <h3>Estimated Read Time: <strong>{calculateReadTime()}{calculateReadTime() == 1 ? " min" : " mins"}</strong></h3>
-                    </Col>
-                </Row>
-                <CardBody>
-                    <CardImg className="postDetailImg" top src={post.imageLocation} alt={post.title} />
-                    <p>{post.content}</p>
-                </CardBody>
-
-                <Row>
-                    {postReactions.length != 0 ? (
-                        <PostReactionList key={post.id} />)
-                        : null}
-                </Row>
-                <CardFooter>
-                    <Row>
-                        {availableReactions()}
                     </Row>
-                </CardFooter>
-            </Card>
+                    <Row margin="m-4">
+                        <Col sm="6">
+                            <h1>{post.title}</h1>
+                        </Col>
 
-            <h4>Tags: </h4>
-            { (postTags.length > 0) ?
-                <ListGroup>
-                    {
+                        <Col sm="6">
+                            <h3>Category: {post.category.name}</h3>
+                        </Col>
+                    </Row>
+                    <Row margin="m-4">
+                        <Col sm="6">
+                            <h3>Posted on: {currentDateTime(post.publishDateTime)}</h3>
+                        </Col>
+                        <Col sm="6">
+                            <h3>Estimated Read Time: <strong>{calculateReadTime()}{calculateReadTime() == 1 ? " min" : " mins"}</strong></h3>
+                        </Col>
+                    </Row>
+                    <CardBody>
+                        <CardImg className="postDetailImg" top src={post.imageLocation} alt={post.title} />
+                        <p>{post.content}</p>
+                    </CardBody>
 
-                        postTags.map(postTag => {
-                            return <PostTag key={postTag.id} postTag={postTag} />
-                        })
-                    }
-                </ListGroup>
+                    <Row>
+                        {postReactions.length != 0 ? (
+                            <PostReactionList key={post.id} />)
+                            : null}
+                    </Row>
+                    <CardFooter>
+                        <Row>
+                            {availableReactions()}
+                        </Row>
+                    </CardFooter>
+                </Card>
 
-                :
+                <h4>Tags: </h4>
+                {(postTags.length > 0) ?
+                    <ListGroup>
+                        {
 
-                null
-            }
+                            postTags.map(postTag => {
+                                return <PostTag key={postTag.id} postTag={postTag} />
+                            })
+                        }
+                    </ListGroup>
+
+                    :
+
+                    null
+                }
 
 
-            {(post.userProfileId == parseInt(sessionStorage.userProfileId)) ?
-                <div>
-                    <Link to={`/posttag/add/${id}`}>
-                        <Button color="primary" type="button" id="addPostTagButton"> Add Tag(s) </Button>&nbsp;
+                {(post.userProfileId == parseInt(sessionStorage.userProfileId)) ?
+                    <div>
+                        <Link to={`/posttag/add/${id}`}>
+                            <Button color="primary" type="button" id="addPostTagButton"> Add Tag(s) </Button>&nbsp;
             </Link>
 
-                    <Link to={`/posttag/delete/${id}`}>
-                        <Button color="danger" type="button" id="deletePostTagButton"> Delete Tag(s) </Button>
-                    </Link>
-                </div>
+                        <Link to={`/posttag/delete/${id}`}>
+                            <Button color="danger" type="button" id="deletePostTagButton"> Delete Tag(s) </Button>
+                        </Link>
+                    </div>
 
-                :
-                null}
+                    :
+                    null}
 
-
+            </Col>
         </>
 
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { CommentContext } from "../../providers/CommentProvider";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Col } from "reactstrap";
 
 const AddComment = () => {
     let userId = sessionStorage.userProfileId
@@ -43,34 +43,36 @@ const AddComment = () => {
 
     return (
         <>
-            <Form>
-                <h3> Add A Comment </h3>
-                <FormGroup>
-                    <Label htmlFor="subject"><strong>Subject</strong></Label>
-                    <Input className="p-2 bd-highlight justify-content-center"
-                        value={newComment.subject}
-                        onChange={handleFieldChange}
-                        type="text"
-                        name="subject"
-                        id="subject"
-                        required=""
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Label htmlFor="content"><strong>Comment</strong></Label>
-                    <Input className="p-2 bd-highlight justify-content-center"
-                        value={newComment.content}
-                        onChange={handleFieldChange}
-                        type="textarea"
-                        name="content"
-                        id="content"
-                        required=""
-                    />
-                </FormGroup>
-            </Form >
-            <Button block className="submitComment" type="button" color="secondary" isLoading={isLoading} onClick={addNewComment}>
-                {'Save Comment'}
-            </Button>
+            <Col sm="12" md={{ size: 6, offset: 3 }}>
+                <Form>
+                    <h3> Add A Comment </h3>
+                    <FormGroup>
+                        <Label htmlFor="subject"><strong>Subject</strong></Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
+                            value={newComment.subject}
+                            onChange={handleFieldChange}
+                            type="text"
+                            name="subject"
+                            id="subject"
+                            required=""
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="content"><strong>Comment</strong></Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
+                            value={newComment.content}
+                            onChange={handleFieldChange}
+                            type="textarea"
+                            name="content"
+                            id="content"
+                            required=""
+                        />
+                    </FormGroup>
+                </Form >
+                <Button block className="submitComment" type="button" color="secondary" isLoading={isLoading} onClick={addNewComment}>
+                    {'Save Comment'}
+                </Button>
+            </Col>
         </>
     )
 
