@@ -77,6 +77,46 @@ namespace Tabloid.Repositories
             }
         }
 
+        public List<Subscription> GetAllSubscriptionsByUserId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT Id, SubscriberUserProfileId, ProviderUserProfileId, BeginDateTime, EndDateTime, IsSubscribed
+                        FROM Subscription
+                       WHERE SubscriberUserProfileId = @id AND IsSubscribed != 0";
+                     
+
+                    cmd.Parameters.AddWithValue("@id", id);
+                   
+
+                    var reader = cmd.ExecuteReader();
+                    List<Subscription> subs = new List<Subscription>();
+                    while (reader.Read())
+                    {
+                        Subscription subscription = new Subscription
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            SubscriberUserProfileId = reader.GetInt32(reader.GetOrdinal("SubscriberUserProfileId")),
+                            ProviderUserProfileId = reader.GetInt32(reader.GetOrdinal("ProviderUserProfileId")),
+                            BeginDateTime = reader.GetDateTime(reader.GetOrdinal("BeginDateTime")),
+                            EndDateTime = reader.GetDateTime(reader.GetOrdinal("EndDateTime")),
+                            IsSubscribed = reader.GetInt32(reader.GetOrdinal("IsSubscribed"))
+
+                        };
+
+                        subs.Add(subscription);
+                    };
+                    reader.Close();
+                    return subs;
+
+                }
+            }
+        }
+
         public List<Subscription> GetSubscribedPostsForUser(int id)
         {
             using (var conn = Connection)

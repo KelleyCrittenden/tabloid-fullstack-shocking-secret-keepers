@@ -38,6 +38,12 @@ namespace Tabloid.Controllers
             return Ok(_postRepository.GetUserPostsById(id));
         }
 
+        [HttpGet("recommended/{id}")]
+        public IActionResult GetAllbyUserId(int id)
+        {
+            return Ok(_postRepository.GetAllPostsByUserId(id));
+        }
+
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
