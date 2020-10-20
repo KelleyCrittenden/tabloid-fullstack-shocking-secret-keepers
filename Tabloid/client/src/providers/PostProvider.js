@@ -1,16 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { SubscriptionContext } from "./SubscriptionProvider";
+
 import { UserProfileContext } from "./UserProfileProvider";
 
 export const PostContext = React.createContext();
 
 export function PostProvider(props) {
     const [posts, setPosts] = useState([]);
-    const [recommendedPosts, setRecommendedPosts] = useState([]);
+    let [recommendedPosts, setRecommendedPosts] = useState([]);
     const [post, setPost] = useState({ userProfile: {}, category: {} });
+    const [userPosts, setUserPosts] = useState([]);
     const { getToken } = useContext(UserProfileContext);
+
+
     const [categories, setCategories] = useState([])
+    const [complete, setComplete] = useState(false)
 
     const getAllPosts = () => {
+
+
+
+
+
+
         getToken().then((token) => fetch("/api/post", {
             method: "GET",
             headers: {
@@ -18,7 +30,11 @@ export function PostProvider(props) {
             }
         })
             .then((res) => res.json())
-            .then(setPosts));
+            .then((res) => {
+                setPosts(res)
+
+            }));
+
     };
 
     const getAllPostsByUserId = (id) => {
@@ -85,7 +101,7 @@ export function PostProvider(props) {
             }
         }))
             .then((res) => res.json())
-            .then(setPosts);
+            .then(setUserPosts);
     };
     const editPost = (id, post) => {
         getToken().then((token) => fetch(`/api/post/edit/${id}`, {
@@ -119,7 +135,7 @@ export function PostProvider(props) {
         );
     };
     return (
-        <PostContext.Provider value={{ posts, setPost, post, categories, getAllPosts, addPost, getAllSearch, getPost, getAllPostsByUser, editPost, softDeletePost, categoriesForPost, getAllPostsByUserId, recommendedPosts, setRecommendedPosts }}>
+        <PostContext.Provider value={{ posts, setPost, post, categories, getAllPosts, addPost, getAllSearch, getPost, getAllPostsByUser, editPost, softDeletePost, categoriesForPost, getAllPostsByUserId, recommendedPosts, setRecommendedPosts, complete, setPosts, userPosts }}>
             {props.children}
         </PostContext.Provider>
     );

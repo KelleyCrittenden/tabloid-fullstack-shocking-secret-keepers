@@ -36,27 +36,20 @@ namespace Tabloid.Controllers
             return Ok(_subscriptionRepository.GetAllSubscriptionsByUserId(id));
         }
 
-        [HttpPost("tertiary")]
-        public IActionResult GetAllTertiarySubscriptionsByUserId(Subscription[] subs)
+        [HttpPost("tertiary/{id}")]
+        public IActionResult GetAllTertiarySubscriptionsByUserId(int id)
         {
+            
+           
+                List<Subscription> secondarySubs = _subscriptionRepository.GetAllSubscriptionsByUserId(id);
             List<int> tertiarySubs = new List<int>();
-            foreach(Subscription sub in subs)
-            {
-                List<Subscription> secondarySubs = _subscriptionRepository.GetAllSubscriptionsByUserId(sub.ProviderUserProfileId);
                foreach(Subscription subscription in secondarySubs)
                 {
-                    if(tertiarySubs.Contains(subscription.ProviderUserProfileId))
-                    {
-
-                    }
-                    else
-                    {
-                        tertiarySubs.Add(subscription.ProviderUserProfileId);
-                    }
+                tertiarySubs.Add(subscription.ProviderUserProfileId);
                     
                 }
-            }
-            return Ok(tertiarySubs.ToArray());
+            
+            return Ok(tertiarySubs);
         }
 
         [HttpGet("{id}/getby/{authorId}")]

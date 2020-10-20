@@ -9,13 +9,19 @@ export const SubscriptionProvider = (props) => {
     const [subscription, setSubscription] = useState({})
     const [allSubscribedPosts, setAllSubscribedPosts] = useState([])
     let [tertiarysubs, setTertiarySubs] = useState([])
-    const [tertiarySubscribed, setTertiarySubscribed] = useState([])
-    const [completed, setCompleted] = useState(false);
-    let [secondarySubscribed, setSecondarySubscribed] = useState([])
+    let [tertiarySubscribed, setTertiarySubscribed] = useState([])
+    const [subComplete, setSubComplete] = useState(false)
 
-    useEffect(() => {
-        setTertiarySubscribed(tertiarysubs)
-    }, [completed == true])
+
+
+
+
+
+
+
+
+
+
     const getSubscriptionByUserId = (userId, authorId) => {
 
         return getToken().then((token) => {
@@ -35,39 +41,59 @@ export const SubscriptionProvider = (props) => {
             })
         })
     }
-    const getAllTertiarySubscriptionsByUserId = (resp) => {
-
-        return getToken().then((token) => {
-            debugger
-            fetch(`/api/subscription/tertiary`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(resp)
+    const getAllTertiarySubscriptionsByUserId = (response) => {
+        setSubComplete(false)
 
 
+        response.map(subscription => {
+            let sortedResp = []
+
+            return getToken().then((token) => {
+
+                fetch(`/api/subscription/tertiary/${subscription.providerUserProfileId}`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
 
 
-            }).then((resp) => resp.json()).then((resp) => {
-                debugger
-                let sortedResp = []
-                for (let sub in resp) {
-                    if (sub.providerUserProfileId == sessionStorage.activeUserId) {
 
+
+
+                }).then((resp) => resp.json()).then((resp) => {
+
+
+                    for (let sub of resp) {
+                        if (sub == sessionStorage.activeUserId) {
+
+                        }
+                        else {
+
+                            sortedResp.push(sub)
+                        }
                     }
-                    else {
-                        sortedResp.push(sub)
-                    }
-                }
-                setTertiarySubscribed(sortedResp)
 
 
+                    sortedResp.map(subId => {
+
+                        tertiarysubs.push(subId)
+                        if (subId == sortedResp[sortedResp.length - 1]) {
+                            if (subComplete == false) {
+                                setSubComplete(true)
+                            }
+                            else {
+                                setSubComplete(false)
+                            }
+
+                        }
+
+                    })
 
 
-
+                })
             })
         })
+
     }
 
 
@@ -135,7 +161,7 @@ export const SubscriptionProvider = (props) => {
 
     return (
 
-        <SubscriptionContext.Provider value={{ unsubscribeFromAuthor, allSubscribedPosts, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId, tertiarySubscribed, getAllSubscriptionsByUserId }}>
+        <SubscriptionContext.Provider value={{ unsubscribeFromAuthor, allSubscribedPosts, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId, tertiarySubscribed, getAllSubscriptionsByUserId, tertiarysubs, subComplete, setAllSubscribedPosts, setTertiarySubs }}>
             {props.children}
         </SubscriptionContext.Provider>
     );

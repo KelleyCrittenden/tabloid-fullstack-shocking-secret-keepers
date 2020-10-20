@@ -15,7 +15,8 @@ export default function Hello() {
   useEffect(() => {
 
     getAllSubscribedPostsForUser(parseInt(activeUser.id))
-    getAllSubscriptionsByUserId(activeUser.id)
+
+
   }, [])
 
 
