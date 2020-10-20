@@ -1,9 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.IO.Pipelines;
-using System.Linq;
-using System.Threading.Tasks;
 using Tabloid.Models;
 
 namespace Tabloid.Repositories
@@ -110,6 +106,8 @@ namespace Tabloid.Repositories
             }
         }
 
+        //if reaction id exists in previous post reaction.reactionId then increment count on previous post reaction
+        //if reaction id does not exist in previous post reaction then create a new post reaction with a count of 1
         public List<PostReaction> GetAllReactionsCountedByPostId(int id)
         {
             using (var conn = Connection)
@@ -131,7 +129,6 @@ namespace Tabloid.Repositories
 
                     var reader = cmd.ExecuteReader();
 
-                   // var count = 1;
 
                     while (reader.Read())
                     {
@@ -153,7 +150,6 @@ namespace Tabloid.Repositories
 
                         var reactionId = reader.GetInt32(reader.GetOrdinal("ReactionId"));
                         var anotherPostReaction = postReactions.Find(pr => pr.ReactionId == reactionId);
-                        //var anotherPostReaction = postReactions.FirstOrDefault(pr => pr.ReactionId == reactionId);
 
                         if (anotherPostReaction == null) {
 

@@ -30,15 +30,9 @@ export const SubscriptionProvider = (props) => {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            }).then(resp => {
-                if (resp.status === 200) {
-                    setSubscription(resp.json())
-                }
-                else {
-                    setSubscription(null);
-                }
+            }).then(resp => resp.json()).then(setSubscription)
+                .catch(() => getSubscriptionByUserId())
 
-            })
         })
     }
     const getAllTertiarySubscriptionsByUserId = (response) => {
@@ -117,9 +111,6 @@ export const SubscriptionProvider = (props) => {
 
 
 
-
-
-
     const getAllSubscribedPostsForUser = (userId) => {
         return getToken().then((token) => {
             fetch(`/api/subscription/subscribedposts/${userId}`, {
@@ -145,9 +136,9 @@ export const SubscriptionProvider = (props) => {
         })
     };
 
-    const unsubscribeFromAuthor = (subscription) => {
+    const unsubscribeFromAuthor = (subscriptionId, subscription) => {
         return getToken().then((token) => {
-            fetch(`/api/subscription/${subscription.id}`, {
+            fetch(`/api/subscription/unsubscribe/${subscriptionId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -159,9 +150,33 @@ export const SubscriptionProvider = (props) => {
         })
     };
 
+    const reactivateSubscription = (subscriptionId) => {
+
+        return getToken().then((token) =>
+            fetch(`/api/subscription/reactivate/${subscriptionId}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            }));
+
+    };
+
+    const deleteSubscription = (subscriptionId) => {
+        return getToken().then((token) => {
+            fetch(`/api/subscription/${subscriptionId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        })
+    }
+
     return (
 
-        <SubscriptionContext.Provider value={{ unsubscribeFromAuthor, allSubscribedPosts, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId, tertiarySubscribed, getAllSubscriptionsByUserId, tertiarysubs, subComplete, setAllSubscribedPosts, setTertiarySubs }}>
+        <SubscriptionContext.Provider value={{ unsubscribeFromAuthor, reactivateSubscription, allSubscribedPosts, unsubscribeFromAuthor, deleteSubscription, getAllSubscribedPostsForUser, addSubscription, subscription, getSubscriptionByUserId, tertiarySubscribed, getAllSubscriptionsByUserId, tertiarysubs, subComplete, setAllSubscribedPosts, setTertiarySubs }}>
             {props.children}
         </SubscriptionContext.Provider>
     );

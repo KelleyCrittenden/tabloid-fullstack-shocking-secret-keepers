@@ -26,9 +26,13 @@ import PostDelete from "./Post/PostDelete"
 import UserProfileList from "./UserProfiles/UserProfileList";
 import UserProfileDetails from "./UserProfiles/UserProfileDetails";
 import UserProfileDeactivation from "./UserProfiles/UserProfileDeactivation";
+import AddPostTag from "./PostTag/PostTagAdd";
+import DeletePostTag from "./PostTag/PostTagDelete"
 import UserProfileReactivation from "./UserProfiles/UserProfileReactivation";
 import UserProfileEdit from "./UserProfiles/UserProfileEdit";
 import ReactionList from "./Reaction/ReactionList";
+import AddReaction from "./Reaction/AddReaction";
+
 export default function ApplicationViews(props) {
   const { isLoggedIn, activeUser, userTypeId } = useContext(UserProfileContext);
   const [refresh, setRefresh] = useState(false);
@@ -115,11 +119,20 @@ export default function ApplicationViews(props) {
         <Route path="/userprofile/reactivation/" exact>
           {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileReactivation /> : <Redirect to="/userprofile" />}
         </Route>
+        <Route path="/posttag/add/:id" exact>
+          {isLoggedIn ? <AddPostTag /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/posttag/delete/:id" exact>
+          {isLoggedIn ? <DeletePostTag /> : <Redirect to="/login" />}
+        </Route>
         <Route path="/userprofile/edit/:id" exact>
           {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileEdit /> : <Redirect to="/userprofile" />}
         </Route>
         <Route path="/reaction" exact>
-          {isLoggedIn ? <ReactionList /> : <Redirect to="/login" />}
+          {isLoggedIn ? <ReactionList /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/reaction/add" exact>
+          {isLoggedIn && activeUser.userTypeId === 1 ? <AddReaction /> : <Redirect to="/" />}
         </Route>
 
       </Switch>

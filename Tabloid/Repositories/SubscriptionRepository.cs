@@ -246,5 +246,49 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public void ReactivateSubscription(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Subscription
+                        SET
+                        IsSubscribed = @isSubscribed
+                        WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@isSubscribed", 1);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+
+        }
+
+        public void DeleteSubscription(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                 DELETE FROM Subscription
+                                 WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+
+        }
     }
 }

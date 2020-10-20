@@ -8,7 +8,9 @@ import { ReactionProvider } from "./providers/ReactionProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { CommentProvider } from './providers/CommentProvider';
+import { PostTagProvider } from './providers/PostTagProvider';
 import { SubscriptionProvider } from './providers/SubscriptionProvider';
+import Post from './components/Post/Post';
 
 
 //"object undefined" error on browser if you do not include the provider in App.js
@@ -25,8 +27,10 @@ function App() {
               <CommentProvider>
                 <ReactionProvider>
                   <SubscriptionProvider>
-                    <Header />
-                    <ApplicationViews />
+                    <PostTagProvider>
+                      <Header />
+                      <ApplicationViews />
+                    </PostTagProvider>
                   </SubscriptionProvider>
                 </ReactionProvider>
               </CommentProvider>

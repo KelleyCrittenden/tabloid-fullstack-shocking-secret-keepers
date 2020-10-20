@@ -32,7 +32,7 @@ export default function TagDelete() {
         <>
             {tagName &&
 
-                <p> Are you sure you want to Delete this tag? {tag.name} ?</p>
+                <p> Are you sure you want to Delete this tag? {tag.name} </p>
 
             }
             <Button id={tag.id} onClick={handleDeleteTag}>Delete</Button>&nbsp;
