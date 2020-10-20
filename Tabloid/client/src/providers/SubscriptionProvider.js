@@ -35,7 +35,7 @@ export const SubscriptionProvider = (props) => {
             })
         })
     }
-    const getAllTertiarySubscriptionsByUserId = (userId, resp) => {
+    const getAllTertiarySubscriptionsByUserId = (resp) => {
 
         return getToken().then((token) => {
             debugger
@@ -44,17 +44,23 @@ export const SubscriptionProvider = (props) => {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    Subs: resp,
-                    id: userId
-                })
+                body: JSON.stringify(resp)
 
 
 
 
             }).then((resp) => resp.json()).then((resp) => {
                 debugger
-                setTertiarySubscribed(resp)
+                let sortedResp = []
+                for (let sub in resp) {
+                    if (sub.providerUserProfileId == sessionStorage.activeUserId) {
+
+                    }
+                    else {
+                        sortedResp.push(sub)
+                    }
+                }
+                setTertiarySubscribed(sortedResp)
 
 
 
@@ -75,7 +81,7 @@ export const SubscriptionProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
 
-            }).then((resp) => (resp.json())).then((resp) => (getAllTertiarySubscriptionsByUserId(userId, resp)))
+            }).then((resp) => (resp.json())).then((resp) => (getAllTertiarySubscriptionsByUserId(resp)))
 
 
 
