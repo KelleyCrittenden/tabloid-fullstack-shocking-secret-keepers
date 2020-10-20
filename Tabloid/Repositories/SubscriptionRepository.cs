@@ -87,7 +87,7 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                        SELECT Id, SubscriberUserProfileId, ProviderUserProfileId, BeginDateTime, EndDateTime, IsSubscribed
                         FROM Subscription
-                       WHERE SubscriberUserProfileId = @id";
+                       WHERE SubscriberUserProfileId = @id AND IsSubscribed != 0";
                      
 
                     cmd.Parameters.AddWithValue("@id", id);
