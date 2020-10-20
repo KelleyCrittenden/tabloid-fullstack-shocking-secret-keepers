@@ -104,22 +104,39 @@ const PostList = () => {
 
 
 
+    if (finalPosts.length != 0) {
+        return (
 
-
-    return (
-
-        <div className="container">
-            <div className="row justify-content-center">
-                <NavLink to={"post/add"}><Button>New Post</Button></NavLink>
-                <div className="cards-column">
-                    {finalPosts.map((post) => (
-                        post == finalPosts[0] || post == finalPosts[1] || post == finalPosts[2] ? <RecommendedPost key={post.id} post={post} /> :
-                            <Post key={post.id} post={post} />
-                    ))}
+            <div className="container">
+                <div className="row justify-content-center">
+                    <NavLink to={"post/add"}><Button>New Post</Button></NavLink>
+                    <div className="cards-column">
+                        {finalPosts.map((post) => (
+                            post == finalPosts[0] || post == finalPosts[1] || post == finalPosts[2] ? <RecommendedPost key={post.id} post={post} /> :
+                                <Post key={post.id} post={post} />
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    } else {
+        return (
+
+            <div className="container">
+                <div className="row justify-content-center">
+                    <NavLink to={"post/add"}><Button>New Post</Button></NavLink>
+                    <div className="cards-column">
+                        {posts.map((post) => (
+
+                            <Post key={post.id} post={post} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+
 
 
 }
