@@ -13,7 +13,7 @@ const SubscribedPost = ({ subscribedPost }) => {
         <>
             {subscribedPost.posts && subscribedPost.posts.map(post => {
                 return (
-                    <Card className="m-4">
+                    <Card className="m-4" key={post.id}>
                         <Row margin="m-4">
                             <Col sm="4">
                                 <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>

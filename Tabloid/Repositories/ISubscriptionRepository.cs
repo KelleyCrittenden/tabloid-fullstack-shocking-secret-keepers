@@ -9,5 +9,7 @@ namespace Tabloid.Repositories
         List<Subscription> GetSubscribedPostsForUser(int id);
         Subscription GetSubscriptionByUserId(int id, int authorId);
         void UpdateSubscription(Subscription subscription);
+        void DeleteSubscription(int id);
+        void ReactivateSubscription(int id);
     }
 }
