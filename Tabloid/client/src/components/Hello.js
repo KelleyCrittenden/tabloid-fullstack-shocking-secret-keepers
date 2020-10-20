@@ -30,9 +30,10 @@ export default function Hello() {
         textAlign: "center",
       }}>Hello, Good Morning {activeUser.displayName}
         <h5> Your Subscribed Posts</h5>
-        {allSubscribedPosts.map(subscribedPost => {
-          return <SubscribedPost key={subscribedPost.id} subscribedPost={subscribedPost} />
-        })}
+        {allSubscribedPosts.length === 0 ? <p>*You are not currently subscribed to any posts*</p> :
+          allSubscribedPosts.map(subscribedPost => {
+            return <SubscribedPost key={subscribedPost.id} subscribedPost={subscribedPost} />
+          })}
 
       </div>
 
@@ -50,7 +51,7 @@ export default function Hello() {
       }}>Hello, Good Afternoon {activeUser.displayName}
 
         <h5> Your Subscribed Posts</h5>
-        {allSubscribedPosts.map(subscribedPost => {
+        {allSubscribedPosts.length === 0 ? <p>*You are not currently subscribed to any posts*</p> : allSubscribedPosts.map(subscribedPost => {
           return <SubscribedPost key={subscribedPost.id} subscribedPost={subscribedPost} />
         })}
 
@@ -70,7 +71,7 @@ export default function Hello() {
 
         <h5> Your Subscribed Posts</h5>
 
-        {allSubscribedPosts.map(subscribedPost => {
+        {allSubscribedPosts.length === 0 ? <p>*You are not currently subscribed to any posts*</p> : allSubscribedPosts.map(subscribedPost => {
           return <SubscribedPost key={subscribedPost.id} subscribedPost={subscribedPost} />
         })}
 
