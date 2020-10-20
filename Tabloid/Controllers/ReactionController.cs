@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
@@ -55,11 +56,17 @@ namespace Tabloid.Controllers
         [HttpPost("PostReaction")]
         public IActionResult Post(PostReaction postReaction)
         {
+            var previousReactions = _postReactionRepository.GetAllReactionsByPostId(postReaction.PostId);
+           var existingReactionFromUserProfile = previousReactions.Find(previousReaction => previousReaction.UserProfileId == postReaction.UserProfileId);
+            if (existingReactionFromUserProfile == null)
+            {
+                _postReactionRepository.AddPostReaction(postReaction);
 
-            _postReactionRepository.AddPostReaction(postReaction);
-           
-            return CreatedAtAction(nameof(GetAllPostReactions), new { id = postReaction.Id }, postReaction);
-
+                return CreatedAtAction(nameof(GetAllPostReactions), new { id = postReaction.Id }, postReaction);
+            } else
+            {
+                return Ok();
+            }
         }
 
         //POST: Create new Reaction Type
