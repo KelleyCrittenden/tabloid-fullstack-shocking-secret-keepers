@@ -180,25 +180,29 @@ const PostDetails = () => {
 
                         postTags.map(postTag => {
                             return <PostTag key={postTag.id} postTag={postTag} />
-                        }
-                        )
+                        })
                     }
-
-
                 </ListGroup>
 
                 :
 
                 null
-
             }
-            <Link to={`/posttag/add/${id}`}>
-                <Button color="primary" type="button" id="addPostTagButton"> Add Tag(s) </Button>&nbsp;
+
+
+            {(post.userProfileId == parseInt(sessionStorage.userProfileId)) ?
+                <div>
+                    <Link to={`/posttag/add/${id}`}>
+                        <Button color="primary" type="button" id="addPostTagButton"> Add Tag(s) </Button>&nbsp;
             </Link>
 
-            <Link to={`/posttag/delete/${id}`}>
-                <Button color="danger" type="button" id="deletePostTagButton"> Delete Tag(s) </Button>
-            </Link>
+                    <Link to={`/posttag/delete/${id}`}>
+                        <Button color="danger" type="button" id="deletePostTagButton"> Delete Tag(s) </Button>
+                    </Link>
+                </div>
+
+                :
+                null}
 
 
         </>

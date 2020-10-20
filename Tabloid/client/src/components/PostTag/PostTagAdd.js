@@ -44,10 +44,10 @@ export default function AddPostTag() {
     return (
         <>
 
-            <div class="form-group">
+            <div className="form-group">
                 <h3>Select Tag(s) to Add</h3>
-                <label for="TagsSelected" class="control-label"></label>
-                <select isMulti mulitple={true} for="TagsSelected" class="form-control" onChange={handleSelected}>
+                <label className="control-label"></label>
+                <select mulitple="true" className="form-control" onChange={handleSelected}>
                     <option>Choose Tag(s)...</option>
                     {tags.map(tag => {
                         return <option
@@ -58,7 +58,7 @@ export default function AddPostTag() {
                     })}
 
                 </select>
-                <span validation-for="TagsSelected" class="text-danger"></span>
+                <span validation-for="TagsSelected" className="text-danger"></span>
             </div>
             <div>
 

@@ -35,10 +35,10 @@ export default function DeletedPostTag() {
 
     return (
         <>
-            <div class="form-group">
+            <div className="form-group">
                 <h3>Select Tag(s) to Delete</h3>
-                <label for="PostTagsSelected" class="control-label"></label>
-                <select isMulti mulitple={true} for="PostTagsSelected" class="form-control" onChange={handleSelected}>
+                <label className="control-label"></label>
+                <select mulitple="true" className="form-control" onChange={handleSelected}>
                     <option>Choose Tag(s)...</option>
                     {postTags.map(postTag => {
                         return <option
@@ -49,7 +49,7 @@ export default function DeletedPostTag() {
                     })}
 
                 </select>
-                <span validation-for="PostTagsSelected" class="text-danger"></span>
+                <span validation-for="PostTagsSelected" className="text-danger"></span>
             </div>
 
             <Button color="danger" onClick={removePostTag}>Delete Tag(s)</Button>&nbsp;
