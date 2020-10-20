@@ -61,11 +61,10 @@ export default function AddPostTag() {
             
                     <label for="TagSelectedList" class="control-label">Tags Currently Selected: </label>
 
-                    {(selected.length > 0) ?
+                    {(??????.length > 0) ?
                         <ListGroup>
                             {
-                                selected.map(selected => {
-                                    return <selected key={selected.id} selected={selected} />
+                              map over selected tags
                                 })
                             }
                         </ListGroup>
