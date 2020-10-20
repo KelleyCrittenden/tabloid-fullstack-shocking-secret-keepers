@@ -17,7 +17,7 @@ const PostDetails = () => {
     const { getPost, post } = useContext(PostContext);
     console.log("post", post);
 
-    //using subscription context for posting of new subscription
+    //using subscription context
     const { unsubscribeFromAuthor, reactivateSubscription, addSubscription, subscription, getSubscriptionByUserId } = useContext(SubscriptionContext);
     const [postSubscription, setPostSubscription] = useState({});
     const [updatedSubscription, setUpdatedSubscription] = useState({});
@@ -26,7 +26,6 @@ const PostDetails = () => {
     //setting new subscription object into state
     const [newSubscription, setNewSubscription] = useState({})
     console.log("newSub", newSubscription)
-
 
     const { id } = useParams();
     const history = useHistory();
@@ -37,10 +36,14 @@ const PostDetails = () => {
         getAllReactions();
     }, []);
 
+    //getting subscription of user by whoever they are subscribed to; will watch for every time post changes to refresh and grab the subscription
     useEffect(() => {
         getSubscriptionByUserId(parseInt(userId), post.userProfileId);
     }, [post])
 
+    //another useEffect to set state of local variable in state (postSubscription, updatedSubscription)
+    //with what is gotten from subscription brought in by the subscription context
+    //watches for changes in subscription and will reset state of local variable with each change
     useEffect(() => {
         setPostSubscription(subscription);
         setUpdatedSubscription(subscription);
@@ -70,7 +73,6 @@ const PostDetails = () => {
         alert("You are now subscribed to this author");
         //should take away the button to subscribe and show unsubscribe button
         getSubscriptionByUserId(parseInt(userId), post.userProfileId);
-
     }
 
     //unsubscribe from author 
@@ -112,7 +114,6 @@ const PostDetails = () => {
     return (
 
         <>
-
 
             {/* will only show the SUBSCRIBE button if the person logged in is not the author of the post 
             AND if there IS NOT already a subscription between the author and user (fresh entry in database), otherwise show nothing */}
