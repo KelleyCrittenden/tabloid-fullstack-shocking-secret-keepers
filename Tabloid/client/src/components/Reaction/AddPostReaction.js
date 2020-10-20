@@ -22,19 +22,21 @@ export default function AddPostReaction({ reaction }) {
             userProfileId: activeUser.id
         })
             .then(() => getAllReactionsForPost(id));
+        setIsLoading(false);
     };
 
     return (
         <Col>
-
-            <CardImg type="button"
-                top className="border-button"
-                disabled={isLoading}
-                id={reaction.id}
-                src={reaction.imageLocation}
-                alt={reaction.name}
-                onClick={e => handleAddPostReaction(e)}
-            />
+            {!isLoading ? (
+                <CardImg type="button"
+                    top className="border-button"
+                    disabled={isLoading}
+                    id={reaction.id}
+                    src={reaction.imageLocation}
+                    alt={reaction.name}
+                    onClick={e => handleAddPostReaction(e)}
+                />)
+                : null}
 
         </Col >
     );

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { TagContext } from "../../providers/TagProvider";
 import { useHistory, useParams } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 
 
 export default function TagEditForm() {
@@ -36,21 +36,23 @@ export default function TagEditForm() {
 
     return (
         <>
-            {tagName &&
-                <Form>
+            <Col sm="12" md={{ size: 6, offset: 3 }}>
+                {tagName &&
+                    <Form>
 
-                    <FormGroup>
-                        <Label for="name">Edit Tag: </Label>
-                        <Input
-                            id="name"
-                            defaultValue={tagName.name}
-                            type="text"
-                            onChange={handleFieldChange} />
-                    </FormGroup>
-                </Form>
-            }
-            <Button onClick={saveEditedTag}>Save</Button>&nbsp;
+                        <FormGroup>
+                            <Label for="name">Edit Tag: </Label>
+                            <Input
+                                id="name"
+                                defaultValue={tagName.name}
+                                type="text"
+                                onChange={handleFieldChange} />
+                        </FormGroup>
+                    </Form>
+                }
+                <Button onClick={saveEditedTag}>Save</Button>&nbsp;
             <Button onClick={Cancel}>Cancel</Button>
+            </Col>
         </>
     );
 }

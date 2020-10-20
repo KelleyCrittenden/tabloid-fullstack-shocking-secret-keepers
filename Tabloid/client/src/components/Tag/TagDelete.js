@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom"
 import React, { useEffect, useContext, useState } from "react";
-import { Button } from 'reactstrap'
+import { Button, Col } from 'reactstrap'
 import { TagContext } from "../../providers/TagProvider"
 
 export default function TagDelete() {
@@ -30,13 +30,16 @@ export default function TagDelete() {
 
     return (
         <>
-            {tagName &&
+            <Col sm="12" md={{ size: 6, offset: 3 }}>
 
-                <p> Are you sure you want to Delete this tag? {tag.name} </p>
+                {tagName &&
 
-            }
-            <Button id={tag.id} onClick={handleDeleteTag}>Delete</Button>&nbsp;
+                    <p> Are you sure you want to Delete this tag? {tag.name} </p>
+
+                }
+                <Button id={tag.id} onClick={handleDeleteTag}>Delete</Button>&nbsp;
             <Button onClick={Cancel}>Cancel</Button>
+            </ Col>
         </>
     )
 }

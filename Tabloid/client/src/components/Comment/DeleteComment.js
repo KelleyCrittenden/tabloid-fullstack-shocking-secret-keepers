@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { CommentContext } from "../../providers/CommentProvider";
-import { Card, CardBody, Button } from "reactstrap";
+import { Card, CardBody, Button, Col } from "reactstrap";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 const DeleteComment = () => {
@@ -34,23 +34,26 @@ const DeleteComment = () => {
 
     return (
         <>
-            <Card>
-                <CardBody>
-                    <h3>Are you sure you want to delete your comment ? </h3>
-                    <h6>Subject</h6>
-                    <p>{comment && comment.subject}</p>
-                    <h6>Comment</h6>
-                    <p>{comment && comment.content}</p>
-                </CardBody>
-                <Button block className="deleteCommentButton" type="button" color="danger" onClick={deleteAComment}>
-                    {'Delete Comment'}
-                </Button>
+            <Col sm="12" md={{ size: 6, offset: 3 }}>
 
-                <Button block className="returnToListButton" type="button" color="success" onClick={() => history.goBack()}>
-                    {'Cancel'}
-                </Button>
+                <Card>
+                    <CardBody>
+                        <h3>Are you sure you want to delete your comment ? </h3>
+                        <h6>Subject</h6>
+                        <p>{comment && comment.subject}</p>
+                        <h6>Comment</h6>
+                        <p>{comment && comment.content}</p>
+                    </CardBody>
+                    <Button block className="deleteCommentButton" type="button" color="danger" onClick={deleteAComment}>
+                        {'Delete Comment'}
+                    </Button>
 
-            </Card>
+                    <Button block className="returnToListButton" type="button" color="success" onClick={() => history.goBack()}>
+                        {'Cancel'}
+                    </Button>
+
+                </Card>
+            </Col>
         </>
     )
 
