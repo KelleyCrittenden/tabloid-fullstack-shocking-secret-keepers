@@ -31,6 +31,7 @@ import DeletePostTag from "./PostTag/PostTagDelete"
 import UserProfileReactivation from "./UserProfiles/UserProfileReactivation";
 import UserProfileEdit from "./UserProfiles/UserProfileEdit";
 import ReactionList from "./Reaction/ReactionList";
+import AddReaction from "./Reaction/AddReaction";
 
 export default function ApplicationViews(props) {
   const { isLoggedIn, activeUser, userTypeId } = useContext(UserProfileContext);
@@ -128,7 +129,10 @@ export default function ApplicationViews(props) {
           {isLoggedIn && activeUser.userTypeId === 1 ? <UserProfileEdit /> : <Redirect to="/userprofile" />}
         </Route>
         <Route path="/reaction" exact>
-          {isLoggedIn ? <ReactionList /> : <Redirect to="/login" />}
+          {isLoggedIn ? <ReactionList /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/reaction/add" exact>
+          {isLoggedIn && activeUser.userTypeId === 1 ? <AddReaction /> : <Redirect to="/" />}
         </Route>
 
       </Switch>

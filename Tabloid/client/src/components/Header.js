@@ -57,6 +57,11 @@ export default function Header() {
                   <NavLink tag={RRNavLink} to="/userProfile">UserProfiles</NavLink>
                 </NavItem> : null
               }
+              {isLoggedIn && activeUser.userTypeId === 1 ?
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/reaction">Reactions</NavLink>
+                </NavItem> : null
+              }
             </Nav>
 
             <Nav navbar>
