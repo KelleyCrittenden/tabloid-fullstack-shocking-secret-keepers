@@ -64,7 +64,7 @@ export default function AddPostTag() {
                     <ListGroup>
                         {
                             selected.map(selected => {
-                                return <Selected key={selected.id} selected={selected} />
+                                return <selected key={selected.id} selected={selected} />
                             })
                         }
                     </ListGroup>
