@@ -46,8 +46,8 @@ const PostDetails = () => {
 
     useEffect(() => {
 
-        setUpdatedSubscription(subscription);
         setPostSubscription(subscription);
+        setUpdatedSubscription(subscription);
 
     }, [subscription])
 
@@ -86,7 +86,8 @@ const PostDetails = () => {
         updatedSubscription.providerUserProfileId = post.userProfileId
         //change end date time to current time and isSubscribed should be edited to 0 (in repository), therefore... show the subscribe button again
         //get the subscription info and should then should refresh and show reactivate subscription button
-        unsubscribeFromAuthor(updatedSubscription.id, updatedSubscription).then(() => getSubscriptionByUserId(parseInt(userId), post.userProfileId))
+        unsubscribeFromAuthor(updatedSubscription.id, updatedSubscription);
+        getSubscriptionByUserId(parseInt(userId), post.userProfileId);
 
         alert("You are no longer subscribed to this author");
     }
@@ -121,7 +122,7 @@ const PostDetails = () => {
 
             {/* will only show the SUBSCRIBE button if the person logged in is not the author of the post 
             AND if there IS NOT already a subscription between the author and user (fresh entry in database), otherwise show nothing */}
-            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed == null ?
+            {parseInt(userId) !== post.userProfileId && subscription.isSubscribed == undefined ?
                 <Button onClick={subscribeToAuthor} color="success">Subscribe to this Author</Button> : null}
 
             {/*THIS will only show up if the author and user already have a subscription and isSubscribed === 1
