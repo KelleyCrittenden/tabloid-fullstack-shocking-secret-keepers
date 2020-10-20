@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext, PostProvider } from "../../providers/PostProvider";
-import { Card, CardImg, CardBody, Row, Button, Col, CardFooter } from "reactstrap";
+import { Card, CardImg, CardBody, Row, Button, Col, ListGroup, CardFooter } from "reactstrap";
 import { SubscriptionContext } from "../../providers/SubscriptionProvider";
 import { useHistory } from "react-router-dom";
-
+import PostTag from "../PostTag/PostTag";
 import { Link, NavLink, useParams } from "react-router-dom";
+import { PostTagContext } from "../../providers/PostTagProvider";
 import PostReactionList from "../Reaction/PostReactionList";
 import { ReactionContext } from "../../providers/ReactionProvider";
 import AddPostReactionList from "../Reaction/AddPostReactionList";
@@ -26,11 +27,13 @@ const PostDetails = () => {
 
     const { id } = useParams();
     const history = useHistory();
+    const { postTags, getAllPostTagsByPost } = useContext(PostTagContext);
 
     useEffect(() => {
         getPost(id);
         getAllReactionsForPost(id);
         getAllReactions();
+        getAllPostTagsByPost(id);
     }, []);
 
     //getting subscription of user by whoever they are subscribed to; will watch for every time post changes to refresh and grab the subscription
@@ -57,6 +60,7 @@ const PostDetails = () => {
         time = Math.ceil(time);
 
         return time;
+
     }
 
     //subscribe to author 
@@ -105,6 +109,9 @@ const PostDetails = () => {
         return null;
     };
 
+    useEffect(() => {
+        getAllPostTagsByPost(id);
+    }, [id]);
 
     return (
 
@@ -153,6 +160,7 @@ const PostDetails = () => {
                     <CardImg className="postDetailImg" top src={post.imageLocation} alt={post.title} />
                     <p>{post.content}</p>
                 </CardBody>
+
                 <Row>
                     {postReactions.length != 0 ? (
                         <PostReactionList key={post.id} />)
@@ -165,6 +173,36 @@ const PostDetails = () => {
                 </CardFooter>
             </Card>
 
+            <h4>Tags: </h4>
+            { (postTags.length > 0) ?
+                <ListGroup>
+                    {
+
+                        postTags.map(postTag => {
+                            return <PostTag key={postTag.id} postTag={postTag} />
+                        })
+                    }
+                </ListGroup>
+
+                :
+
+                null
+            }
+
+
+            {(post.userProfileId == parseInt(sessionStorage.userProfileId)) ?
+                <div>
+                    <Link to={`/posttag/add/${id}`}>
+                        <Button color="primary" type="button" id="addPostTagButton"> Add Tag(s) </Button>&nbsp;
+            </Link>
+
+                    <Link to={`/posttag/delete/${id}`}>
+                        <Button color="danger" type="button" id="deletePostTagButton"> Delete Tag(s) </Button>
+                    </Link>
+                </div>
+
+                :
+                null}
 
 
         </>
