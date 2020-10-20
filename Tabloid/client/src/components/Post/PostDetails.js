@@ -15,17 +15,14 @@ const PostDetails = () => {
     const { postReactions, getAllReactionsForPost, allReactionTypes, getAllReactions } = useContext(ReactionContext);
     let userId = sessionStorage.userProfileId
     const { getPost, post } = useContext(PostContext);
-    console.log("post", post);
 
     //using subscription context
     const { unsubscribeFromAuthor, reactivateSubscription, addSubscription, subscription, getSubscriptionByUserId } = useContext(SubscriptionContext);
     const [postSubscription, setPostSubscription] = useState({});
     const [updatedSubscription, setUpdatedSubscription] = useState({});
-    console.log("subscription", subscription);
 
     //setting new subscription object into state
     const [newSubscription, setNewSubscription] = useState({})
-    console.log("newSub", newSubscription)
 
     const { id } = useParams();
     const history = useHistory();
@@ -48,7 +45,6 @@ const PostDetails = () => {
         setPostSubscription(subscription);
         setUpdatedSubscription(subscription);
     }, [subscription])
-
 
     const calculateReadTime = () => {
         let time = 0;
@@ -89,7 +85,6 @@ const PostDetails = () => {
 
     //when unsubscribed isSubscribed === 0, changes it back to subscribed, isSubscribed === 1
     const reactivateASubscription = (e) => {
-        // debugger
         e.preventDefault();
         reactivateSubscription(postSubscription.id);
         getSubscriptionByUserId(parseInt(userId), post.userProfileId);
